@@ -1,0 +1,22 @@
+KCSS accuracy ingredient manifest validator
+================================================
+passed: True
+num_tests: 36
+num_failed: 0
+
+N3LL' target manifest:
+  label: N3LL'
+  k: 3
+  primed: True
+  cusp_loops: 4
+  beta_loops: 4
+  noncusp_loops: 3
+  cs_kernel_loops: 3
+  hard_boundary_loops: 3
+  tmd_matching_loops: 3
+  dglap_max_P_index: 2
+  fixed_order_Y_power: 3
+
+Failed tests:
+  none
+

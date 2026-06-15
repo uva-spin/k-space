@@ -1,0 +1,23 @@
+KCSS N3LL' label certificate report
+====================================
+formal_prescription_ready: True
+physical_payload_ready: False
+a_s3_expansion_gate_passed: False
+implementation_claim_allowed: False
+mandatory files present: 0/3
+all expected files present: 0/17
+blocked_reason: Implementation-level N3LL-prime claim remains blocked until physical coefficient files are staged and the O(a_s^3) expansion gate passes.
+
+Test details:
+- note_contains:\section{N3LL-prime label certificate}: True 
+- note_contains:\mathrm{ClaimAllowed}_{N^3\mathrm{LL}'}: True 
+- note_contains:\mathrm{ParentScheme}_{\KCSS}: True 
+- note_contains:\mathrm{ExpandedTo}\{a_s^3\}: True 
+- note_contains:N$^3$LL$'_{\KCSS}: True 
+- formal_prescription_ready: True 
+- physical_mandatory_payload_present: False 0/3 mandatory files present
+- mock_payload_not_used_for_physics: True 
+- a_s3_expansion_gate_passed: False requires parsed physical coefficients and reference expansion comparison
+- no_numerical_b_transform_required: True 
+- np_module_separated_from_accuracy_label: True 
+- implementation_claim_allowed: False 

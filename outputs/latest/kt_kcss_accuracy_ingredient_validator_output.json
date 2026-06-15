@@ -1,0 +1,246 @@
+{
+  "passed": true,
+  "target": {
+    "label": "N3LL'",
+    "k": 3,
+    "primed": true,
+    "cusp_loops": 4,
+    "beta_loops": 4,
+    "noncusp_loops": 3,
+    "cs_kernel_loops": 3,
+    "hard_boundary_loops": 3,
+    "tmd_matching_loops": 3,
+    "dglap_max_P_index": 2,
+    "fixed_order_Y_power": 3
+  },
+  "expected_N3LLprime": {
+    "cusp_loops": 4,
+    "beta_loops": 4,
+    "noncusp_loops": 3,
+    "cs_kernel_loops": 3,
+    "hard_boundary_loops": 3,
+    "tmd_matching_loops": 3,
+    "dglap_max_P_index": 2,
+    "fixed_order_Y_power": 3
+  },
+  "num_tests": 36,
+  "num_failed": 0,
+  "tests": [
+    {
+      "test": "N3LLprime_cusp_loops",
+      "expected": 4,
+      "got": 4,
+      "passed": true
+    },
+    {
+      "test": "N3LLprime_beta_loops",
+      "expected": 4,
+      "got": 4,
+      "passed": true
+    },
+    {
+      "test": "N3LLprime_noncusp_loops",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "N3LLprime_cs_kernel_loops",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "N3LLprime_hard_boundary_loops",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "N3LLprime_tmd_matching_loops",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "N3LLprime_dglap_max_P_index",
+      "expected": 2,
+      "got": 2,
+      "passed": true
+    },
+    {
+      "test": "N3LLprime_fixed_order_Y_power",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "LL_cusp_one_above_noncusp",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "LL_beta_equals_cusp_loop_count",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "LL_hard_equals_matching_boundary",
+      "expected": 0,
+      "got": 0,
+      "passed": true
+    },
+    {
+      "test": "LL_dglap_index_from_boundary",
+      "expected": null,
+      "got": null,
+      "passed": true
+    },
+    {
+      "test": "NLL_cusp_one_above_noncusp",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "NLL_beta_equals_cusp_loop_count",
+      "expected": 2,
+      "got": 2,
+      "passed": true
+    },
+    {
+      "test": "NLL_hard_equals_matching_boundary",
+      "expected": 0,
+      "got": 0,
+      "passed": true
+    },
+    {
+      "test": "NLL_dglap_index_from_boundary",
+      "expected": null,
+      "got": null,
+      "passed": true
+    },
+    {
+      "test": "NLL'_cusp_one_above_noncusp",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "NLL'_beta_equals_cusp_loop_count",
+      "expected": 2,
+      "got": 2,
+      "passed": true
+    },
+    {
+      "test": "NLL'_hard_equals_matching_boundary",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "NLL'_dglap_index_from_boundary",
+      "expected": 0,
+      "got": 0,
+      "passed": true
+    },
+    {
+      "test": "NNLL_cusp_one_above_noncusp",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "NNLL_beta_equals_cusp_loop_count",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "NNLL_hard_equals_matching_boundary",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "NNLL_dglap_index_from_boundary",
+      "expected": 0,
+      "got": 0,
+      "passed": true
+    },
+    {
+      "test": "NNLL'_cusp_one_above_noncusp",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "NNLL'_beta_equals_cusp_loop_count",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "NNLL'_hard_equals_matching_boundary",
+      "expected": 2,
+      "got": 2,
+      "passed": true
+    },
+    {
+      "test": "NNLL'_dglap_index_from_boundary",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "N3LL_cusp_one_above_noncusp",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "N3LL_beta_equals_cusp_loop_count",
+      "expected": 4,
+      "got": 4,
+      "passed": true
+    },
+    {
+      "test": "N3LL_hard_equals_matching_boundary",
+      "expected": 2,
+      "got": 2,
+      "passed": true
+    },
+    {
+      "test": "N3LL_dglap_index_from_boundary",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "N3LL'_cusp_one_above_noncusp",
+      "expected": 1,
+      "got": 1,
+      "passed": true
+    },
+    {
+      "test": "N3LL'_beta_equals_cusp_loop_count",
+      "expected": 4,
+      "got": 4,
+      "passed": true
+    },
+    {
+      "test": "N3LL'_hard_equals_matching_boundary",
+      "expected": 3,
+      "got": 3,
+      "passed": true
+    },
+    {
+      "test": "N3LL'_dglap_index_from_boundary",
+      "expected": 2,
+      "got": 2,
+      "passed": true
+    }
+  ]
+}

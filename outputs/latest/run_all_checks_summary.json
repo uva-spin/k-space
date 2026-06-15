@@ -1,0 +1,123 @@
+{
+  "summary": {
+    "formal_suite_passed": true,
+    "num_checks": 12,
+    "num_formal_passed": 12,
+    "expected_blocked_gates": [
+      "physical coefficient source gate",
+      "N3LL-prime label certificate"
+    ],
+    "implementation_N3LLprime_claim_allowed": false,
+    "note": "The suite validates the formal prescription. Physical N3LL-prime implementation remains blocked until external NNLO/N3LO coefficient payloads are staged and the a_s^3 expansion gate passes."
+  },
+  "results": [
+    {
+      "name": "one-loop binned singular spectrum",
+      "script": "kt_kcss_one_loop_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "pass=True; plus_null=0.0; additivity=0.0; offzero=1.1102230246251565e-16",
+      "log_file": "outputs/latest/kt_kcss_one_loop_validator.log"
+    },
+    {
+      "name": "toy-PDF x-convolution",
+      "script": "kt_kcss_toypdf_xconv_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_toypdf_xconv_validator.log"
+    },
+    {
+      "name": "generator convolution algebra",
+      "script": "kt_kcss_generator_convolution_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_generator_convolution_validator.log"
+    },
+    {
+      "name": "one-loop evolution Green function",
+      "script": "kt_kcss_one_loop_evolution_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_one_loop_evolution_validator.log"
+    },
+    {
+      "name": "two-loop ingredient checks",
+      "script": "kt_kcss_two_loop_ingredients_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_two_loop_ingredients_validator.log"
+    },
+    {
+      "name": "running-coupling evolution",
+      "script": "kt_kcss_running_coupling_evolution_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_running_coupling_evolution_validator.log"
+    },
+    {
+      "name": "binned W-term prototype",
+      "script": "kt_kcss_binned_wterm_prototype_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_binned_wterm_prototype_validator.log"
+    },
+    {
+      "name": "accuracy ingredient manifest",
+      "script": "kt_kcss_accuracy_ingredient_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_accuracy_ingredient_validator.log"
+    },
+    {
+      "name": "N3LO mock matching import",
+      "script": "kt_kcss_n3lo_matching_import_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True",
+      "log_file": "outputs/latest/kt_kcss_n3lo_matching_import_validator.log"
+    },
+    {
+      "name": "physical coefficient source gate",
+      "script": "kt_kcss_physical_coeff_import_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": true,
+      "detail": "infrastructure_passed=True; physics_ready=False",
+      "log_file": "outputs/latest/kt_kcss_physical_coeff_import_validator.log"
+    },
+    {
+      "name": "N3LL-prime label certificate",
+      "script": "kt_kcss_n3llprime_label_certificate_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": true,
+      "detail": "formal_prescription_ready=True; implementation_claim_allowed=False",
+      "log_file": "outputs/latest/kt_kcss_n3llprime_label_certificate_validator.log"
+    },
+    {
+      "name": "formalism completion",
+      "script": "kt_kcss_formalism_completion_validator.py",
+      "returncode": 0,
+      "formal_passed": true,
+      "expected_blocked": false,
+      "detail": "passed=True; status=paper-ready formal prescription",
+      "log_file": "outputs/latest/kt_kcss_formalism_completion_validator.log"
+    }
+  ]
+}

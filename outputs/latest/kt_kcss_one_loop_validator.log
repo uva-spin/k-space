@@ -1,0 +1,22 @@
+K_CSS2 one-loop binned singular-spectrum validator
+Q = 8 GeV, alpha_s = 0.25, a_s = 0.0198943678865
+Bin edges = [0.0, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0]
+
+Unit tests:
+  plus null max abs            = 0.000000e+00
+  additivity max abs           = 0.000000e+00
+  offzero diagonal max abs diff = 1.110223e-16
+  pass                         = True
+
+Rows:
+  qa       qb       B0              B1              Bdelta  diag_weight       offzero_diff
+  0        0.25     -6.9314718      -24.022651      1.0     -1.3465188        --
+  0.25     0.5      1.3862944       8.6481543       0.0     0.69696206        -1.110e-16
+  0.5      1        1.3862944       6.7263422       0.0     0.49305147        -1.110e-16
+  1        2        1.3862944       4.8045301       0.0     0.28914088        -5.551e-17
+  2        4        1.3862944       2.8827181       0.0     0.085230288       -2.776e-17
+  4        8        1.3862944       0.96090603      0.0     -0.1186803        -1.388e-17
+
+Wrote /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_one_loop_validator_report.csv
+Wrote /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_one_loop_validator_report.json
+Wrote /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_one_loop_validator_report.txt

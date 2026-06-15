@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "num_checks": 20,
+  "num_passed": 20,
+  "tex_sha256": "3e4bdb6d90704c9b0215ec9a874e3952e92f54ae78883bf2d338793ad4f3eac5",
+  "pdf_sha256": "97cba1d1eb3979918f9401eb003fa776457c9df0b92828b6e2aa98fe5b127296",
+  "formalism_note_status": "paper-ready formal prescription",
+  "implementation_N3LLprime_claim_allowed": false,
+  "implementation_gate_reason": "physical NNLO/N3LO coefficient payloads and a_s^3 expansion gate are intentionally not completed in this formalism note"
+}

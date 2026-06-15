@@ -1,0 +1,22 @@
+name,passed,message
+manifest_N3LLprime_orders,True,"req={'cusp_loops': 4, 'beta_loops': 4, 'gammaF_loops': 3, 'CS_kernel_loops': 3, 'hard_boundary_loops': 3, 'matching_boundary_loops': 3, 'DGLAP_kernel_count': 3}"
+manifest_unprimed_boundary_order,True,unprimed_matching=2
+power_bounds_full_package,True,bad_records=0
+coverage_full_package,True,missing=0
+projection_rule,True,bad_projection=0
+N3LO_Lb6_maps_to_frakL5,True,max_frak_index=5
+flavor_matrix_coverage,True,missing_channels=0
+three_loop_CS_kernel_RG_identity,True,low_order_residual_terms=[]
+kernel_object_N3LLprime_accepts_complete_package,True,all ingredient gates complete
+kernel_scheme_css2,True,schemes=['CSS2']
+kernel_no_numerical_b_transform,True,used_numerical_b_transform=False
+kernel_cusp_loop_gate,True,"have=4, need=4"
+kernel_beta_loop_gate,True,"have=4, need=4"
+kernel_gammaF_loop_gate,True,"have=3, need=3"
+kernel_CS_kernel_loop_gate,True,"have=3, need=3"
+kernel_hard_boundary_gate,True,"have=3, need=3"
+kernel_matching_boundary_gate,True,"have=3, need=3"
+kernel_dglap_gate,True,"have=3, need=3"
+missing_three_loop_boundary_rejected_for_prime,True,N3LLprime must reject NNLO boundary package
+NNLO_boundary_accepted_for_unprimed_N3LL,True,unprimed N3LL boundary gate is loop 2
+numerical_b_transform_rejected,True,production KCSS object must be coefficient-level

@@ -1,0 +1,66 @@
+{
+  "constants": {
+    "CA": 3.0,
+    "CF": 1.3333333333333333,
+    "Gamma0q": 5.333333333333333,
+    "Gamma1q": 36.84359134233823,
+    "TF": 0.5,
+    "beta0": 7.666666666666667,
+    "d2q": -42.580990437825164,
+    "gamma0q": 8.0,
+    "gamma1q_smoke_input": 17.25,
+    "nf": 5.0
+  },
+  "note": "All algebraic identities are checked through O(a_i^2). The smoke gamma1 input is structural only.",
+  "passed": true,
+  "smoke": {
+    "R_q": 0.09491476013896408,
+    "a_f": 0.01511856,
+    "eta_q": 0.02137288589488357,
+    "kappa_q": 0.001121521002430464,
+    "parameters": {
+      "L": 0.58,
+      "L_b_i": -0.52,
+      "a_i": 0.018,
+      "ell_i": 0.31,
+      "rho": 0.24
+    }
+  },
+  "tests": [
+    {
+      "delta_expr": "0",
+      "passed": true,
+      "test": "fixed"
+    },
+    {
+      "delta_expr": "0",
+      "passed": true,
+      "test": "D"
+    },
+    {
+      "delta_expr": "0",
+      "passed": true,
+      "test": "path"
+    },
+    {
+      "delta_expr": "0",
+      "passed": true,
+      "test": "rho"
+    },
+    {
+      "delta_expr": "0",
+      "passed": true,
+      "test": "mu"
+    },
+    {
+      "delta_expr": "0",
+      "passed": true,
+      "test": "semi"
+    },
+    {
+      "delta_expr": "0",
+      "passed": true,
+      "test": "rapidity_proj"
+    }
+  ]
+}

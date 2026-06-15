@@ -1,0 +1,18 @@
+source_id,arxiv,version,loop_relevance,operator_type,filename,mandatory_for_pdf_import,purpose
+EMV2020_TMDPDF_N3LO,2006.05329,v2,N3LO,TMDPDF,TMDPDF.m,True,Primary TMDPDF coefficient payload
+EMV2020_TMDPDF_N3LO,2006.05329,v2,N3LO,beam/collinear,PTBF.m,False,Perturbative transverse beam-function cross-check
+EMV2020_TMDPDF_N3LO,2006.05329,v2,N3LO,beam/collinear,PTBF_ZExpansion.m,False,z-expansion cross-check
+EMV2020_TMDPDF_N3LO,2006.05329,v2,N3LO,beam/collinear,PTBF_ZbExpansion.m,False,z and b expansion cross-check
+EMV2020_TMDPDF_N3LO,2006.05329,v2,N3LO,soft,PT_SoftFunction.m,False,Bare/renormalized soft-function cross-check
+EMV2020_TMDPDF_N3LO,2006.05329,v2,N3LO,soft,PT_SoftFunction_Renormalized.m,False,Renormalized soft-function cross-check
+EMV2020_TMDPDF_N3LO,2006.05329,v2,metadata,readme,info.txt,False,Source package notes
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,beam/TMDPDF,BeamFunction.m,True,Beam-function/TMDPDF coefficient payload
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,beam/TMDPDF,BeamfunctionN.m,False,Mellin-N representation cross-check
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,TMDPDF,TMDPDF.m,True,Primary TMDPDF payload
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,TMDPDF,TMDPDFN.m,False,Mellin-N TMDPDF payload
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,TMDFF,TMDFF.m,False,TMDFF payload for SIDIS/e+e- extensions
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,TMDFF,TMDFFN.m,False,Mellin-N TMDFF payload
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,TMDFF,FFMatchingKernels.m,False,Fragmentation matching kernels
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,TMDFF,FFMatchingKernelsN.m,False,Mellin-N fragmentation matching kernels
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,metadata,readme,ancillary_readme.pdf,False,Ancillary convention documentation
+LYZZ2021_TMDPDF_TMDFF_N3LO,2012.03256,v2,N3LO,soft,softfunction.m,False,Soft-function cross-check

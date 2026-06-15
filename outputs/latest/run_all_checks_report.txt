@@ -1,0 +1,20 @@
+KCSS pure-kT formalism validation-suite summary
+=================================================
+formal_suite_passed: True
+checks: 12/12
+
+Individual checks:
+  - PASS: one-loop binned singular spectrum :: pass=True; plus_null=0.0; additivity=0.0; offzero=1.1102230246251565e-16
+  - PASS: toy-PDF x-convolution :: passed=True
+  - PASS: generator convolution algebra :: passed=True
+  - PASS: one-loop evolution Green function :: passed=True
+  - PASS: two-loop ingredient checks :: passed=True
+  - PASS: running-coupling evolution :: passed=True
+  - PASS: binned W-term prototype :: passed=True
+  - PASS: accuracy ingredient manifest :: passed=True
+  - PASS: N3LO mock matching import :: passed=True
+  - PASS (expected implementation gate blocked): physical coefficient source gate :: infrastructure_passed=True; physics_ready=False
+  - PASS (expected implementation gate blocked): N3LL-prime label certificate :: formal_prescription_ready=True; implementation_claim_allowed=False
+  - PASS: formalism completion :: passed=True; status=paper-ready formal prescription
+
+The suite validates the formal prescription. Physical N3LL-prime implementation remains blocked until external NNLO/N3LO coefficient payloads are staged and the a_s^3 expansion gate passes.

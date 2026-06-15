@@ -1,0 +1,11 @@
+left,right,residual
+L0 x L0,(-2)*L1,0
+L0 x L1,(-2*zeta_3)*delta - (3/2)*L2,0
+L0 x L2,(4*zeta_3)*L0 - (4/3)*L3,0
+L0 x L3,(-12*zeta_5)*delta + (12*zeta_3)*L1 - (5/4)*L4,0
+L1 x L1,(4*zeta_3)*L0 - (1)*L3,0
+L1 x L2,(-8*zeta_5)*delta + (12*zeta_3)*L1 - (5/6)*L4,0
+L1 x L3,(12*zeta_3**2)*delta + (36*zeta_5)*L0 + (24*zeta_3)*L2 - (3/4)*L5,0
+L2 x L2,(16*zeta_3**2)*delta + (32*zeta_5)*L0 + (24*zeta_3)*L2 - (2/3)*L5,0
+L2 x L3,(-120*zeta_7)*delta - (72*zeta_3**2)*L0 + (168*zeta_5)*L1 + (40*zeta_3)*L3 - (7/12)*L6,0
+L3 x L3,(576*zeta_3*zeta_5)*delta + (720*zeta_7)*L0 - (432*zeta_3**2)*L1 + (504*zeta_5)*L2 + (60*zeta_3)*L4 - (1/2)*L7,0

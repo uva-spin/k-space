@@ -1,0 +1,114 @@
+{
+  "summary": {
+    "passed": true,
+    "num_checks": 20,
+    "num_passed": 20,
+    "tex_sha256": "3e4bdb6d90704c9b0215ec9a874e3952e92f54ae78883bf2d338793ad4f3eac5",
+    "pdf_sha256": "97cba1d1eb3979918f9401eb003fa776457c9df0b92828b6e2aa98fe5b127296",
+    "formalism_note_status": "paper-ready formal prescription",
+    "implementation_N3LLprime_claim_allowed": false,
+    "implementation_gate_reason": "physical NNLO/N3LO coefficient payloads and a_s^3 expansion gate are intentionally not completed in this formalism note"
+  },
+  "checks": [
+    {
+      "check": "version_1p0",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "generic_process_section",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "model_agnostic_np_section",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "regulated_norm_section",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "full_spectrum_matching_section",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "claim_table_section",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "validation_section",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "closure_section",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "n3ll_certificate",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "formal_vs_implementation",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "np_not_accuracy_source",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "tmd_tail_vs_y_tail",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "wy_formula",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "regulated_cumulants",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "hybrid_numerical_decision",
+      "passed": true,
+      "detail": "found=True"
+    },
+    {
+      "check": "no_active_todo_calls",
+      "passed": true,
+      "detail": "no active \\todo{...} boxes"
+    },
+    {
+      "check": "no_immediate_next_tasks_section",
+      "passed": true,
+      "detail": "formal note closed"
+    },
+    {
+      "check": "physical_payload_not_overclaimed",
+      "passed": true,
+      "detail": "implementation gate remains blocked"
+    },
+    {
+      "check": "pdf_exists",
+      "passed": true,
+      "detail": "/mnt/data/kcss_kt_formalism_validation_repo/docs/formalism_note_v1p0.pdf"
+    },
+    {
+      "check": "tex_exists",
+      "passed": true,
+      "detail": "/mnt/data/kcss_kt_formalism_validation_repo/docs/formalism_note_v1p0.tex"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "num_tests": 21,
+  "full_mock_records": 1568,
+  "nnlo_mock_records": 882,
+  "parton_basis": [
+    "g",
+    "u",
+    "ubar",
+    "d",
+    "dbar",
+    "s",
+    "sbar"
+  ],
+  "leg_types": [
+    "PDF",
+    "FF"
+  ],
+  "N3LLprime_manifest": {
+    "cusp_loops": 4,
+    "beta_loops": 4,
+    "gammaF_loops": 3,
+    "CS_kernel_loops": 3,
+    "hard_boundary_loops": 3,
+    "matching_boundary_loops": 3,
+    "DGLAP_kernel_count": 3
+  },
+  "N3LL_manifest_unprimed": {
+    "cusp_loops": 4,
+    "beta_loops": 4,
+    "gammaF_loops": 3,
+    "CS_kernel_loops": 3,
+    "hard_boundary_loops": 2,
+    "matching_boundary_loops": 2,
+    "DGLAP_kernel_count": 2
+  },
+  "max_direct_frak_index_loop3": 5,
+  "tests": [
+    {
+      "name": "manifest_N3LLprime_orders",
+      "passed": true,
+      "message": "req={'cusp_loops': 4, 'beta_loops': 4, 'gammaF_loops': 3, 'CS_kernel_loops': 3, 'hard_boundary_loops': 3, 'matching_boundary_loops': 3, 'DGLAP_kernel_count': 3}"
+    },
+    {
+      "name": "manifest_unprimed_boundary_order",
+      "passed": true,
+      "message": "unprimed_matching=2"
+    },
+    {
+      "name": "power_bounds_full_package",
+      "passed": true,
+      "message": "bad_records=0"
+    },
+    {
+      "name": "coverage_full_package",
+      "passed": true,
+      "message": "missing=0"
+    },
+    {
+      "name": "projection_rule",
+      "passed": true,
+      "message": "bad_projection=0"
+    },
+    {
+      "name": "N3LO_Lb6_maps_to_frakL5",
+      "passed": true,
+      "message": "max_frak_index=5"
+    },
+    {
+      "name": "flavor_matrix_coverage",
+      "passed": true,
+      "message": "missing_channels=0"
+    },
+    {
+      "name": "three_loop_CS_kernel_RG_identity",
+      "passed": true,
+      "message": "low_order_residual_terms=[]"
+    },
+    {
+      "name": "kernel_object_N3LLprime_accepts_complete_package",
+      "passed": true,
+      "message": "all ingredient gates complete"
+    },
+    {
+      "name": "kernel_scheme_css2",
+      "passed": true,
+      "message": "schemes=['CSS2']"
+    },
+    {
+      "name": "kernel_no_numerical_b_transform",
+      "passed": true,
+      "message": "used_numerical_b_transform=False"
+    },
+    {
+      "name": "kernel_cusp_loop_gate",
+      "passed": true,
+      "message": "have=4, need=4"
+    },
+    {
+      "name": "kernel_beta_loop_gate",
+      "passed": true,
+      "message": "have=4, need=4"
+    },
+    {
+      "name": "kernel_gammaF_loop_gate",
+      "passed": true,
+      "message": "have=3, need=3"
+    },
+    {
+      "name": "kernel_CS_kernel_loop_gate",
+      "passed": true,
+      "message": "have=3, need=3"
+    },
+    {
+      "name": "kernel_hard_boundary_gate",
+      "passed": true,
+      "message": "have=3, need=3"
+    },
+    {
+      "name": "kernel_matching_boundary_gate",
+      "passed": true,
+      "message": "have=3, need=3"
+    },
+    {
+      "name": "kernel_dglap_gate",
+      "passed": true,
+      "message": "have=3, need=3"
+    },
+    {
+      "name": "missing_three_loop_boundary_rejected_for_prime",
+      "passed": true,
+      "message": "N3LLprime must reject NNLO boundary package"
+    },
+    {
+      "name": "NNLO_boundary_accepted_for_unprimed_N3LL",
+      "passed": true,
+      "message": "unprimed N3LL boundary gate is loop 2"
+    },
+    {
+      "name": "numerical_b_transform_rejected",
+      "passed": true,
+      "message": "production KCSS object must be coefficient-level"
+    }
+  ],
+  "output_files": {
+    "manifest_csv": "/mnt/data/kt_kcss_n3lo_matching_import_manifest.csv",
+    "projection_csv": "/mnt/data/kt_kcss_n3lo_matching_import_projection.csv",
+    "json": "/mnt/data/kt_kcss_n3lo_matching_import_output.json",
+    "report": "/mnt/data/kt_kcss_n3lo_matching_import_validator_report.txt",
+    "tests_csv": "/mnt/data/kt_kcss_n3lo_matching_import_tests.csv"
+  }
+}

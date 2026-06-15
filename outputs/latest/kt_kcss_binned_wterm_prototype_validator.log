@@ -1,0 +1,30 @@
+K_CSS2 binned W-term prototype validator
+==============================================
+passed: True
+passed_symbolic: True
+passed_numeric: True
+
+Symbolic checks
+---------------
+leg profile -> canonical O(a): 0
+pair profile -> canonical O(a): 0
+distribution coefficient residuals:
+  L1: 0
+  L0: 0
+  delta: 0
+two-loop pair rapidity projection residual: 0
+
+Smoke-test settings
+-------------------
+Q = 8.0 GeV
+profile L values = [0.0, 1.3862943611198906, 0.8266785731844679]
+bin edges = [0.0, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0]
+max bin-level profile-canonical difference = 0.00000000000000000e+00
+
+Interpretation
+--------------
+The O(a_s) fixed-order expansion of the profile-scale K_CSS2 W-term prototype is
+independent of the auxiliary profile scale mu_T once one-loop DGLAP conversion of the
+collinear PDFs is included.  The resulting bin-integrated distribution coefficients are
+4 C_F L_1 + [2(P_A+P_B)-6 C_F] L_0 + (h+c_A+c_B) delta.
+

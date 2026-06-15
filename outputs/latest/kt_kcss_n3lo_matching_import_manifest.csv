@@ -1,0 +1,9 @@
+label,ingredient,required
+N3LLprime_KCSS,cusp_loops,4
+N3LLprime_KCSS,beta_loops,4
+N3LLprime_KCSS,gammaF_loops,3
+N3LLprime_KCSS,CS_kernel_loops,3
+N3LLprime_KCSS,hard_boundary_loops,3
+N3LLprime_KCSS,matching_boundary_loops,3
+N3LLprime_KCSS,DGLAP_kernel_count,3
+N3LLprime_KCSS,DGLAP_indices,"P^0,P^1,P^2"

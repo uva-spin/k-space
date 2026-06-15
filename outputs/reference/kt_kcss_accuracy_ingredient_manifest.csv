@@ -1,0 +1,8 @@
+label,k,primed,cusp_loops,beta_loops,noncusp_loops,cs_kernel_loops,hard_boundary_loops,tmd_matching_loops,dglap_max_P_index,fixed_order_Y_power
+LL,0,False,1,1,0,0,0,0,,
+NLL,1,False,2,2,1,1,0,0,,
+NLL',1,True,2,2,1,1,1,1,0,1
+NNLL,2,False,3,3,2,2,1,1,0,1
+NNLL',2,True,3,3,2,2,2,2,1,2
+N3LL,3,False,4,4,3,3,2,2,1,2
+N3LL',3,True,4,4,3,3,3,3,2,3

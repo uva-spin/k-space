@@ -1,0 +1,67 @@
+{
+  "validator": "kt_kcss_vetted_coeff_source_gate_validator",
+  "source_dir": "/mnt/data/kcss_coeff_sources",
+  "infrastructure_passed": true,
+  "physics_ready": false,
+  "mock_payload_used": false,
+  "source_families": [
+    {
+      "source_id": "EMV2020_TMDPDF_N3LO",
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "authors": "Ebert-Mistlberger-Vita",
+      "bibliographic_role": "N3LO unpolarized TMDPDF matching kernels and soft function cross-checks",
+      "official_record_evidence": "arXiv ancillary-file list includes TMDPDF.m and related PTBF/soft-function files"
+    },
+    {
+      "source_id": "LYZZ2021_TMDPDF_TMDFF_N3LO",
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "authors": "Luo-Yang-Zhu-Zhu",
+      "bibliographic_role": "N3LO unpolarized quark/gluon TMDPDF and TMDFF matching kernels",
+      "official_record_evidence": "arXiv ancillary-file list includes BeamFunction.m, TMDPDF.m, TMDPDFN.m, TMDFF.m, and ancillary_readme.pdf"
+    }
+  ],
+  "expected_file_count": 17,
+  "mandatory_file_count": 3,
+  "present_file_count": 0,
+  "mandatory_present_count": 0,
+  "blocked_reason": "Raw vetted ancillary coefficient files are not all present locally; NNLO/N3LO expansion gates were not executed.",
+  "tests": [
+    {
+      "test": "source_ledger_has_two_primary_families",
+      "passed": true,
+      "details": "['EMV2020_TMDPDF_N3LO', 'LYZZ2021_TMDPDF_TMDFF_N3LO']"
+    },
+    {
+      "test": "mandatory_pdf_files_declared",
+      "passed": true,
+      "details": "mandatory=3"
+    },
+    {
+      "test": "mock_payload_disabled_for_physics_gate",
+      "passed": true,
+      "details": "No synthetic coefficients are accepted for physics_ready=True."
+    },
+    {
+      "test": "local_source_directory_exists",
+      "passed": true,
+      "details": "/mnt/data/kcss_coeff_sources"
+    },
+    {
+      "test": "raw_files_present",
+      "passed": false,
+      "details": "present=0/17"
+    },
+    {
+      "test": "mandatory_pdf_import_files_present",
+      "passed": false,
+      "details": "present=0/3"
+    },
+    {
+      "test": "nnlo_n3lo_expansion_gate_ready",
+      "passed": false,
+      "details": "Requires parsed physical coefficients; blocked if mandatory files are absent."
+    }
+  ]
+}

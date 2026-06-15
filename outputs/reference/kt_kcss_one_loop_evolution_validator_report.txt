@@ -1,0 +1,33 @@
+K_CSS2 one-loop evolution Green-function validator
+====================================================
+passed: True
+
+Definitions
+-----------
+L_mu = ln(mu_f/mu_i)
+rho  = ln sqrt(zeta_f/zeta_i)
+ell_i = ln(zeta_i/mu_i^2)
+X_f = L_b(mu_f)
+
+Green function
+--------------
+U_i(k) = exp{a_s L_mu [gammaF0_i - Gamma0_i (ell_i - L_mu)]} G_eta(k;mu_f)
+eta = a_s Gamma0_i rho
+
+Symbolic residuals
+------------------
+path_residual: 0
+rapidity_equation_residual: 0
+mu_equation_residual: 0
+semigroup_residual: 0
+
+O(a_s) conventional-basis coefficients per a_s
+----------------------------------------------
+delta: Gamma0*L_mu**2 - Gamma0*L_mu*ell_i + L_mu*gammaF0
+L0: Gamma0*rho
+
+Sample quark-like smoke values
+------------------------------
+sample eta: 0.0213333333333333333
+sample scalar exponent: 0.0352000000000000000
+sample log U(b): -0.00106666666666666667

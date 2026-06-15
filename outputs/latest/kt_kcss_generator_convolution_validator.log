@@ -1,0 +1,4 @@
+passed: True
+wrote: /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_generator_convolution_validator_output.json
+wrote: /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_generator_convolution_validator_report.txt
+wrote: /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_generator_convolution_validator_table.csv

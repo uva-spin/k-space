@@ -1,0 +1,222 @@
+{
+  "validator": "kt_kcss_n3llprime_label_certificate_validator",
+  "timestamp_utc": "2026-06-14T16:56:11.368482+00:00",
+  "note": "/mnt/data/kt_perturbative_formalism_note_v0p16.tex",
+  "source_dir": "/mnt/data/kcss_coeff_sources",
+  "formal_prescription_ready": true,
+  "physical_payload_ready": false,
+  "a_s3_expansion_gate_passed": false,
+  "implementation_claim_allowed": false,
+  "present_file_count": 0,
+  "expected_file_count": 17,
+  "mandatory_present_count": 0,
+  "mandatory_file_count": 3,
+  "blocked_reason": "Implementation-level N3LL-prime claim remains blocked until physical coefficient files are staged and the O(a_s^3) expansion gate passes.",
+  "tests": [
+    {
+      "check": "note_contains:\\section{N3LL-prime label certificate}",
+      "passed": true
+    },
+    {
+      "check": "note_contains:\\mathrm{ClaimAllowed}_{N^3\\mathrm{LL}'}",
+      "passed": true
+    },
+    {
+      "check": "note_contains:\\mathrm{ParentScheme}_{\\KCSS}",
+      "passed": true
+    },
+    {
+      "check": "note_contains:\\mathrm{ExpandedTo}\\{a_s^3\\}",
+      "passed": true
+    },
+    {
+      "check": "note_contains:N$^3$LL$'_{\\KCSS}",
+      "passed": true
+    },
+    {
+      "check": "formal_prescription_ready",
+      "passed": true
+    },
+    {
+      "check": "physical_mandatory_payload_present",
+      "passed": false,
+      "details": "0/3 mandatory files present"
+    },
+    {
+      "check": "mock_payload_not_used_for_physics",
+      "passed": true
+    },
+    {
+      "check": "a_s3_expansion_gate_passed",
+      "passed": false,
+      "details": "requires parsed physical coefficients and reference expansion comparison"
+    },
+    {
+      "check": "no_numerical_b_transform_required",
+      "passed": true
+    },
+    {
+      "check": "np_module_separated_from_accuracy_label",
+      "passed": true
+    },
+    {
+      "check": "implementation_claim_allowed",
+      "passed": false
+    }
+  ],
+  "files": [
+    {
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "relative_dir": "2006.05329v2",
+      "filename": "TMDPDF.m",
+      "mandatory_for_dy_tmdpdf": true,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "relative_dir": "2006.05329v2",
+      "filename": "PTBF.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "relative_dir": "2006.05329v2",
+      "filename": "PTBF_ZExpansion.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "relative_dir": "2006.05329v2",
+      "filename": "PTBF_ZbExpansion.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "relative_dir": "2006.05329v2",
+      "filename": "PT_SoftFunction.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "relative_dir": "2006.05329v2",
+      "filename": "PT_SoftFunction_Renormalized.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2006.05329",
+      "version": "v2",
+      "relative_dir": "2006.05329v2",
+      "filename": "info.txt",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "BeamFunction.m",
+      "mandatory_for_dy_tmdpdf": true,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "BeamfunctionN.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "TMDPDF.m",
+      "mandatory_for_dy_tmdpdf": true,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "TMDPDFN.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "TMDFF.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "TMDFFN.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "FFMatchingKernels.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "FFMatchingKernelsN.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "ancillary_readme.pdf",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    },
+    {
+      "arxiv": "2012.03256",
+      "version": "v2",
+      "relative_dir": "2012.03256v2",
+      "filename": "softfunction.m",
+      "mandatory_for_dy_tmdpdf": false,
+      "present": false,
+      "sha256": ""
+    }
+  ]
+}

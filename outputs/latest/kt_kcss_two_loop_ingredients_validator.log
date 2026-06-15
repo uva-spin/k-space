@@ -1,0 +1,32 @@
+KCSS two-loop ingredient validator
+===================================
+passed: True
+
+Tests:
+  - cs_kernel_b_space_RG: passed=True, residual=0
+  - cs_kernel_frak_basis_RG: passed=True, residual={'delta': '0', 'F0': '0', 'F1': '0'}
+  - cs_kernel_conventional_projection: passed=True, residual={'delta': '0', 'L0': '0', 'L1': '0'}
+  - matching_CS_equation_scalar_projection: passed=True, residual=0
+  - matching_mu_equation_scalar_projection: passed=True, residual=0
+  - one_loop_mu_subcheck: passed=True, residual=0
+  - one_loop_CS_subcheck: passed=True, residual=0
+
+Sample SU(3), nf=5 constants:
+  beta0: exact=23/3, numeric=7.66666666667
+  Gamma0q: exact=16/3, numeric=5.33333333333
+  Gamma1q: exact=2416/27 - 16*pi**2/3, numeric=36.8435913423
+  gammaF0q: exact=8, numeric=8
+  d2zetaq: exact=3728/81 - 56*zeta(3), numeric=-21.2904952189
+  d2boundaryq: exact=7456/81 - 112*zeta(3), numeric=-42.5809904378
+  d2boundaryg: exact=1864/9 - 252*zeta(3), numeric=-95.8072284851
+
+Scalar matching objects:
+  C1 = -G0*L**2/4 - G0*L*ell/2 + L*(g0 - 4*p0)/2 + c1
+  C2 = G0**2*L**4/32 + G0**2*L**2*ell**2/8 + G0*L**3*(-4*beta0 - 3*g0 + 12*p0)/24 + L**2*(-G0*c1/4 - G1/4 + beta0*g0/4 - beta0*p0 + g0**2/8 - g0*p0 + 2*p0**2) + L*(2*beta0*c1 + c1*g0 - 4*c1*p0 - d2b + g1 - 8*p1)/2 + c2 - ell*(2*G0*L**2*beta0 + G0*L*(-G0*L**2 + 2*L*(g0 - 4*p0) + 4*c1) + 4*G1*L + 4*d2b)/8
+
+Conventions:
+  a_s = alpha_s/(4*pi)
+  d a_s/d ln(mu) = -2 beta0 a_s^2 + O(a_s^3)
+  P_mu = 4 a_s P0 + 8 a_s^2 P1 + O(a_s^3) for d/dln(mu) evolution
+  D_k = a_s Gamma0 frakL0 + a_s^2[(beta0 Gamma0/2) frakL1 + Gamma1 frakL0 + d2_boundary delta]
+  d frakL_n/d ln(mu) = 2(n+1) frakL_{n-1}

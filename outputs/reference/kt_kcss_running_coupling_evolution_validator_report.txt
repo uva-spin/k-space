@@ -1,0 +1,19 @@
+K_CSS2 running-coupling evolution symbolic validator
+============================================================
+passed: True
+
+Tests:
+  fixed: delta=0, passed=True
+  D: delta=0, passed=True
+  path: delta=0, passed=True
+  rho: delta=0, passed=True
+  mu: delta=0, passed=True
+  semi: delta=0, passed=True
+  rapidity_proj: delta=0, passed=True
+
+Quark-like smoke point:
+  R_q = 9.491476013896e-02
+  eta_q = 2.137288589488e-02
+  kappa_q = 1.121521002430e-03
+
+All algebraic identities are checked through O(a_i^2). The smoke gamma1 input is structural only.
