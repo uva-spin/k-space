@@ -1,159 +1,282 @@
-# KCSS pure-\(k_T\) formalism validation suite
+# k-space: pure-$k_T$ formalism validation suite
 
-This repository is a companion validation suite for the pure-transverse-momentum implementation of CSS2 TMD factorization developed in the formalism note
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+This repository contains the companion validation suite for a transverse-momentum-space implementation of CSS2 TMD factorization.  The goal is to support a formalism paper on a CSS2-equivalent, pure-$k_T$ prescription for high-accuracy TMD extractions.
+
+The repository is **not** a completed phenomenological extraction.  It validates the algebraic and bookkeeping infrastructure needed for a future implementation-level $N^3\mathrm{LL}'$ extraction.
+
+## Status at a glance
+
+| Item | Status | Meaning |
+|---|---:|---|
+| Formal pure-$k_T$ prescription | Ready | The distribution basis, convolution algebra, evolution identities, and claim discipline are encoded. |
+| Validation suite | Passing | `run_all_checks.py --clean` should report `formal_suite_passed: True` and `checks: 12/12`. |
+| Physical NNLO/N$^3$LO coefficient payload | Not bundled | External source-stamped coefficient files must be staged and parsed before a numerical $N^3\mathrm{LL}'$ implementation claim. |
+| Implementation-level $N^3\mathrm{LL}'$ extraction | Intentionally blocked | The gate remains closed until physical coefficient payloads and the $\mathcal O(a_s^3)$ expansion checks pass. |
+| Nonperturbative model | Not specified | A DNN, spline, analytic model, or other module can be attached later; it is not part of the perturbative label. |
+
+In short:
+
+> This repository supports a **formal $N^3\mathrm{LL}'$ pure-$k_T$ prescription** by ingredient equivalence to CSS2.  It does **not** yet claim a completed numerical $N^3\mathrm{LL}'$ extraction.
+
+## Why this repository exists
+
+Standard CSS/TMD implementations usually organize transverse-momentum resummation in impact-parameter space, where transverse convolutions become products.  The formalism developed here keeps the working objects directly in transverse momentum:
+
+- TMDs: $F_{i/h}(x,\boldsymbol k_T;\mu,\zeta)$,
+- matching kernels: $\mathcal C_{i\leftarrow j}(z,\boldsymbol k_T;\mu,\zeta)$,
+- Collins-Soper kernels: $\mathcal D_i(\boldsymbol k_T;\mu)$,
+- evolution kernels implemented as transverse convolution exponentials.
+
+The parent scheme is denoted
 
 ```text
-A pure-k_T CSS2-equivalent prescription for high-accuracy TMD extractions
+K_CSS2 = CSS2 represented directly in k_T-space distributions.
 ```
 
-The repository is designed to support a formalism paper, not to claim that a complete numerical \(N^3\mathrm{LL}'\) extraction has already been performed.  The key distinction is:
+The validation code checks that the direct-$k_T$ representation reproduces the required distribution algebra and perturbative bookkeeping without using numerical Fourier/Bessel transforms as part of the extraction machinery.
 
-- **Formal prescription:** ready.  The algebra, distribution basis, convolution exponentials, ingredient manifest, and claim discipline for a CSS2-equivalent pure-\(k_T\) prescription are encoded here.
-- **Implementation-level \(N^3\mathrm{LL}'\) extraction:** intentionally blocked until physical NNLO/N\(^3\)LO coefficient payloads are staged, hashed, parsed, converted, and validated through the \(\mathcal O(a_s^3)\) expansion gate.
+## What is validated here
 
-The validation suite uses only direct \(k_T\)-space distributions and transverse convolution algebra.  It does not perform numerical Fourier/Bessel transforms as part of the extraction machinery.
+The suite validates formal and algebraic components:
 
-## Repository layout
+1. two-dimensional plus-distribution bin integrals;
+2. one-loop Drell-Yan singular-kernel normalization checks;
+3. longitudinal $x$-space plus prescriptions using analytic toy PDFs;
+4. generator convolution algebra;
+5. one-loop and running-coupling evolution identities;
+6. two-loop Collins-Soper-kernel projection checks;
+7. a binned resummed-$W$ prototype and one-loop profile-scale cancellation;
+8. $N^k\mathrm{LL}'$ ingredient bookkeeping;
+9. a mock N$^3$LO matching-import schema;
+10. source-gated checks for future physical coefficient payloads;
+11. a certificate that separates formal prescription readiness from implementation-level claim allowance.
 
-```text
-.
-├── README.md
-├── run_all_checks.py
-├── requirements.txt
-├── pyproject.toml
-├── validators/
-│   ├── kt_kcss_one_loop_validator.py
-│   ├── kt_kcss_toypdf_xconv_validator.py
-│   ├── kt_kcss_generator_convolution_validator.py
-│   ├── kt_kcss_one_loop_evolution_validator.py
-│   ├── kt_kcss_two_loop_ingredients_validator.py
-│   ├── kt_kcss_running_coupling_evolution_validator.py
-│   ├── kt_kcss_binned_wterm_prototype_validator.py
-│   ├── kt_kcss_accuracy_ingredient_validator.py
-│   ├── kt_kcss_n3lo_matching_import_validator.py
-│   ├── kt_kcss_physical_coeff_import_validator.py
-│   ├── kt_kcss_n3llprime_label_certificate_validator.py
-│   └── kt_kcss_formalism_completion_validator.py
-├── scripts/
-│   └── stage_public_coefficients.sh
-├── coefficient_sources/
-│   └── README.md
-├── docs/
-│   ├── formalism_note_v1p0.pdf
-│   ├── formalism_note_v1p0.tex
-│   ├── prd_formalism_draft_v0p1.pdf
-│   └── prd_formalism_draft_v0p1.tex
-└── outputs/
-    ├── reference/
-    └── latest/              # generated by run_all_checks.py
-```
+The suite deliberately does **not** validate a fitted TMD, a physical cross section, a $Y$-term implementation, or a DNN nonperturbative model.
 
 ## Quick start
 
 Use Python 3.10 or newer.
 
 ```bash
+git clone https://github.com/uva-spin/k-space.git
+cd k-space
+
 python -m venv .venv
 source .venv/bin/activate
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+
 python run_all_checks.py --clean
 cat outputs/latest/run_all_checks_report.txt
 ```
 
-Expected high-level result:
+You can also use the Makefile:
+
+```bash
+make checks
+```
+
+Expected high-level output:
 
 ```text
 formal_suite_passed: True
 checks: 12/12
 ```
 
-Two gates should remain explicitly blocked in this formalism repository:
+Two implementation gates should remain blocked in this formalism repository:
 
 ```text
 physical coefficient source gate: infrastructure_passed=True; physics_ready=False
 N3LL-prime label certificate: formal_prescription_ready=True; implementation_claim_allowed=False
 ```
 
-That is the correct outcome.  It means the formal prescription is reproducible, while the implementation-level \(N^3\mathrm{LL}'\) extraction claim is not enabled without the vetted physical coefficient payloads.
+That is the intended outcome.  It means the formal prescription is reproducible while the implementation-level $N^3\mathrm{LL}'$ extraction claim remains disabled until external physical coefficient payloads are imported and validated.
 
-## What each validator checks
+## Repository layout
 
-| Validator | Purpose | Physical prediction? |
-|---|---|---|
-| `kt_kcss_one_loop_validator.py` | Bin-integrated two-dimensional plus distributions and the one-loop diagonal DY singular kernel | No |
-| `kt_kcss_toypdf_xconv_validator.py` | Longitudinal \(x\)-space plus prescription and flavor-vector toy-PDF convolutions | No |
-| `kt_kcss_generator_convolution_validator.py` | Generator algebra \(\mathcal G_\eta\otimes_T\mathcal G_\xi=\mathcal G_{\eta+\xi}\) and \(\mathcal L_m\otimes_T\mathcal L_n\) tables | No |
-| `kt_kcss_one_loop_evolution_validator.py` | Fixed-coupling one-loop evolution Green function, path independence, and semigroup identity | No |
-| `kt_kcss_two_loop_ingredients_validator.py` | Two-loop Collins--Soper kernel projection and scalar NNLO logarithmic reconstruction checks | No |
-| `kt_kcss_running_coupling_evolution_validator.py` | Running-coupling endpoint evolution through \(\mathcal O(a_s^2)\) | No |
-| `kt_kcss_binned_wterm_prototype_validator.py` | First binned resummed-\(W\) prototype and one-loop profile-scale cancellation | No |
-| `kt_kcss_accuracy_ingredient_validator.py` | Ingredient manifest for \(N^k\mathrm{LL}'\) bookkeeping | No |
-| `kt_kcss_n3lo_matching_import_validator.py` | Schema and projection map for N\(^3\)LO matching imports using synthetic mock payloads | No |
-| `kt_kcss_physical_coeff_import_validator.py` | Audits whether source-stamped physical NNLO/N\(^3\)LO coefficient files are present | Gate only |
-| `kt_kcss_n3llprime_label_certificate_validator.py` | Separates formal prescription readiness from implementation-level claim allowance | Gate only |
-| `kt_kcss_formalism_completion_validator.py` | Checks that the formalism note contains the paper-ready closure sections | No |
+```text
+.
+├── README.md
+├── VALIDATION_CHECKS.md
+├── run_all_checks.py
+├── requirements.txt
+├── pyproject.toml
+├── Makefile
+├── CHECKSUMS.sha256
+├── CITATION.cff
+├── LICENSE
+├── coefficient_sources/
+│   └── README.md
+├── outputs/
+│   ├── reference/
+│   └── latest/                  # regenerated by run_all_checks.py
+├── scripts/
+│   └── stage_public_coefficients.sh
+└── validators/
+    ├── kt_kcss_one_loop_validator.py
+    ├── kt_kcss_toypdf_xconv_validator.py
+    ├── kt_kcss_generator_convolution_validator.py
+    ├── kt_kcss_one_loop_evolution_validator.py
+    ├── kt_kcss_two_loop_ingredients_validator.py
+    ├── kt_kcss_running_coupling_evolution_validator.py
+    ├── kt_kcss_binned_wterm_prototype_validator.py
+    ├── kt_kcss_accuracy_ingredient_validator.py
+    ├── kt_kcss_n3lo_matching_import_validator.py
+    ├── kt_kcss_physical_coeff_import_validator.py
+    ├── kt_kcss_n3llprime_label_certificate_validator.py
+    └── kt_kcss_formalism_completion_validator.py
+```
+
+## Validator map
+
+| Validator | Main purpose | Physical prediction? |
+|---|---|---:|
+| `kt_kcss_one_loop_validator.py` | Bin-integrated two-dimensional plus distributions and one-loop diagonal DY singular-kernel checks. | No |
+| `kt_kcss_toypdf_xconv_validator.py` | Longitudinal $x$-space plus prescription and toy-PDF flavor-vector convolutions. | No |
+| `kt_kcss_generator_convolution_validator.py` | Generator identity $\mathcal G_\eta\otimes_T\mathcal G_\xi=\mathcal G_{\eta+\xi}$ and $\mathcal L_m\otimes_T\mathcal L_n$ tables. | No |
+| `kt_kcss_one_loop_evolution_validator.py` | Fixed-coupling one-loop Green function, path independence, and semigroup identity. | No |
+| `kt_kcss_two_loop_ingredients_validator.py` | Two-loop Collins-Soper-kernel projection and scalar NNLO logarithmic reconstruction skeleton. | No |
+| `kt_kcss_running_coupling_evolution_validator.py` | Running-coupling endpoint evolution through $\mathcal O(a_s^2)$. | No |
+| `kt_kcss_binned_wterm_prototype_validator.py` | Binned resummed-$W$ prototype and one-loop profile-scale cancellation. | No |
+| `kt_kcss_accuracy_ingredient_validator.py` | Loop-order manifest for $N^k\mathrm{LL}'$ bookkeeping. | No |
+| `kt_kcss_n3lo_matching_import_validator.py` | N$^3$LO matching-import schema and projection map using synthetic mock payloads. | No |
+| `kt_kcss_physical_coeff_import_validator.py` | Audits whether source-stamped NNLO/N$^3$LO physical coefficient files are staged locally. | Gate only |
+| `kt_kcss_n3llprime_label_certificate_validator.py` | Separates formal prescription readiness from implementation-level $N^3\mathrm{LL}'$ claim allowance. | Gate only |
+| `kt_kcss_formalism_completion_validator.py` | Checks that the formalism note contains the paper-ready closure sections. | No |
+
+## Core conventions
+
+The validators use the following conventions.
+
+```text
+a_s = alpha_s / (4 pi)
+```
+
+The $k_T$-space scheme is a parented representation of CSS2:
+
+```text
+K_CSS2 = direct k_T-space representation of CSS2.
+```
+
+High-order CSS2 matching coefficients are imported through the symbolic projection
+
+```text
+L_b^0  -> delta^(2)(k_T)
+L_b^m  -> frak_L_{m-1}(k_T; mu),  m >= 1.
+```
+
+At N$^3$LO this requires support through
+
+```text
+L_b^6 -> frak_L_5.
+```
+
+The code validates this projection algebraically.  It does not perform numerical Bessel transforms to define the extraction machinery.
 
 ## Claim discipline
 
-The repository enforces the following logic:
+The repository enforces the distinction between a formal prescription and a completed extraction.
 
-\[
-\mathrm{ClaimAllowed}_{N^3\mathrm{LL}'} =
-\mathrm{ParentScheme}_{\mathcal K_{\rm CSS2}}
-\wedge
-\mathrm{IngredientComplete}_{N^3\mathrm{LL}'}
-\wedge
-\mathrm{PhysicalPayload}
-\wedge
-\mathrm{NoMockCoefficients}
-\wedge
-\mathrm{NoNumericalBTransform}
-\wedge
-\mathrm{RGConsistent}
-\wedge
-\mathrm{ExpandedTo}\{a_s^3\}
-\wedge
-\mathrm{NPSeparated}.
-\]
+```text
+ClaimAllowed_N3LLprime =
+    ParentScheme_KCSS2
+    AND IngredientComplete_N3LLprime
+    AND PhysicalPayload
+    AND NoMockCoefficients
+    AND NoNumericalBTransform
+    AND RGConsistent
+    AND ExpandedTo_as3
+    AND NPSeparated
+```
 
-The formalism paper may claim a **generic pure-\(k_T\) \(N^3\mathrm{LL}'\) prescription** by ingredient equivalence to CSS2.  A future extraction paper may claim a **completed numerical \(N^3\mathrm{LL}'\) extraction** only after the physical coefficient files are imported and the \(a_s^3\) expansion gate passes.
+The formalism paper may claim a generic pure-$k_T$ $N^3\mathrm{LL}'$ prescription by ingredient equivalence to CSS2.  A future extraction paper may claim a completed numerical $N^3\mathrm{LL}'$ extraction only after the physical coefficient payloads are staged, parsed, hashed, converted to the canonical schema, and validated through the $\mathcal O(a_s^3)$ expansion gate.
 
-## Staging physical coefficient files
+For the $N^3\mathrm{LL}'$ perturbative operator, the required ingredient manifest is:
 
-The repository does not bundle external ancillary coefficient files.  To stage them in a networked environment, run
+| Ingredient | Required through |
+|---|---:|
+| cusp anomalous dimension | 4 loops |
+| QCD beta function | 4 loops |
+| noncusp TMD anomalous dimension | 3 loops |
+| Collins-Soper / rapidity kernel | 3 loops |
+| hard function | $\mathcal O(a_s^3)$ |
+| TMD matching coefficients | $\mathcal O(a_s^3)$ |
+| DGLAP splitting kernels | $P^{(0)}, P^{(1)}, P^{(2)}$ |
+
+## Physical coefficient staging
+
+The repository does not bundle external ancillary coefficient files.  The formal validation suite is expected to pass without them, while the physical coefficient gate remains blocked.
+
+To stage the public coefficient sources in a networked environment:
 
 ```bash
 bash scripts/stage_public_coefficients.sh
 python validators/kt_kcss_physical_coeff_import_validator.py
 ```
 
-The staging script records the intended public-source layout for the high-order TMD matching inputs.  After staging, the next implementation work is to parse those files into the canonical coefficient schema used by `kt_kcss_n3lo_matching_import_validator.py`, compute hashes, and replace the mock payload with vetted physical coefficient data.
+After staging, the implementation work is to:
+
+1. record source metadata and hashes;
+2. parse the ancillary files into the canonical coefficient schema;
+3. replace mock payloads with vetted physical coefficient data;
+4. validate the NNLO and N$^3$LO expansion gates;
+5. enable the implementation-level $N^3\mathrm{LL}'$ claim only after those gates pass.
 
 ## Outputs
 
-`outputs/reference/` contains the reports generated during development.  `outputs/latest/` is regenerated by
+`outputs/latest/` is regenerated by
 
 ```bash
 python run_all_checks.py --clean
 ```
 
-The runner writes:
+The runner writes
 
 ```text
 outputs/latest/run_all_checks_report.txt
 outputs/latest/run_all_checks_summary.json
 ```
 
-along with each validator's JSON/CSV/text report and log file.
+along with validator-specific JSON, CSV, text reports, and logs.  `outputs/reference/` contains reference outputs from development.
 
 ## Reproducibility notes
 
 - All formal validators are deterministic.
-- The toy-PDF validator uses analytic toy PDFs and `scipy.integrate.quad`; tolerances are regression tolerances, not experimental uncertainties.
 - Symbolic checks use `sympy`.
+- Numerical toy-PDF integrations use `scipy.integrate.quad` with regression tolerances.
+- The toy PDFs are analytic test functions and are not physical PDF inputs.
 - No validator evaluates a physical cross section or performs a data fit.
-- The coefficient-import validators deliberately distinguish mock/synthetic payloads from source-stamped physical coefficient payloads.
+- Mock/synthetic coefficient payloads validate the import machinery only; they never authorize a physical $N^3\mathrm{LL}'$ claim.
 
-## Relationship to DNN extractions
+## Relationship to nonperturbative models and DNNs
 
-This repository is model agnostic.  A DNN may be used later as a nonperturbative module \(\mathcal M_{\rm NP}\), but the perturbative accuracy label belongs to the \(\mathcal K_{\rm CSS2}\) operator and ingredient manifest, not to the DNN parametrization.
+The formalism is model agnostic.  A future extraction can attach a nonperturbative module
+
+```text
+M_NP(flavor, x, k_T, mu, zeta; theta)
+```
+
+using a DNN, spline, Gaussian mixture, analytic model, lattice-informed input, or another parametrization.  The perturbative accuracy label belongs to the $\mathcal K_{\rm CSS2}$ operator and its ingredient manifest, not to the chosen nonperturbative parametrization.
+
+## Troubleshooting
+
+**`physics_ready=False` appears in the report.**  This is expected unless external physical coefficient payloads have been staged and parsed.
+
+**`implementation_claim_allowed=False` appears in the report.**  This is expected for the formalism repository.  It prevents accidental overclaiming before the physical N$^3$LO payload and $\mathcal O(a_s^3)$ expansion gate are complete.
+
+**The toy-PDF validator fails at very tight tolerances.**  Check Python, SciPy, and platform versions.  The numerical tolerances are regression tolerances for analytic toy integrals, not physics uncertainties.
+
+**The README equations do not render in a terminal.**  The equations are written for GitHub-flavored Markdown.  The plain-text code blocks summarize the key claim logic and projection rules.
+
+## Citation
+
+If you use this repository before the accompanying formalism paper is public, cite the archived repository release.  After the paper is available, cite both the paper and the repository release that reproduces the reported checks.
+
+The `CITATION.cff` file provides repository-level citation metadata.
+
+## License
+
+This repository is distributed under the MIT License.  See [`LICENSE`](LICENSE).
