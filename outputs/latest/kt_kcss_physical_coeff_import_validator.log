@@ -1,6 +1,6 @@
 {
   "validator": "kt_kcss_vetted_coeff_source_gate_validator",
-  "source_dir": "/mnt/data/kcss_kt_formalism_validation_repo/coefficient_sources",
+  "source_dir": "/mnt/data/k_space_repo_repair_v1p1/coefficient_sources",
   "infrastructure_passed": true,
   "physics_ready": false,
   "mock_payload_used": false,
@@ -46,7 +46,7 @@
     {
       "test": "local_source_directory_exists",
       "passed": true,
-      "details": "/mnt/data/kcss_kt_formalism_validation_repo/coefficient_sources"
+      "details": "/mnt/data/k_space_repo_repair_v1p1/coefficient_sources"
     },
     {
       "test": "raw_files_present",

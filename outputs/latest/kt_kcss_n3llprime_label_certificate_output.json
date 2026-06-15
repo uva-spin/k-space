@@ -1,8 +1,8 @@
 {
   "validator": "kt_kcss_n3llprime_label_certificate_validator",
-  "timestamp_utc": "2026-06-15T18:47:31.705598+00:00",
-  "note": "/mnt/data/kcss_kt_formalism_validation_repo/docs/formalism_note_v1p0.tex",
-  "source_dir": "/mnt/data/kcss_kt_formalism_validation_repo/coefficient_sources",
+  "timestamp_utc": "2026-06-15T19:44:49.943807+00:00",
+  "note": "/mnt/data/k_space_repo_repair_v1p1/docs/formalism_note_v1p0.tex",
+  "source_dir": "/mnt/data/k_space_repo_repair_v1p1/coefficient_sources",
   "formal_prescription_ready": true,
   "physical_payload_ready": false,
   "a_s3_expansion_gate_passed": false,

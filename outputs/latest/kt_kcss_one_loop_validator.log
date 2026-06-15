@@ -17,6 +17,6 @@ Rows:
   2        4        1.3862944       2.8827181       0.0     0.085230288       -2.776e-17
   4        8        1.3862944       0.96090603      0.0     -0.1186803        -1.388e-17
 
-Wrote /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_one_loop_validator_report.csv
-Wrote /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_one_loop_validator_report.json
-Wrote /mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_one_loop_validator_report.txt
+Wrote /mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_one_loop_validator_report.csv
+Wrote /mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_one_loop_validator_report.json
+Wrote /mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_one_loop_validator_report.txt

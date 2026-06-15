@@ -103,12 +103,12 @@
     {
       "check": "pdf_exists",
       "passed": true,
-      "detail": "/mnt/data/kcss_kt_formalism_validation_repo/docs/formalism_note_v1p0.pdf"
+      "detail": "/mnt/data/k_space_repo_repair_v1p1/docs/formalism_note_v1p0.pdf"
     },
     {
       "check": "tex_exists",
       "passed": true,
-      "detail": "/mnt/data/kcss_kt_formalism_validation_repo/docs/formalism_note_v1p0.tex"
+      "detail": "/mnt/data/k_space_repo_repair_v1p1/docs/formalism_note_v1p0.tex"
     }
   ]
 }

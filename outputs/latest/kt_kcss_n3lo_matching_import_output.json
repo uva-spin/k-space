@@ -143,10 +143,10 @@
     }
   ],
   "output_files": {
-    "manifest_csv": "/mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_n3lo_matching_import_manifest.csv",
-    "projection_csv": "/mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_n3lo_matching_import_projection.csv",
-    "json": "/mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_n3lo_matching_import_output.json",
-    "report": "/mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_n3lo_matching_import_validator_report.txt",
-    "tests_csv": "/mnt/data/kcss_kt_formalism_validation_repo/outputs/latest/kt_kcss_n3lo_matching_import_tests.csv"
+    "manifest_csv": "/mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_n3lo_matching_import_manifest.csv",
+    "projection_csv": "/mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_n3lo_matching_import_projection.csv",
+    "json": "/mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_n3lo_matching_import_output.json",
+    "report": "/mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_n3lo_matching_import_validator_report.txt",
+    "tests_csv": "/mnt/data/k_space_repo_repair_v1p1/outputs/latest/kt_kcss_n3lo_matching_import_tests.csv"
   }
 }

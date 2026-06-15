@@ -2,7 +2,7 @@ test,passed,details
 source_ledger_has_two_primary_families,True,"['EMV2020_TMDPDF_N3LO', 'LYZZ2021_TMDPDF_TMDFF_N3LO']"
 mandatory_pdf_files_declared,True,mandatory=3
 mock_payload_disabled_for_physics_gate,True,No synthetic coefficients are accepted for physics_ready=True.
-local_source_directory_exists,True,/mnt/data/kcss_kt_formalism_validation_repo/coefficient_sources
+local_source_directory_exists,True,/mnt/data/k_space_repo_repair_v1p1/coefficient_sources
 raw_files_present,False,present=0/17
 mandatory_pdf_import_files_present,False,present=0/3
 nnlo_n3lo_expansion_gate_ready,False,Requires parsed physical coefficients; blocked if mandatory files are absent.

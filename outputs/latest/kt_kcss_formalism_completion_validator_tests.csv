@@ -17,5 +17,5 @@ hybrid_numerical_decision,True,found=True
 no_active_todo_calls,True,no active \todo{...} boxes
 no_immediate_next_tasks_section,True,formal note closed
 physical_payload_not_overclaimed,True,implementation gate remains blocked
-pdf_exists,True,/mnt/data/kcss_kt_formalism_validation_repo/docs/formalism_note_v1p0.pdf
-tex_exists,True,/mnt/data/kcss_kt_formalism_validation_repo/docs/formalism_note_v1p0.tex
+pdf_exists,True,/mnt/data/k_space_repo_repair_v1p1/docs/formalism_note_v1p0.pdf
+tex_exists,True,/mnt/data/k_space_repo_repair_v1p1/docs/formalism_note_v1p0.tex
