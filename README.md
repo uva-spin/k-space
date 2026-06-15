@@ -12,6 +12,14 @@ It supports the formalism program:
 \mathcal K_{\mathrm{CSS2}}
 \quad\text{is CSS2 represented directly in } k_T\text{ space.}
 ```
+The original Collins-Soper-Sterman (CSS) work (1980s) established TMD factorization, particularly for Drell-Yan. The early presentation (often called CSS1) used specific definitions of TMD functions that mixed perturbative and non-perturbative parts and included process-dependent absorptions of factors.
+CSS2 (introduced/emphasized in Collins' 2011 book Foundations of Perturbative QCD and related papers) is a refined, updated scheme with these key improvements:
+
+Cleaner operator definitions of TMD PDFs and fragmentation functions using gauge-invariant matrix elements with Wilson lines (staple links) to handle rapidity divergences.
+Process-independent TMD functions (up to signs for T-odd functions). Only the hard scattering part carries process dependence.
+No explicit soft factor in the factorization formula (it's absorbed properly into the TMD definitions).
+Exact evolution equations without power-suppressed corrections in the definitions.
+Better separation of perturbative and non-perturbative contributions, with explicit dependence on renormalization scale μ and rapidity scale ζ.
 
 The repository validates the algebra and perturbative bookkeeping needed for a **CSS2-equivalent pure-k-space prescription for high-accuracy TMD extractions**.
 It does **not** claim that a completed numerical N³LL′ extraction has already been performed.
