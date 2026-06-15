@@ -1,0 +1,27 @@
+[project]
+name = "kcss-kt-formalism-validation"
+version = "1.0.0"
+description = "Validation suite for a pure-kT CSS2-equivalent TMD formalism prescription."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "KCSS pure-kT formalism contributors"}
+]
+dependencies = [
+  "sympy>=1.12",
+  "scipy>=1.10",
+]
+
+[project.scripts]
+kcss-run-all-checks = "run_all_checks:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["run_all_checks"]

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this validation suite, please cite the accompanying formalism paper or repository release."
+title: "KCSS pure-kT formalism validation suite"
+version: "1.0.0"
+date-released: "2026-06-15"
+authors:
+  - name: "KCSS pure-kT formalism contributors"
+repository-code: "https://github.com/your-org/kcss-kt-formalism-validation"
+abstract: "Companion validation suite for a CSS2-equivalent pure-transverse-momentum TMD formalism prescription."
+license: MIT
