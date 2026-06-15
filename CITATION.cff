@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "If you use this validation suite, please cite the accompanying formalism paper and the archived repository release."
-title: "k-space: pure-kT formalism validation suite"
+message: "If you use this validation suite, please cite the accompanying formalism paper or repository release."
+title: "KCSS pure-k_T formalism validation suite"
 version: "1.0.0"
 date-released: "2026-06-15"
 authors:
-  - name: "uva-spin k-space contributors"
+  - name: "KCSS pure-kT formalism contributors"
 repository-code: "https://github.com/uva-spin/k-space"
 abstract: "Companion validation suite for a CSS2-equivalent pure-transverse-momentum TMD formalism prescription."
 license: MIT
