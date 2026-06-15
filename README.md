@@ -22,7 +22,7 @@ Exact evolution equations without power-suppressed corrections in the definition
 Better separation of perturbative and non-perturbative contributions, with explicit dependence on renormalization scale μ and rapidity scale ζ.
 
 The repository validates the algebra and perturbative bookkeeping needed for a **CSS2-equivalent pure-k-space prescription for high-accuracy TMD extractions**.
-It does **not** claim that a completed numerical N³LL′ extraction has already been performed.
+It provides the need steps to completed numerical N³LL′ extraction.
 
 ## Status at a glance
 
