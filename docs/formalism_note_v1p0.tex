@@ -1,0 +1,4552 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm,mathtools}
+\usepackage{array,booktabs,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+\setlist[itemize]{leftmargin=1.5em}
+\setlist[enumerate]{leftmargin=1.7em}
+
+% --- Macros ---
+\newcommand{\kt}{k_T}
+\newcommand{\qT}{q_T}
+\newcommand{\bT}{b_T}
+\newcommand{\bk}{\bm{k}}
+\newcommand{\bp}{\bm{p}}
+\newcommand{\bq}{\bm{q}}
+\newcommand{\bb}{\bm{b}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\as}{\alpha_s}
+\newcommand{\muR}{\mu}
+\newcommand{\zetaA}{\zeta_A}
+\newcommand{\zetaB}{\zeta_B}
+\newcommand{\deltaT}{\delta^{(2)}}
+\newcommand{\intk}{\int \! \dd^2\bk\,}
+\newcommand{\intp}{\int \! \dd^2\bp\,}
+\newcommand{\intb}{\int \! \frac{\dd^2\bb}{(2\pi)^2}\,}
+\newcommand{\ot}{\otimes_T}
+\newcommand{\ox}{\otimes_x}
+\newcommand{\order}[1]{\mathcal{O}\!\left(#1\right)}
+\newcommand{\TMD}{\mathrm{TMD}}
+\newcommand{\NP}{\mathrm{NP}}
+\newcommand{\pert}{\mathrm{pert}}
+\newcommand{\FO}{\mathrm{FO}}
+\newcommand{\sing}{\mathrm{sing}}
+\newcommand{\core}{\mathrm{core}}
+\newcommand{\sub}{\mathrm{sub}}
+\newcommand{\DY}{\mathrm{DY}}
+\newcommand{\ExpT}{\mathrm{Exp}_{\otimes_T}}
+\newcommand{\Kscheme}{\mathcal K}
+\newcommand{\KCSS}{\mathcal K_{\rm CSS2}}
+\newcommand{\CSS}{\mathrm{CSS2}}
+\newcommand{\Zconv}{\mathcal Z}
+\newcommand{\decision}[1]{\par\noindent\fbox{\begin{minipage}{0.94\linewidth}\textbf{Working decision.} #1\end{minipage}}\par\vspace{0.6em}}
+
+\title{Pure-$k_T$ Perturbative TMD Extraction:\\Formalism Development Notes}
+\author{$k_T$ Perturbative Extraction Project}
+\date{Version 1.0 -- June 14, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+These notes give a paper-ready prescription for a purely transverse-momentum-space
+implementation of Collins/CSS2 TMD factorization.  The construction, denoted $\KCSS$,
+uses $k_T$-space distributions and transverse convolution kernels as the working
+objects, so that the fitted or modeled representation never has to be a numerical
+$b_T$-space object.  The local $b_T$-space Sudakov factor is replaced by a
+convolution-exponential Green function in $k_T$ space.  Perturbative accuracy labels,
+including $N^3\mathrm{LL}'$, are inherited by ingredient equivalence to the parent CSS2
+calculation: the same anomalous dimensions, Collins-Soper kernel, hard factors, TMD
+matching coefficients, DGLAP ingredients, and fixed-order subtractions must be present.
+The nonperturbative input is specified as a model-agnostic module, with neural networks,
+splines, analytic ansatzes, lattice-informed inputs, or other parameterizations treated
+as interchangeable choices.  This version closes the formalism note for use as the basis
+of a first paper; an actual numerical $N^3\mathrm{LL}'$ extraction remains a separate
+implementation task requiring staged and validated physical three-loop coefficient
+payloads.
+\end{abstract}
+
+\tableofcontents
+
+\section{Status and purpose}
+
+This note is the completed formalism blueprint for the first paper.  Its purpose is not
+to report a fitted phenomenological extraction, but to define the prescription that such
+an extraction must follow if it is to remain in $k_T$ space while carrying the same
+perturbative accuracy labels as the corresponding Collins/CSS2 calculation.  The note
+therefore fixes:
+\begin{enumerate}
+  \item the parent scheme, $\KCSS$, and its relation to Collins/CSS2;
+  \item the $k_T$-space distribution basis and convolution algebra;
+  \item the perturbative evolution, matching, and fixed-order expansion checks needed for
+  $N^k\mathrm{LL}$ and $N^k\mathrm{LL}'$ claims;
+  \item a process-level $W$-term template that is not restricted to fixed-target Drell-Yan;
+  \item a model-agnostic nonperturbative module interface;
+  \item regulated normalization and transverse-moment definitions;
+  \item the $W+Y$ full-spectrum matching prescription and a perturbative uncertainty
+  decomposition;
+  \item the claim certificate separating a formal $N^3\mathrm{LL}'$ prescription from a
+  completed numerical $N^3\mathrm{LL}'$ extraction.
+\end{enumerate}
+
+The starting phenomenological anchor is the momentum-space neural-network extraction of
+Fernando and Keller~\cite{FernandoKeller2026}. Their method remains in $k_T$ space,
+learns a transverse structure kernel from E288/E605 Drell-Yan data, and reconstructs a
+normalized profile $s(x,k;Q)$ with a differentiable quadrature layer. For the present
+project, that work is best viewed as an inverse-convolution and nonparametric-extraction
+prototype. It is not, by itself, an $N^k$LL TMD extraction because it does not impose an
+explicit Sudakov kernel, fixed-order matching, or $Y$ term.
+
+\decision{The project target is not ``a neural network instead of resummation.'' The target is a
+renormalized $k_T$-space TMD framework whose perturbative content is equivalent to a
+chosen $N^k$LL or $N^k$LL$'$ Collins/CSS calculation. The neural network supplies only
+nonperturbative boundary information.}
+
+
+\section{Prior art and project gap}
+\label{sec:prior-art}
+
+Before deriving new kernels, we separate what is already established from what is
+specific to this project. The short conclusion is:
+\begin{center}
+\fbox{\begin{minipage}{0.91\linewidth}
+Direct transverse-momentum-space resummation exists. High-order perturbative TMD
+ingredients exist. Neural-network TMD fits exist. Direct-$k_T$ inverse reconstruction
+exists. The missing object is a universal TMDPDF extraction framework that keeps the
+fitted representation in $k_T$ space while implementing Collins/CSS-equivalent
+$N^k$LL or $N^k$LL$'$ evolution, matching, and $W+Y$ consistency.
+\end{minipage}}
+\end{center}
+
+\subsection{The standard baseline: Collins/CSS and modern high-accuracy TMD fits}
+
+The dominant precision framework for small-$q_T$ Drell-Yan is the Collins-Soper-Sterman
+logic: factorize at low transverse momentum, Fourier transform to $b_T$ space, resum
+large logarithms through Collins-Soper and RG evolution, and match back to fixed-order
+collinear factorization outside the strict TMD region~\cite{CollinsSoper1981,CSS1985,Collins2011}.
+The recent TMD literature provides a broad review of the associated operator definitions,
+process dependence, evolution, and phenomenological status~\cite{TMDHandbook2023}.
+
+This baseline has already reached very high perturbative accuracy in phenomenological
+extractions. Examples include unpolarized Drell-Yan fits at $N^4$LL accuracy that extract
+TMDPDFs and the Collins-Soper kernel~\cite{MoosScimemiVladimirovZurita2024}, and
+combined Drell-Yan plus SIDIS analyses at $N^4$LL that also include TMD fragmentation
+functions~\cite{MoosScimemiVladimirovZurita2025}. Neural-network parametrizations of
+nonperturbative TMD components have also already been demonstrated at high perturbative
+accuracy in the standard impact-parameter-space framework~\cite{BacchettaEtAl2025NN}.
+
+\subsection{Direct $q_T$-space and momentum-space resummation}
+
+The idea of resumming directly in transverse momentum is not new. Ellis and Veseli
+constructed a $q_T$-space resummation for electroweak boson transverse-momentum spectra
+and showed agreement with the leading, next-to-leading, and next-to-next-to-leading towers
+of the usual $b$-space result~\cite{EllisVeseli1998}. Frixione, Nason, and Ridolfi analyzed
+analytic issues in both $b$-space and $q_T$-space resummation and obtained a closed
+next-to-leading-logarithmic $q_T$-space expression, while identifying limitations of its
+analytic structure~\cite{FrixioneNasonRidolfi1999}. Kulesza and Stirling further explored
+explicit transverse-momentum-space Sudakov resummation for electroweak boson production
+and its matching behavior~\cite{KuleszaStirling1999,KuleszaStirling2000}.
+
+Modern direct-space approaches made this line much more powerful. Monni, Re, and
+Torrielli formulated a momentum-space resummation for Higgs transverse momentum at
+NNLL+NNLO~\cite{MonniReTorrielli2016}. Bizon, Monni, Re, Rottoli, and Torrielli then
+generalized momentum-space resummation for transverse observables up to
+$N^3$LL+NNLO, with a formula that reduces to the standard impact-parameter-space result
+in known cases~\cite{BizonMonniReRottoliTorrielli2018}. Ebert and Tackmann developed a
+related distribution-space RG method in which the singular plus distributions in $q_T$ are
+treated directly as the objects of evolution~\cite{EbertTackmann2017}. More recently,
+Simonelli proposed an analytic transverse-momentum-space continuation of TMDPDFs and
+TMD-factorized cross sections to NLL accuracy~\cite{Simonelli2026}.
+
+\subsection{Momentum-space TMD ingredients and high-order perturbative inputs}
+
+There is also substantial prior work on perturbative TMD ingredients that can be used as
+input to a direct-$k_T$ construction. In the rapidity-renormalization-group formulation,
+rapidity-renormalized TMD soft and beam functions were computed at two loops, providing
+NNLL$'$ ingredients for transverse-momentum-differential predictions~\cite{LuebbertOredssonStahlhofen2016}.
+TMDPDF matching coefficients are now known to very high order: Ebert, Mistlberger, and
+Vita computed quark and gluon TMDPDFs at $N^3$LO~\cite{EbertMistlbergerVita2020},
+and Luo, Yang, Zhu, and Zhu computed unpolarized quark and gluon TMDPDF and TMDFF
+matching coefficients through $N^3$LO~\cite{LuoYangZhuZhu2021}. The rapidity anomalous
+dimension, equivalently the perturbative Collins-Soper kernel in common schemes, is also
+known at very high order~\cite{MoultZhuZhu2022,DuhrMistlbergerVita2022}.
+
+For our purposes, the key lesson from this literature is that the perturbative ingredients
+should not be refit by the neural network. They should enter as hard, evolution, matching,
+and subtraction kernels. The nonperturbative model should only cover the long-distance or
+small-$k_T$ boundary information left unresolved by perturbation theory.
+
+\subsection{Large-$k_T$ consistency, integral constraints, and hadron-structure-oriented fits}
+
+A central issue for a pure-$k_T$ extraction is the transition between the nonperturbative core
+and the perturbative large-$k_T$ tail. Gonzalez-Hernandez, Rainaldi, and Rogers stressed
+that TMD parametrizations must be made consistent with their large-transverse-momentum
+behavior in collinear factorization~\cite{GonzalezHernandezRainaldiRogers2023}. The
+hadron-structure-oriented approach implements related constraints in practical Drell-Yan and
+$Z^0$ phenomenology, emphasizing preservation of the TMD-PDF integral relationship and
+controlled comparisons among nonperturbative transverse structures~\cite{AslanBoglioneGHRRainaldiRogersSimonelli2024}.
+Ebert, Michel, Stewart, and Sun likewise showed that momentum-space TMD integral
+functionals provide a systematic way to disentangle long and short distances, replacing naive
+unregulated integral constraints by regulated, perturbatively controlled objects~\cite{EbertMichelStewartSun2022}.
+
+\subsection{Neighboring momentum-space phenomenology}
+
+The Parton Branching approach is an important neighboring framework because it evolves
+TMD parton densities in momentum space and has been used to describe Drell-Yan transverse
+momentum spectra across small and large $k_T$ regions~\cite{BubanjaEtAl2024PB}.
+However, PB TMDs and CSS TMDs are not the same formal objects. A direct comparison
+paper emphasizes that PB TMDs evolve with an explicit single scale in momentum space,
+whereas CSS TMDs have coupled renormalization and rapidity-scale evolution~\cite{BermudezMartinez2023PBtoCSS}.
+For this project, PB is prior art and a useful comparison target, but not a replacement for a
+Collins-equivalent double-scale $k_T$-space TMD factorization framework.
+
+Fernando and Keller provide the closest direct predecessor on the extraction side: they
+perform a physics-informed neural inverse reconstruction directly in momentum space, using
+fixed-target Drell-Yan data and a normalized transverse profile whose auto-convolution
+reproduces the measured spectra~\cite{FernandoKeller2026}. Their construction is precisely
+why the present project starts from a direct-$k_T$ inverse problem. The perturbative upgrade
+is to replace their tree-level/profile-only forward model by a distribution-valued
+$N^k$LL$_{k_T}$ forward operator.
+
+\subsection{Gap statement}
+
+The prior art implies a useful division of labor, summarized in
+Table~\ref{tab:prior-art-gap}. The project should not claim to invent momentum-space
+resummation, high-order TMD matching, or neural-network TMD fitting. The defensible
+claim is the synthesis of these ingredients into a TMD-level extraction architecture.
+
+\begin{longtable}{p{0.22\linewidth} p{0.34\linewidth} p{0.34\linewidth}}
+\caption{Prior art and the remaining project gap.}\label{tab:prior-art-gap}\\
+\toprule
+Prior-art line & What already exists & What remains for this project \\
+\midrule
+\endfirsthead
+\toprule
+Prior-art line & What already exists & What remains for this project \\
+\midrule
+\endhead
+CSS/Collins TMD factorization & Double-scale TMD evolution, small-$q_T$ factorization, OPE matching, and $W+Y$ logic in a $b_T$-space representation~\cite{CSS1985,Collins2011}. & Represent the same perturbative content by $k_T$-space convolution kernels and fit the boundary object directly in $k_T$. \\
+\addlinespace
+Direct $q_T$ resummation & Cross-section-level resummation directly in $q_T$ or momentum space, including modern high-accuracy direct-space implementations~\cite{EllisVeseli1998,MonniReTorrielli2016,BizonMonniReRottoliTorrielli2018}. & Promote the direct-space logic from color-singlet spectra to universal TMDPDF evolution and extraction. \\
+\addlinespace
+Distribution-space RG & Plus-distribution evolution kernels and distributional scale setting for transverse-momentum spectra~\cite{EbertTackmann2017}. & Turn the distribution algebra into a practical TMDPDF Green's function $\mathcal U_i(\bk;\mu_f,\zeta_f;\mu_i,\zeta_i)$. \\
+\addlinespace
+High-order TMD ingredients & Soft/beam functions, matching coefficients, and rapidity anomalous dimensions through high perturbative orders~\cite{LuebbertOredssonStahlhofen2016,EbertMistlbergerVita2020,LuoYangZhuZhu2021,MoultZhuZhu2022}. & Convert and organize these inputs consistently in the chosen $k_T$-space scheme. \\
+\addlinespace
+Modern TMD fits & $N^3$LL and $N^4$LL phenomenological extractions, including neural nonperturbative parametrizations~\cite{MoosScimemiVladimirovZurita2024,MoosScimemiVladimirovZurita2025,BacchettaEtAl2025NN}. & Keep the fitted representation in $k_T$ and make the neural model a boundary core rather than the full TMD. \\
+\addlinespace
+Direct-$k_T$ inverse reconstruction & Fernando-Keller learn a normalized $k_T$ profile from fixed-target Drell-Yan data without a $b_T$ transform~\cite{FernandoKeller2026}. & Add perturbative evolution, large-$k_T$ matching, regulated integral constraints, and $Y$-term consistency. \\
+\addlinespace
+Parton Branching & Momentum-space TMD evolution and Drell-Yan phenomenology with an explicit single evolution scale~\cite{BubanjaEtAl2024PB,BermudezMartinez2023PBtoCSS}. & Build a Collins/CSS-equivalent two-scale $(\mu,\zeta)$ momentum-space TMD framework rather than a PB-to-CSS conversion. \\
+\bottomrule
+\end{longtable}
+
+The target object is therefore the simultaneous implementation of
+\begin{align}
+  \frac{\partial}{\partial\ln\sqrt\zeta}F_{i/h}(x,\bk;\mu,\zeta)
+  &= -\bigl[\mathcal D_i(\mu)\ot F_{i/h}(x;\mu,\zeta)\bigr](\bk),
+  \\
+  F_{i/h}(x,\bk;\mu_0,\zeta_0)
+  &= \sum_j\mathcal C_{i\leftarrow j}(\bk;\mu_0,\zeta_0)\ox f_{j/h}(\mu_0)
+     +F^{\core}_{i/h}(x,\bk;\theta)-F^{\sub}_{i/h}(x,\bk;\theta),
+  \\
+  \frac{\dd\sigma}{\dd Q^2\,\dd y\,\dd^2\bq}
+  &= \sigma_0\left[W^{N^k\mathrm{LL}}_{k_T}(Q,y,\bq)+Y_{k_T}(Q,y,\bq)\right]
+     +\order{q_T^2/Q^2},
+\end{align}
+with all singular kernels treated as transverse-momentum distributions and all
+nonperturbative information supplied by a fitted boundary core.
+
+\decision{Claim discipline: we do not claim the first momentum-space resummation, the first
+momentum-space TMD calculation, or the first neural-network TMD fit. We claim a
+TMD-level, Collins-equivalent, pure-$k_T$ extraction framework that synthesizes those
+lines of work.}
+
+\section{Core thesis}
+
+The Collins/CSS advantage is not fundamentally the coordinate $b_T$ itself~\cite{CollinsSoper1981,CSS1985,Collins2011}. The advantage
+is that Fourier transformation converts transverse convolutions into products, making
+Collins-Soper and renormalization-group evolution local in transverse separation. A pure
+$k_T$ formulation must keep the same perturbative content while accepting a different
+mathematical structure:
+\begin{equation}
+  \text{local multiplication in } b_T
+  \quad \Longleftrightarrow \quad
+  \text{convolution operators in } k_T .
+\end{equation}
+
+The working thesis is therefore
+\begin{center}
+\fbox{\begin{minipage}{0.91\linewidth}
+\begin{equation*}
+  N^k\mathrm{LL}_{k_T}
+  \equiv
+  N^k\mathrm{LL}_{b_T}\ \text{perturbative content represented by}
+  \ k_T\text{-space distributions.}
+\end{equation*}
+That means the same hard functions, anomalous dimensions, matching coefficients, and
+$W+Y$ subtractions as the corresponding Collins/CSS calculation.
+\end{minipage}}
+\end{center}
+
+
+\section{Paper-ready working choices}
+\label{sec:v09-choices}
+
+The following choices define the paper-level prescription.  They are conservative by design:
+we first represent Collins/CSS2 directly in $k_T$ space and require explicit conversion
+factors before introducing any child scheme.  These choices are broad enough for a formal
+paper and narrow enough for a later implementation repository to test.
+
+\begin{longtable}{p{0.23\linewidth} p{0.67\linewidth}}
+\caption{Paper-ready working choices.}\label{tab:v09-choices}\\
+\toprule
+Issue & Working choice \\
+\midrule
+\endfirsthead
+\toprule
+Issue & Working choice \\
+\midrule
+\endhead
+Reference scheme & Use Collins/CSS2 as the parent scheme. Define the initial pure-$k_T$ implementation, denoted $\KCSS$, as the momentum-space representation of the Collins/CSS2 TMDs, hard factors, Collins-Soper kernel, and matching coefficients. This follows the scheme-translation logic of Collins and Rogers~\cite{CollinsRogers2017}. \\
+\addlinespace
+Custom scheme & Do not introduce a nontrivial finite custom conversion at the first step. First build $\KCSS$ and verify exact equivalence to CSS2 at fixed perturbative order. A more adapted child scheme $\Kscheme$ may be introduced later only with explicit finite kernels $\Zconv^{\Kscheme\leftarrow \KCSS}$ and inverse kernels. \\
+\addlinespace
+Distribution basis & Keep both the conventional two-dimensional plus distributions $\mathcal L_n$ and the analytic generator $\mathcal G_\eta$. Use $\mathcal L_n$ for comparison with singular coefficients and bin integrals; use $\mathcal G_\eta$ for convolution algebra and exponentiation. \\
+\addlinespace
+Perturbative tail & Define the universal TMD large-$k_T$ tail from TMD matching coefficients, $\mathcal C_{i\leftarrow j}^{\KCSS}\ox f_j$. Do not use a cross-section generator to define the TMD tail. \\
+\addlinespace
+Large-$q_T$ matching & Define the cross-section tail through the usual $Y$ term, $Y=\sigma_{\FO}-W_{\FO\,\mathrm{exp.}}$. Use DYTurbo, CuTe-MCFM/MCFM, or equivalent fixed-order/resummed tools as validation and benchmarking references, not as definitions of the universal TMDPDF~\cite{CamardaEtAlDYTurbo2020,CamardaCieriFerrera2021,NeumannCampbell2023}. \\
+\addlinespace
+Normalization & Use regulated cumulants and weighted moments. Do not impose an unregulated full-$k_T$ integral as a fundamental identity. The same definitions must work from fixed-target kinematics to collider kinematics. \\
+\addlinespace
+Uncertainty & In the formalism stage, track perturbative uncertainties only: scale/path choices, matching truncation, scheme-conversion truncation, and distributional numerical errors. Leave neural/TMD model, experimental, and replica uncertainties for the later fitting stage. \\
+\addlinespace
+Flavor & Use a full flavor-vector formalism from day one. Fixed-target Drell-Yan can be the first data application, but the formalism must also accommodate collider Drell-Yan, SIDIS, $e^+e^-$, and gluon-sensitive color-singlet channels. \\
+\bottomrule
+\end{longtable}
+
+\decision{The first concrete scheme is $\KCSS$: a pure-$k_T$ representation of Collins/CSS2.
+This is deliberately conservative. It lets us prove equivalence to the standard formalism
+before making any finite, numerically adapted scheme redefinitions.}
+
+\section{Conventions}
+
+Transverse vectors are bold: $\bk$, $\bq$, $\bp$, $\bb$. Their magnitudes are denoted by
+$k_T=|\bk|$, $q_T=|\bq|$, etc. The transverse convolution is
+\begin{equation}
+  (A\ot B)(\bq)
+  \equiv
+  \int \dd^2\bk\, A(\bk)\,B(\bq-\bk).
+  \label{eq:transverse-conv}
+\end{equation}
+The longitudinal convolution is
+\begin{equation}
+  (C\ox f)(x)
+  \equiv
+  \int_x^1 \frac{\dd z}{z}\, C(z)\,f\!\left(\frac{x}{z}\right).
+\end{equation}
+
+For derivations and cross-checks we may use the Fourier pair
+\begin{align}
+  \widetilde F(x,\bb;\muR,\zeta)
+  &= \int \dd^2\bk\, e^{i\bb\cdot\bk}
+     F(x,\bk;\muR,\zeta),
+  \\
+  F(x,\bk;\muR,\zeta)
+  &= \int \frac{\dd^2\bb}{(2\pi)^2}\, e^{-i\bb\cdot\bk}
+     \widetilde F(x,\bb;\muR,\zeta).
+\end{align}
+The fitted representation and production code should remain in $k_T$ space. Fourier-space
+expressions are allowed as derivational checks and as sources of known perturbative
+coefficients.
+
+We use Drell-Yan rapidity scales satisfying
+\begin{equation}
+  \zetaA\zetaB = Q^4.
+\end{equation}
+The symmetric choice is $\zetaA=\zetaB=Q^2$, but the formalism should support arbitrary
+rapidity-scale profiles for uncertainty estimates and path-independence checks.
+
+
+\section{Reference scheme: KCSS2 to Collins/CSS2}
+\label{sec:kcss-scheme}
+
+The initial scheme is not a new operator definition. It is the Collins/CSS2 TMD scheme
+represented directly in transverse-momentum space. Collins/CSS2 denotes the modern
+Collins-style TMD factorization convention discussed in Collins' book and in the
+scheme-conversion analysis of Collins and Rogers~\cite{Collins2011,CollinsRogers2017}.
+The older CSS1 coefficient notation is useful historically, but our parent scheme is CSS2.
+
+Define the inverse transverse Fourier map by
+\begin{equation}
+  \mathcal F^{-1}_{b\to k}[\widetilde A](\bk)
+  \equiv
+  \int \frac{\dd^2\bb}{(2\pi)^2}\,e^{-i\bb\cdot\bk}\,\widetilde A(\bb),
+  \qquad
+  \mathcal F_{k\to b}[A](\bb)
+  \equiv
+  \int \dd^2\bk\,e^{i\bb\cdot\bk}\,A(\bk).
+  \label{eq:Fourier-map}
+\end{equation}
+The defining relation for the reference $k_T$ scheme is
+\begin{equation}
+  F^{[\KCSS]}_{i/h}(x,\bk;\mu,\zeta)
+  \equiv
+  \mathcal F^{-1}_{b\to k}
+  \left[
+    \widetilde F^{[\CSS]}_{i/h}(x,\bb;\mu,\zeta)
+  \right](\bk),
+  \label{eq:KCSS-TMD-def}
+\end{equation}
+where the equality is distributional. The same mapping defines the perturbative kernels:
+\begin{align}
+  \mathcal D_i^{[\KCSS]}(\bk;\mu)
+  &\equiv
+  \mathcal F^{-1}_{b\to k}
+  \left[D_i^{[\CSS]}(\bb;\mu)\right](\bk),
+  \label{eq:KCSS-D-def}
+  \\
+  \mathcal C_{i\leftarrow j}^{[\KCSS]}(z,\bk;\mu,\zeta)
+  &\equiv
+  \mathcal F^{-1}_{b\to k}
+  \left[\widetilde C_{i\leftarrow j}^{[\CSS]}(z,\bb;\mu,\zeta)\right](\bk).
+  \label{eq:KCSS-C-def}
+\end{align}
+Here $D_i^{[\CSS]}$ is defined with the sign convention
+\begin{equation}
+  \frac{\partial}{\partial\ln\sqrt\zeta}\,
+  \widetilde F^{[\CSS]}_{i/h}(x,\bb;\mu,\zeta)
+  =
+  -D_i^{[\CSS]}(\bb;\mu)\,
+  \widetilde F^{[\CSS]}_{i/h}(x,\bb;\mu,\zeta).
+  \label{eq:D-sign-convention}
+\end{equation}
+If a reference uses Collins' original $\widetilde K$ notation with the opposite sign, then
+$D_i^{[\CSS]}=-\widetilde K_i$ in the present convention.
+
+With these definitions, the usual CSS2 $W$ term
+\begin{equation}
+  W_{AB}^{[\CSS]}(Q,y,\bq)
+  =
+  \sum_{ij}H_{ij}^{[\CSS]}(Q,\mu)
+  \int\frac{\dd^2\bb}{(2\pi)^2}\,e^{-i\bb\cdot\bq}
+  \widetilde F_{i/A}^{[\CSS]}(x_A,\bb;\mu,\zeta_A)
+  \widetilde F_{j/B}^{[\CSS]}(x_B,\bb;\mu,\zeta_B)
+  \label{eq:W-CSS2-bspace}
+\end{equation}
+becomes exactly
+\begin{equation}
+  W_{AB}^{[\KCSS]}(Q,y,\bq)
+  =
+  \sum_{ij}H_{ij}^{[\CSS]}(Q,\mu)
+  \left[
+    F_{i/A}^{[\KCSS]}(x_A;\mu,\zeta_A)
+    \ot
+    F_{j/B}^{[\KCSS]}(x_B;\mu,\zeta_B)
+  \right](\bq).
+  \label{eq:W-KCSS-kspace}
+\end{equation}
+Thus the first $k_T$ implementation uses the same hard function as CSS2 and simply
+represents the two TMD factors and their product by transverse convolutions.
+
+\subsection{Optional child schemes and finite conversion kernels}
+\label{subsec:child-schemes}
+
+A later numerically adapted scheme may be defined by finite, process-independent kernels,
+\begin{equation}
+  F_{i/h}^{[\Kscheme]}(x,\bk;\mu,\zeta)
+  =
+  \sum_j
+  \left[
+    \Zconv^{\Kscheme\leftarrow\KCSS}_{i\leftarrow j}
+    \ox\ot
+    F_{j/h}^{[\KCSS]}
+  \right](x,\bk;\mu,\zeta),
+  \label{eq:finite-K-conversion}
+\end{equation}
+with
+\begin{equation}
+  \Zconv^{\Kscheme\leftarrow\KCSS}_{i\leftarrow j}(z,\bk)
+  =
+  \delta_{ij}\,\delta(1-z)\,\deltaT(\bk)
+  +\order{\as}.
+  \label{eq:Z-starts-identity}
+\end{equation}
+The inverse relation is
+\begin{equation}
+  F_{i/h}^{[\KCSS]}
+  =
+  \sum_j
+  \left[
+    \left(\Zconv^{\Kscheme\leftarrow\KCSS}\right)^{-1}_{i\leftarrow j}
+    \ox\ot
+    F_{j/h}^{[\Kscheme]}
+  \right].
+  \label{eq:inverse-K-conversion}
+\end{equation}
+If $\Zconv$ has nontrivial transverse-momentum dependence, the physical $W$ term written
+in terms of $F^{[\Kscheme]}$ contains these inverse kernels explicitly:
+\begin{align}
+  W_{AB}
+  &=
+  \sum_{ij}H_{ij}^{[\CSS]}
+  \left[
+    \left(\Zconv^{-1}\ox\ot F_A^{[\Kscheme]}\right)_i
+    \ot
+    \left(\Zconv^{-1}\ox\ot F_B^{[\Kscheme]}\right)_j
+  \right](\bq).
+  \label{eq:W-with-Z-inverses}
+\end{align}
+Therefore a nonlocal transverse conversion kernel cannot simply be hidden inside a
+$b$-independent hard function. This is why the first implementation sets
+$\Zconv=\mathbf 1$ and works in $\KCSS$. After the one-loop and two-loop equivalence tests
+are passed, we can decide whether a nontrivial child scheme is worth the extra bookkeeping.
+
+\decision{Separate three notions that are often conflated: the TMD operator scheme, the
+transverse distribution basis, and the numerical implementation. The first implementation keeps the Collins/CSS2 operator scheme, derives the one-loop
+$k_T$-space matching and Collins-Soper kernels, validates the bin and flavor-vector
+checks, and now adds the first one-loop evolution Green function.}
+
+\subsection{First conversion targets}
+
+The $\KCSS\leftrightarrow\CSS$ bridge reduces the first derivations to a finite list:
+\begin{enumerate}
+  \item validate the mapped one-loop CSS2 quark TMD matching coefficient
+  $\widetilde C_{q\leftarrow q}^{[\CSS]}(z,b)$ and
+  $\widetilde C_{q\leftarrow g}^{[\CSS]}(z,b)$ into the $\mathcal L_n$ and
+  $\mathcal G_\eta$ bases;
+  \item map the perturbative Collins-Soper kernel $D_q^{[\CSS]}(b;\mu)$ into
+  $\mathcal D_q^{[\KCSS]}(k;\mu)$;
+  \item verify that Eq.~\eqref{eq:W-KCSS-kspace}, expanded through $\order{\as}$,
+  reproduces the known Drell-Yan small-$q_T$ singular spectrum;
+  \item add the $Y$ term only after the singular $W$ operator passes the CSS2 equivalence
+  tests.
+\end{enumerate}
+
+\section{Momentum-space TMD factorization for Drell-Yan}
+
+For a color-singlet Drell-Yan final state with invariant mass $Q$, rapidity $y$, and small
+transverse momentum $q_T\ll Q$, define
+\begin{equation}
+  x_A = \frac{Q}{\sqrt{s}}e^{y},
+  \qquad
+  x_B = \frac{Q}{\sqrt{s}}e^{-y}.
+\end{equation}
+The singular or $W$ term is written directly in transverse momentum as
+\begin{align}
+  W_{AB}(Q,y,\bq;\muR,\zetaA,\zetaB)
+  &=
+  \sum_{ij}
+  H_{ij}(Q,\muR)
+  \int \dd^2\bk_A\,\dd^2\bk_B\,
+  \deltaT(\bq-\bk_A-\bk_B)
+  \nonumber\\
+  &\hspace{2.5cm}\times
+  F^{\DY}_{i/A}(x_A,\bk_A;\muR,\zetaA)
+  F^{\DY}_{j/B}(x_B,\bk_B;\muR,\zetaB).
+  \label{eq:Wterm}
+\end{align}
+Equivalently,
+\begin{equation}
+  W_{AB}
+  =
+  \sum_{ij} H_{ij}\,
+  \bigl[ F^{\DY}_{i/A}(x_A;\muR,\zetaA)\ot
+         F^{\DY}_{j/B}(x_B;\muR,\zetaB) \bigr](\bq).
+\end{equation}
+
+The matched cross section is organized as
+\begin{equation}
+  \frac{\dd\sigma}{\dd Q^2\,\dd y\,\dd^2\bq}
+  =
+  \sigma_0(Q,s,y)
+  \left[
+    W_{AB}^{\rm resum}(Q,y,\bq)
+    + Y_{AB}(Q,y,\bq)
+  \right]
+  + \order{\frac{q_T^2}{Q^2}}.
+  \label{eq:matched-cross-section}
+\end{equation}
+The $Y$ term is defined by the standard subtraction identity
+\begin{equation}
+  Y_{AB}
+  =
+  \left[\frac{1}{\sigma_0}\frac{\dd\sigma}{\dd Q^2\,\dd y\,\dd^2\bq}\right]_{\FO}
+  -
+  \left[W_{AB}^{\rm resum}\right]_{\text{expanded to same FO}}.
+  \label{eq:Yterm}
+\end{equation}
+This definition is independent of whether $W$ is represented in $b_T$ or $k_T$ space.
+
+\decision{Fixed-target-only studies can initially use the $W$ term in a restricted small-$q_T$
+region, matching the scope of Fernando-Keller. A globally competitive formalism must
+include Eq.~\eqref{eq:Yterm}.}
+
+\section{Generic process-level $W$ operator}
+\label{sec:generic-W-operator}
+
+Drell-Yan is the first validation channel, but the formalism is not DY-specific.  The
+universal object is a process-level singular operator built from perturbatively evolved
+TMD legs and a process-dependent hard function.  For any color-singlet process whose
+leading-power small-$q_T$ factorization contains two transverse-momentum-carrying legs,
+we write schematically
+\begin{equation}
+  W_F^{\KCSS}(\bq;Q,\{x\},\mu)
+  =
+  \sum_{a b}
+  H_{ab\to F}(Q,\mu)
+  \left[
+    \mathbb F_{a/A}^{\KCSS}(x_A;Q)
+    \ot
+    \mathbb F_{b/B}^{\KCSS}(x_B;Q)
+  \right](\bq),
+  \label{eq:generic-W-F}
+\end{equation}
+where $F$ denotes the measured color-singlet final state and where each leg
+$\mathbb F$ is understood to include the chosen perturbative boundary, evolution from the
+boundary point to the hard point, and any admissible nonperturbative module.  The same
+algebra applies when a leg is a TMD fragmentation function rather than a TMDPDF.
+
+The main specializations are:
+\begin{align}
+  \text{Drell-Yan:}\qquad
+  W_{\DY}
+  &=
+  \sum_q e_q^2 H_{q\bar q}^{\DY}
+  \left[
+  F_{q/A}\ot F_{\bar q/B}
+  +F_{\bar q/A}\ot F_{q/B}
+  \right],
+  \label{eq:W-DY-specialization}
+  \\
+  \text{SIDIS:}\qquad
+  W_{\rm SIDIS}
+  &=
+  \sum_{i j} H_{ij}^{\rm SIDIS}
+  \left[ F_{i/A}\ot D_{h/j}\right],
+  \label{eq:W-SIDIS-specialization}
+  \\
+  e^+e^-\to h_1h_2X:\qquad
+  W_{e^+e^-}
+  &=
+  \sum_{i j} H_{ij}^{e^+e^-}
+  \left[D_{h_1/i}\ot D_{h_2/j}\right],
+  \label{eq:W-ee-specialization}
+  \\
+  \text{gluon color-singlet:}\qquad
+  W_{gg\to F}
+  &=
+  H_{gg\to F}
+  \left[F_{g/A}\ot F_{g/B}\right]+\text{quark-channel terms as required}.
+  \label{eq:W-gg-specialization}
+\end{align}
+The hard functions and Wilson-line directions are process dependent; the distribution
+basis, transverse convolution algebra, and accuracy bookkeeping are not.  A first DY
+implementation is therefore a validation channel for the generic $\KCSS$ operator, not a
+restriction of the framework.
+
+For later phenomenology, it is useful to collect partons into a flavor vector,
+\begin{equation}
+  \mathbf F_h
+  =
+  (F_{g/h},F_{u/h},F_{\bar u/h},F_{d/h},F_{\bar d/h},\ldots)^T,
+  \label{eq:flavor-vector-final}
+\end{equation}
+and to regard $\mathcal C_{i\leftarrow j}$, DGLAP evolution, and scheme conversions as
+matrices in this vector space.  Flavor simplifications may be introduced in a data fit,
+but not in the definition of the formalism.
+
+\section{Evolution as convolutional dynamics}
+
+In a conventional $b_T$ representation, Collins-Soper evolution is local in $b_T$. In
+momentum space, the same physics becomes nonlocal in transverse momentum:
+\begin{equation}
+  \frac{\partial}{\partial \ln\sqrt{\zeta}}
+  F_i(x,\bk;\muR,\zeta)
+  =
+  -\bigl[\mathcal D_i(\muR)\ot F_i(x;\muR,\zeta)\bigr](\bk),
+  \label{eq:CS-kspace}
+\end{equation}
+where $\mathcal D_i(\bk;\muR)$ is the momentum-space Collins-Soper kernel. The sign and
+normalization of $\mathcal D_i$ define a convention; all hard, soft, and matching
+coefficients must be converted consistently.
+
+The renormalization-scale equation is local in transverse momentum,
+\begin{equation}
+  \frac{\partial}{\partial \ln\muR}
+  F_i(x,\bk;\muR,\zeta)
+  =
+  \gamma_F^i(\muR,\zeta)
+  F_i(x,\bk;\muR,\zeta),
+  \label{eq:mu-evolution}
+\end{equation}
+while the Collins-Soper kernel satisfies, in the Collins/CSS convention,
+\begin{equation}
+  \frac{\dd}{\dd\ln\muR}\mathcal D_i(\bk;\muR)
+  =
+  \gamma_K^i(\as(\muR))\,\deltaT(\bk)
+  =2\Gamma_{\rm cusp}^i(\as(\muR))\,\deltaT(\bk),
+  \label{eq:D-RG-kspace}
+\end{equation}
+where $\gamma_K^i$ is Collins' kernel anomalous dimension and
+$\Gamma_{\rm cusp}^i$ is the lightlike cusp anomalous dimension. This factor-of-two
+bookkeeping is important when comparing CSS notation to SCET notation.
+
+At fixed $\muR$, the solution of Eq.~\eqref{eq:CS-kspace} is a convolution exponential,
+\begin{equation}
+  F_i(x,\bk;\muR,\zeta_f)
+  =
+  \left[
+  \ExpT\!
+  \left
+    \{-\ln\!\left(\sqrt{\zeta_f/\zeta_i}\right)\,\mathcal D_i(\muR)\right\}
+  \ot
+  F_i(x;\muR,\zeta_i)
+  \right](\bk),
+  \label{eq:conv-exponential}
+\end{equation}
+where
+\begin{equation}
+  \ExpT\{A\}
+  =
+  \deltaT + A + \frac{1}{2!}A\ot A + \frac{1}{3!}A\ot A\ot A + \cdots .
+\end{equation}
+
+\decision{A central implementation object is the $k_T$-space evolution Green's function
+$\mathcal U_i(\bk;\mu_f,\zeta_f;\mu_i,\zeta_i)$ satisfying
+$F_i(\mu_f,\zeta_f)=\mathcal U_i\ot F_i(\mu_i,\zeta_i)$. The Green's function is a
+radial distribution, not an ordinary pointwise function.}
+
+\section{Distribution basis for pure-kT resummation}
+
+Perturbative transverse-momentum spectra contain singular distributions of the form~\cite{EbertTackmann2017}
+\begin{equation}
+  \left[\frac{1}{k_T^2}\ln^n\!\left(\frac{\muR^2}{k_T^2}\right)\right]_+
+  \quad \text{and} \quad
+  \deltaT(\bk).
+\end{equation}
+A convenient two-dimensional basis is
+\begin{equation}
+  \mathcal L_n(\bk,\muR)
+  =
+  \frac{1}{\pi\muR^2}
+  \left[
+    \frac{\muR^2}{k_T^2}
+    \ln^n\!\left(\frac{\muR^2}{k_T^2}\right)
+  \right]_+,
+  \qquad n\ge 0.
+  \label{eq:Ln-basis}
+\end{equation}
+The precise plus prescription must be tied to binned observables or smooth test functions;
+pointwise values at $k_T=0$ are not physical.
+
+For algebraic manipulations it may be better to define a generator whose Fourier transform
+is exactly a power of the standard $b_T$ logarithm. Let
+\begin{equation}
+  L_b \equiv \ln\!\left(\frac{\muR^2 b_T^2 e^{2\gamma_E}}{4}\right)
+\end{equation}
+and define $\mathcal G_\eta$ distributionally by
+\begin{equation}
+  \int \dd^2\bk\, e^{i\bb\cdot\bk}\,\mathcal G_\eta(\bk;\muR)
+  = e^{-\eta L_b}.
+  \label{eq:G-generator}
+\end{equation}
+Then
+\begin{equation}
+  \mathcal G_\eta \ot \mathcal G_{\eta'} = \mathcal G_{\eta+\eta'}.
+  \label{eq:G-conv}
+\end{equation}
+A candidate real-space representation, valid first for a regulated range of $\eta$ and
+then by distributional continuation, is
+\begin{equation}
+  \mathcal G_\eta(\bk;\muR)
+  =
+  \frac{1}{\pi\muR^2}
+  \left(\frac{\muR^2}{k_T^2}\right)^{1-\eta}
+  \frac{e^{-2\gamma_E\eta}\Gamma(1-\eta)}{\Gamma(\eta)}.
+  \label{eq:G-real-space}
+\end{equation}
+This convention packages many delta-function constants into the basis. It should be
+mapped explicitly onto Eq.~\eqref{eq:Ln-basis} before comparison with published singular
+coefficients.
+
+Expanding Eq.~\eqref{eq:G-generator} gives a distribution basis with simple convolution
+algebra:
+\begin{equation}
+  \mathfrak L_n(\bk;\muR)
+  \equiv
+  (-1)^{n+1}
+  \left.
+  \frac{\partial^{n+1}}{\partial\eta^{n+1}}\mathcal G_\eta(\bk;\muR)
+  \right|_{\eta=0},
+  \qquad
+  \int \dd^2\bk\, e^{i\bb\cdot\bk}\,\mathfrak L_n(\bk;\muR)=L_b^{n+1}.
+  \label{eq:frakL}
+\end{equation}
+
+The expansion of Eq.~\eqref{eq:G-real-space} in the conventional basis is
+\begin{equation}
+  \mathcal G_\eta
+  =
+  h(\eta)
+  \left[
+    \deltaT(\bk)
+    +\eta\mathcal L_0(\bk,\muR)
+    -\eta^2\mathcal L_1(\bk,\muR)
+    +\frac{\eta^3}{2}\mathcal L_2(\bk,\muR)
+    +\order{\eta^4}
+  \right],
+  \label{eq:G-expanded-Ln}
+\end{equation}
+where
+\begin{equation}
+  h(\eta)
+  \equiv e^{-2\gamma_E\eta}\frac{\Gamma(1-\eta)}{\Gamma(1+\eta)}
+  =1+\frac{2\zeta_3}{3}\eta^3+\order{\eta^5}.
+  \label{eq:h-eta}
+\end{equation}
+Thus, for the first few basis elements,
+\begin{align}
+  \mathfrak L_0 &= -\mathcal L_0,
+  \label{eq:frakL0-L0}\\
+  \mathfrak L_1 &= -2\mathcal L_1,
+  \label{eq:frakL1-L1}\\
+  \mathfrak L_2 &= -3\mathcal L_2-4\zeta_3\deltaT.
+  \label{eq:frakL2-L2}
+\end{align}
+Equivalently,
+\begin{align}
+  \mathcal F_{k\to b}[\mathcal L_0] &= -L_b,
+  \\
+  \mathcal F_{k\to b}[\mathcal L_1] &= -\frac{1}{2}L_b^2,
+  \\
+  \mathcal F_{k\to b}[\mathcal L_2] &= -\frac{1}{3}L_b^3-\frac{4}{3}\zeta_3.
+\end{align}
+The signs follow from our choice to define $\mathcal L_n$ with
+$\ln^n(\mu^2/k_T^2)$ rather than $\ln^n(k_T^2/\mu^2)$. This is the most common
+source of sign mistakes when comparing formulas across the direct-$q_T$ resummation
+literature.
+
+
+\section{One-loop KCSS2 kernels}
+\label{sec:one-loop-kcss}
+
+This section performs the first explicit bridge calculation. We start from the CSS2
+small-$b_T$ coefficients and Collins-Soper kernel, then represent them as distributions in
+$k_T$ space. Throughout this section
+\begin{equation}
+  a_s(\mu)\equiv \frac{\alpha_s(\mu)}{4\pi},
+  \qquad
+  b_0\equiv 2e^{-\gamma_E},
+  \qquad
+  L_b\equiv \ln\!\left(\frac{\mu^2 b_T^2}{b_0^2}\right),
+  \qquad
+  \ell_\zeta\equiv \ln\!\left(\frac{\zeta}{\mu^2}\right).
+  \label{eq:one-loop-defs}
+\end{equation}
+The leading-order collinear splitting functions are defined in the standard
+$d f/d\ln\mu^2=(\alpha_s/2\pi)P^{(0)}\otimes f+\cdots$ convention:
+\begin{align}
+  P_{qq}^{(0)}(z)
+  &= C_F\left[\frac{1+z^2}{(1-z)_+}+\frac{3}{2}\delta(1-z)\right],
+  \\
+  P_{qg}^{(0)}(z)
+  &= T_F\left[z^2+(1-z)^2\right].
+  \label{eq:LO-splittings}
+\end{align}
+
+\subsection{CSS2 input at the canonical small-bT point}
+
+Collins and Rogers give the one-loop CSS2 matching coefficients at the canonical point~\cite{CollinsRogers2017}
+\begin{equation}
+  \mu_b=\frac{b_0}{b_T},
+  \qquad
+  \zeta_b=\mu_b^2=\frac{b_0^2}{b_T^2},
+  \qquad
+  L_b=\ell_\zeta=0.
+\end{equation}
+In our notation their Eq.~(74) gives
+\begin{align}
+  \widetilde C_{q\leftarrow q}^{(1),\CSS}(z;\mu_b,\zeta_b)
+  &=
+  C_F\left[-\frac{\pi^2}{6}\delta(1-z)+2(1-z)\right],
+  \label{eq:Cqq-can}\\
+  \widetilde C_{q\leftarrow g}^{(1),\CSS}(z;\mu_b,\zeta_b)
+  &=2z(1-z),
+  \label{eq:Cqg-can}\\
+  \widetilde C_{q\leftarrow q'}^{(1),\CSS}
+  &=\widetilde C_{q\leftarrow \bar q}^{(1),\CSS}
+  =\widetilde C_{q\leftarrow \bar q'}^{(1),\CSS}=0.
+  \label{eq:C-other-can}
+\end{align}
+The coefficient is expanded as
+\begin{equation}
+  \widetilde C_{i\leftarrow j}^{\CSS}
+  =\delta_{ij}\delta(1-z)+a_s\widetilde C_{i\leftarrow j}^{(1),\CSS}
+  +\order{a_s^2}.
+  \label{eq:C-expansion-as}
+\end{equation}
+The $-\pi^2/6$ constant is part of the CSS2 separation between TMD matching and the
+Drell-Yan hard factor. A different finite TMD scheme would reshuffle this delta-function
+constant, but not the logarithmic distributional structure derived below.
+
+\subsection{Lifting the canonical coefficient to general mu and zeta}
+
+The logarithms at general $(\mu,\zeta)$ are fixed by the CSS2 coefficient evolution
+equations~\cite{CollinsRogers2017}. To one loop, integrating those equations from the canonical point gives
+\begin{align}
+  \widetilde C_{q\leftarrow q}^{(1),\CSS}(z,b_T;\mu,\zeta)
+  &=
+  C_F\left[-\frac{\pi^2}{6}\delta(1-z)+2(1-z)\right]
+  -2L_b P_{qq}^{(0)}(z)
+  \\
+  &\quad
+  +C_F\delta(1-z)
+  \left[(3-2\ell_\zeta)L_b-L_b^2\right],
+  \label{eq:Cqq-b-general}\\
+  \widetilde C_{q\leftarrow g}^{(1),\CSS}(z,b_T;\mu,\zeta)
+  &=
+  2z(1-z)-2L_b P_{qg}^{(0)}(z),
+  \label{eq:Cqg-b-general}
+\end{align}
+with the same zero entries as Eq.~\eqref{eq:C-other-can}. These expressions obey two
+immediate checks:
+\begin{align}
+  \frac{\partial}{\partial\ln\sqrt\zeta}\widetilde C_{q\leftarrow q}^{(1),\CSS}
+  &=-4C_F L_b\,\delta(1-z),
+  \label{eq:C-zeta-check}\\
+  \frac{\partial}{\partial\ln\sqrt\zeta}\widetilde C_{q\leftarrow g}^{(1),\CSS}
+  &=0,
+\end{align}
+which is the one-loop CSS equation because
+\begin{equation}
+  \widetilde K_q^{(1)}(b_T;\mu)=-4C_F L_b.
+  \label{eq:Ktilde-one-loop}
+\end{equation}
+At fixed $\zeta$, Eq.~\eqref{eq:Cqq-b-general} also gives the required one-loop
+renormalization-scale derivative,
+\begin{equation}
+  \frac{\partial}{\partial\ln\mu}\widetilde C_{q\leftarrow j}^{(1),\CSS}
+  =
+  \left[6C_F-4C_F\ell_\zeta\right]\delta_{qj}\delta(1-z)
+  -4P_{qj}^{(0)}(z),
+  \label{eq:C-mu-check}
+\end{equation}
+which is Eq.~(76) of Collins and Rogers written with the standard leading-order DGLAP
+kernels of Eq.~\eqref{eq:LO-splittings}.
+
+\subsection{Momentum-space matching coefficients}
+
+The $\KCSS$ coefficient is the inverse transverse Fourier transform of
+Eq.~\eqref{eq:Cqq-b-general}. Using
+\begin{equation}
+  L_b\mapsto \mathfrak L_0=-\mathcal L_0,
+  \qquad
+  L_b^2\mapsto \mathfrak L_1=-2\mathcal L_1,
+  \label{eq:Lb-map-one-loop}
+\end{equation}
+we obtain the one-loop momentum-space kernels
+\begin{align}
+  \mathcal C_{q\leftarrow q}^{(1),\KCSS}(z,\bk;\mu,\zeta)
+  &=
+  C_F\left[-\frac{\pi^2}{6}\delta(1-z)+2(1-z)\right]\deltaT(\bk)
+  \\
+  &\quad
+  +\left[2P_{qq}^{(0)}(z)-C_F(3-2\ell_\zeta)\delta(1-z)\right]
+  \mathcal L_0(\bk,\mu)
+  \\
+  &\quad
+  +2C_F\delta(1-z)\mathcal L_1(\bk,\mu),
+  \label{eq:Cqq-k-one-loop}\\
+  \mathcal C_{q\leftarrow g}^{(1),\KCSS}(z,\bk;\mu,\zeta)
+  &=
+  2z(1-z)\deltaT(\bk)
+  +2P_{qg}^{(0)}(z)\mathcal L_0(\bk,\mu),
+  \label{eq:Cqg-k-one-loop}\\
+  \mathcal C_{q\leftarrow q'}^{(1),\KCSS}
+  &=\mathcal C_{q\leftarrow \bar q}^{(1),\KCSS}
+  =\mathcal C_{q\leftarrow \bar q'}^{(1),\KCSS}=0.
+  \label{eq:Cother-k-one-loop}
+\end{align}
+The antiquark coefficients follow by charge conjugation. The gluon-initiated analogues for
+gluon TMDPDFs are not needed for the first fixed-target Drell-Yan validation, but the same
+map applies once the CSS2 gluon coefficients are inserted.
+
+In generator form the same result is more compact:
+\begin{align}
+  \mathcal C_{q\leftarrow q}^{(1),\KCSS}
+  &=
+  c_{q\leftarrow q}^{\rm can}(z)\deltaT
+  +\left[-2P_{qq}^{(0)}(z)+C_F(3-2\ell_\zeta)\delta(1-z)\right]\mathfrak L_0
+  -C_F\delta(1-z)\mathfrak L_1,
+  \label{eq:Cqq-frak-one-loop}\\
+  \mathcal C_{q\leftarrow g}^{(1),\KCSS}
+  &=
+  c_{q\leftarrow g}^{\rm can}(z)\deltaT
+  -2P_{qg}^{(0)}(z)\mathfrak L_0,
+  \label{eq:Cqg-frak-one-loop}
+\end{align}
+where
+\begin{equation}
+  c_{q\leftarrow q}^{\rm can}(z)
+  =C_F\left[-\frac{\pi^2}{6}\delta(1-z)+2(1-z)\right],
+  \qquad
+  c_{q\leftarrow g}^{\rm can}(z)=2z(1-z).
+\end{equation}
+Equations~\eqref{eq:Cqq-k-one-loop} and \eqref{eq:Cqg-k-one-loop} are the first concrete
+large-$k_T$ TMD-tail kernels for the project.
+
+\subsection{Momentum-space Collins-Soper kernel}
+
+With our sign convention in Eq.~\eqref{eq:D-sign-convention},
+\begin{equation}
+  D_q^{(1),\CSS}(b_T;\mu)=-\widetilde K_q^{(1)}(b_T;\mu)=4C_F L_b.
+  \label{eq:Dq-b-one-loop}
+\end{equation}
+More generally,
+\begin{equation}
+  D_i^{(1),\CSS}(b_T;\mu)=\Gamma_0^i L_b,
+  \qquad
+  \Gamma_0^q=4C_F,
+  \qquad
+  \Gamma_0^g=4C_A.
+  \label{eq:Di-b-one-loop}
+\end{equation}
+Therefore
+\begin{equation}
+  \mathcal D_i^{(1),\KCSS}(\bk;\mu)
+  =\Gamma_0^i\mathfrak L_0(\bk;\mu)
+  =-\Gamma_0^i\mathcal L_0(\bk,\mu),
+  \label{eq:D-k-one-loop}
+\end{equation}
+and
+\begin{equation}
+  \mathcal D_q^{\KCSS}(\bk;\mu)
+  =-4C_F a_s(\mu)\mathcal L_0(\bk,\mu)+\order{a_s^2}.
+  \label{eq:Dq-k-one-loop}
+\end{equation}
+Although Eq.~\eqref{eq:Dq-k-one-loop} is negative away from $k_T=0$ with our plus-basis
+convention, this is not a positivity problem: $\mathcal D_i$ is a renormalized rapidity
+evolution distribution, not a probability density.
+
+The RG check is immediate. Since
+\begin{equation}
+  \frac{\dd}{\dd\ln\mu}\mathcal L_0(\bk,\mu)=-2\deltaT(\bk),
+\end{equation}
+Eq.~\eqref{eq:D-k-one-loop} implies
+\begin{equation}
+  \frac{\dd}{\dd\ln\mu}\mathcal D_i^{\KCSS}(\bk;\mu)
+  =2\Gamma_0^i a_s(\mu)\deltaT(\bk)+\order{a_s^2}
+  =\gamma_{K,0}^i a_s(\mu)\deltaT(\bk)+\order{a_s^2},
+  \label{eq:D-k-RG-check}
+\end{equation}
+with $\gamma_{K,0}^i=2\Gamma_0^i$, as required by Eq.~\eqref{eq:D-RG-kspace}.
+
+\subsection{First fixed-order singular-spectrum check}
+\label{subsec:first-singular-spectrum}
+
+At order $a_s$, the $\KCSS$ Drell-Yan $W$ term follows by inserting
+Eqs.~\eqref{eq:Cqq-k-one-loop} and \eqref{eq:Cqg-k-one-loop} into the two TMD factors in
+Eq.~\eqref{eq:W-KCSS-kspace}, adding the one-loop CSS2 hard factor, and keeping only
+terms through $a_s$. We use a reduced CSS2 hard factor with the Born charge $e_q^2$ pulled outside the flavor sum. At $\mu=Q$ it is~\cite{CollinsRogers2017}
+\begin{equation}
+  \widehat H_{q\bar q}^{\DY,\CSS}(Q,Q)
+  = 1+a_s h_q^{(1)}+\order{a_s^2},
+  \qquad
+  h_q^{(1)}=C_F\left(-16+\frac{7\pi^2}{3}\right).
+  \label{eq:hard-one-loop-dy}
+\end{equation}
+For the first validation we take
+\begin{equation}
+  \mu=Q,
+  \qquad
+  \zeta_A=\zeta_B=Q^2,
+  \qquad
+  \ell_{\zeta_A}=\ell_{\zeta_B}=0,
+  \label{eq:validation-scales}
+\end{equation}
+and evaluate all collinear PDFs at $\mu=Q$ unless explicitly stated otherwise.
+
+It is useful to introduce the $\mathcal L_0$ and delta-function coefficient kernels
+\begin{align}
+  b_{q\leftarrow q}(z)
+  &\equiv 2P_{qq}^{(0)}(z)-3C_F\delta(1-z),
+  &
+  b_{q\leftarrow g}(z)
+  &\equiv 2P_{qg}^{(0)}(z),
+  \label{eq:b-kernels-validation}
+  \\
+  c_{q\leftarrow q}(z)
+  &\equiv C_F\left[-\frac{\pi^2}{6}\delta(1-z)+2(1-z)\right],
+  &
+  c_{q\leftarrow g}(z)
+  &\equiv 2z(1-z),
+  \label{eq:c-kernels-validation}
+\end{align}
+with identical antiquark kernels by charge conjugation. Then define the leading luminosity
+\begin{equation}
+  \Phi_q^{(0)}
+  \equiv
+  f_{q/A}(x_A,Q)f_{\bar q/B}(x_B,Q)
+  +f_{\bar q/A}(x_A,Q)f_{q/B}(x_B,Q),
+  \label{eq:Phi0}
+\end{equation}
+and the one-leg insertions
+\begin{align}
+  \Phi_q^{b,A}
+  &\equiv
+  \left[b_{q\leftarrow q}\ox f_{q/A}+b_{q\leftarrow g}\ox f_{g/A}\right](x_A)
+  f_{\bar q/B}(x_B,Q)
+  \\
+  &\quad+
+  \left[b_{q\leftarrow q}\ox f_{\bar q/A}+b_{q\leftarrow g}\ox f_{g/A}\right](x_A)
+  f_{q/B}(x_B,Q),
+  \label{eq:Phi-b-A}
+  \\
+  \Phi_q^{b,B}
+  &\equiv
+  f_{q/A}(x_A,Q)
+  \left[b_{q\leftarrow q}\ox f_{\bar q/B}+b_{q\leftarrow g}\ox f_{g/B}\right](x_B)
+  \\
+  &\quad+
+  f_{\bar q/A}(x_A,Q)
+  \left[b_{q\leftarrow q}\ox f_{q/B}+b_{q\leftarrow g}\ox f_{g/B}\right](x_B),
+  \label{eq:Phi-b-B}
+\end{align}
+and similarly $\Phi_q^{c,A}$ and $\Phi_q^{c,B}$ by replacing $b$ with $c$ in
+Eqs.~\eqref{eq:Phi-b-A} and \eqref{eq:Phi-b-B}. In this notation the complete one-loop
+singular $W$ term in the $d^2\bq$ distribution is
+\begin{align}
+  W_{AB}^{(0+1),\sing}(Q,y,\bq)
+  &=
+  \sum_q e_q^2
+  \Bigg\{
+  \Phi_q^{(0)}\deltaT(\bq)
+  \\
+  &\quad
+  +a_s(Q)\Big[
+    4C_F\Phi_q^{(0)}\mathcal L_1(\bq,Q)
+    +\bigl(\Phi_q^{b,A}+\Phi_q^{b,B}\bigr)\mathcal L_0(\bq,Q)
+  \\
+  &\qquad
+    +\Big(h_q^{(1)}\Phi_q^{(0)}+
+      \Phi_q^{c,A}+\Phi_q^{c,B}\Big)\deltaT(\bq)
+  \Big]\Bigg\}
+  +\order{a_s^2}.
+  \label{eq:W-singular-one-loop-master}
+\end{align}
+Equation~\eqref{eq:W-singular-one-loop-master} is the first fully explicit object that the
+code should reproduce from pure $k_T$ convolutions. The coefficient of $\mathcal L_1$ is
+fixed only by the two incoming quark TMDs,
+\begin{equation}
+  2C_F+2C_F=4C_F,
+  \label{eq:DY-L1-check}
+\end{equation}
+while all flavor mixing at this order enters through the $\mathcal L_0$ and
+$\deltaT(\bq)$ one-leg insertions.
+
+\subsection{Relation to the usual CSS A1 and B1 check}
+\label{subsec:AB-check}
+
+A common source of confusion is the location of the one-loop $B$ coefficient. In the
+fixed-$\mu=Q$ representation of Eq.~\eqref{eq:W-singular-one-loop-master}, the endpoint
+piece $3C_F\delta(1-z)$ inside each $2P_{qq}^{(0)}$ cancels the explicit
+$-3C_F\delta(1-z)$ in $b_{q\leftarrow q}$. This does not mean that the usual CSS
+$B$ coefficient has disappeared. It has been reshuffled by DGLAP evolution between a
+canonical $\mu_b=b_0/b_T$ representation and a fixed-$Q$ PDF representation.
+
+To see the standard logarithmic check most directly, keep the incoming PDFs at the
+canonical scale $\mu_b=b_0/b_T$ and expand the CSS2 evolved diagonal $q\bar q$ channel.
+Suppressing flavor convolutions and non-logarithmic $qg$ channels, the $b_T$-space
+coefficient is
+\begin{equation}
+  \widetilde W_{q\bar q}^{(1),\sing}(b_T)
+  =e_q^2 f_{q/A}(x_A,\mu_b)f_{\bar q/B}(x_B,\mu_b)
+  \left[
+    -2C_F L_b^2+6C_F L_b+h_q^{(1)}-\frac{\pi^2}{3}C_F
+  \right]
+  +(q\leftrightarrow\bar q),
+  \label{eq:W-b-canonical-one-loop}
+\end{equation}
+where the $-\pi^2 C_F/3$ comes from the two one-loop CSS2 TMD matching coefficients.
+Using Eq.~\eqref{eq:Lb-map-one-loop}, this becomes
+\begin{align}
+  W_{q\bar q}^{(1),\sing}(\bq)
+  &=e_q^2 f_{q/A}(x_A,\mu_b)f_{\bar q/B}(x_B,\mu_b)
+  \Bigg[
+    4C_F\mathcal L_1(\bq,Q)-6C_F\mathcal L_0(\bq,Q)
+    \\
+  &\qquad\qquad
+    +\left(h_q^{(1)}-\frac{\pi^2}{3}C_F\right)\deltaT(\bq)
+  \Bigg]
+  +(q\leftrightarrow\bar q).
+  \label{eq:W-qbarq-canonical-one-loop-k}
+\end{align}
+For $q_T>0$, converting from $d^2\bq$ to $dq_T^2$ gives
+\begin{equation}
+  \pi a_s\left[4C_F\mathcal L_1(\bq,Q)-6C_F\mathcal L_0(\bq,Q)\right]
+  =
+  \frac{\alpha_s}{\pi}\frac{1}{q_T^2}
+  \left[
+    C_F\ln\!\frac{Q^2}{q_T^2}-\frac{3}{2}C_F
+  \right],
+  \label{eq:AB-check-dqT2}
+\end{equation}
+which is the usual one-loop CSS check with $A_q^{(1)}=C_F$ and
+$B_q^{(1)}=-3C_F/2$ in the $dq_T^2$ spectrum~\cite{CSS1985,EllisVeseli1998}. The implementation should verify both
+Eq.~\eqref{eq:W-singular-one-loop-master} and the canonical cross-check
+Eq.~\eqref{eq:AB-check-dqT2}; the two are related by ordinary DGLAP evolution of the
+collinear PDFs.
+
+\subsection{Binned plus-distribution form}
+\label{subsec:binned-plus}
+
+Because $\mathcal L_n$ and $\deltaT$ are distributions, the validation should be performed
+on bin integrals rather than pointwise values at the origin. Define an azimuthally integrated
+bin functional
+\begin{equation}
+  \mathcal B_n(q_a,q_b;Q)
+  \equiv
+  \int_{q_a^2}^{q_b^2}\dd q_T^2\,\pi\mathcal L_n(\bq,Q),
+  \qquad
+  \mathcal B_\delta(q_a,q_b)
+  \equiv
+  \int_{q_a^2}^{q_b^2}\dd q_T^2\,\pi\deltaT(\bq).
+  \label{eq:bin-functional}
+\end{equation}
+For bins that do not touch the origin, $0<q_a<q_b$, the plus prescription is inactive and
+\begin{equation}
+  \mathcal B_n(q_a,q_b;Q)
+  =
+  \frac{1}{n+1}
+  \left[
+    \ln^{n+1}\!\frac{Q^2}{q_a^2}
+    -
+    \ln^{n+1}\!\frac{Q^2}{q_b^2}
+  \right],
+  \qquad
+  \mathcal B_\delta(q_a,q_b)=0.
+  \label{eq:bin-not-zero}
+\end{equation}
+For a cumulant bin that starts at the origin and has $q_b<Q$, the plus prescription gives
+\begin{equation}
+  \mathcal B_n(0,q_b;Q)
+  =
+  -\frac{1}{n+1}\ln^{n+1}\!\frac{Q^2}{q_b^2},
+  \qquad
+  \mathcal B_\delta(0,q_b)=1.
+  \label{eq:bin-zero}
+\end{equation}
+Therefore the binned one-loop singular prediction corresponding to
+Eq.~\eqref{eq:W-singular-one-loop-master} is
+\begin{align}
+  W_{AB,\mathrm{bin}}^{(0+1),\sing}(q_a,q_b)
+  &=
+  \sum_q e_q^2
+  \Bigg\{
+  \Phi_q^{(0)}\mathcal B_\delta(q_a,q_b)
+  \\
+  &\quad
+  +a_s(Q)\Big[
+    4C_F\Phi_q^{(0)}\mathcal B_1(q_a,q_b;Q)
+    +\bigl(\Phi_q^{b,A}+\Phi_q^{b,B}\bigr)\mathcal B_0(q_a,q_b;Q)
+  \\
+  &\qquad
+    +\Big(h_q^{(1)}\Phi_q^{(0)}+
+      \Phi_q^{c,A}+\Phi_q^{c,B}\Big)\mathcal B_\delta(q_a,q_b)
+  \Big]\Bigg\}
+  +\order{a_s^2}.
+  \label{eq:W-binned-one-loop-master}
+\end{align}
+This is the preferred unit-test expression. A pointwise comparison at $q_T>0$ should agree
+with the ordinary-function part of Eq.~\eqref{eq:W-singular-one-loop-master}, but it cannot
+validate the delta-function constants or the plus-prescription signs.
+
+\decision{For the first implementation, use Eqs.~\eqref{eq:Cqq-k-one-loop},
+\eqref{eq:Cqg-k-one-loop}, \eqref{eq:Dq-k-one-loop}, and
+\eqref{eq:W-binned-one-loop-master} as the reference one-loop $\KCSS$ test set. Any later
+child scheme must reproduce these results after applying its finite conversion factors.}
+
+
+\subsection{Executable one-loop bin validator}
+\label{subsec:one-loop-bin-validator}
+
+Version 0.6 promotes Eq.~\eqref{eq:W-binned-one-loop-master} from a formal expression to
+an executable validation target.  The validator is intentionally narrower than a physical
+cross-section code. It contains no PDFs, no $Y$ term, no fiducial cuts, no resummation, and
+no nonperturbative model. Its purpose is to test the distribution algebra that all later
+implementations must inherit.
+
+Let a bin partition be
+\begin{equation}
+  0=q_0<q_1<\cdots<q_N,
+  \qquad
+  B_{n,r}\equiv \mathcal B_n(q_r,q_{r+1};Q),
+  \qquad
+  B_{\delta,r}\equiv \mathcal B_\delta(q_r,q_{r+1}).
+  \label{eq:bin-array-def}
+\end{equation}
+The first validation layer consists of four algebraic tests.
+
+\paragraph{Plus-null test.}
+For each $n\ge0$, the plus prescription requires
+\begin{equation}
+  \mathcal B_n(0,Q;Q)=0.
+  \label{eq:plus-null-test}
+\end{equation}
+This is the most basic sign check for the zero bin.  In particular, for $q_b<Q$,
+\begin{equation}
+  \mathcal B_0(0,q_b;Q)=-\ln\frac{Q^2}{q_b^2},
+  \qquad
+  \mathcal B_1(0,q_b;Q)=-\frac{1}{2}\ln^2\frac{Q^2}{q_b^2},
+  \label{eq:first-bin-negative}
+\end{equation}
+so the singular plus-distribution contribution to the first bin is not positive by itself.
+This is expected: the zero-bin plus terms, the Born delta term, virtual constants,
+resummation, the nonsingular remainder, and experimental binning together define the
+physical prediction.
+
+\paragraph{Additivity test.}
+For any $0\le q_a<q_b<q_c$,
+\begin{equation}
+  \mathcal B_n(q_a,q_c;Q)
+  =
+  \mathcal B_n(q_a,q_b;Q)+\mathcal B_n(q_b,q_c;Q),
+  \qquad
+  \mathcal B_\delta(q_a,q_c)
+  =
+  \mathcal B_\delta(q_a,q_b)+\mathcal B_\delta(q_b,q_c).
+  \label{eq:bin-additivity-test}
+\end{equation}
+This checks that the zero-bin prescription is compatible with ordinary binning and that a
+rebinning operation does not change the cumulant.
+
+\paragraph{Off-origin ordinary-function test.}
+For bins with $q_a>0$, the plus prescription is inactive.  The diagonal one-loop kernel
+must reduce to the ordinary integral
+\begin{equation}
+  a_s\left[4C_F\mathcal B_1(q_a,q_b;Q)-6C_F\mathcal B_0(q_a,q_b;Q)\right]
+  =
+  \frac{\alpha_s}{\pi}C_F
+  \left[
+    \mathcal B_1(q_a,q_b;Q)-\frac{3}{2}\mathcal B_0(q_a,q_b;Q)
+  \right].
+  \label{eq:off-origin-bin-test}
+\end{equation}
+This is the bin-integrated version of Eq.~\eqref{eq:AB-check-dqT2}. It fixes the
+$a_s=\alpha_s/(4\pi)$ convention, the factor of $\pi$ from
+$d^2\bq=\pi\,dq_T^2$, and the normalization of $\mathcal L_n$.
+
+\paragraph{Delta-support test.}
+For a partition that contains the origin in exactly one bin,
+\begin{equation}
+  \sum_{r=0}^{N-1}B_{\delta,r}=1,
+  \qquad
+  B_{\delta,r}=\begin{cases}
+    1,&q_r=0,\\
+    0,&q_r>0.
+  \end{cases}
+  \label{eq:delta-support-test}
+\end{equation}
+This isolates the hard factor and the delta-supported pieces of the TMD matching
+coefficients from the ordinary $q_T>0$ spectrum.
+
+Combining these tests, the canonical diagonal one-loop test weight for a single
+$q\bar q$ luminosity is
+\begin{equation}
+  S^{(1),\mathrm{diag}}_r
+  =
+  a_s(Q)
+  \left[
+    4C_F B_{1,r}-6C_F B_{0,r}
+    +\left(h_q^{(1)}-\frac{\pi^2}{3}C_F\right)B_{\delta,r}
+  \right].
+  \label{eq:diag-validator-weight}
+\end{equation}
+The term proportional to $h_q^{(1)}-\pi^2 C_F/3$ is present in the canonical
+$\mu=Q$ diagonal CSS2 check in Eq.~\eqref{eq:W-qbarq-canonical-one-loop-k}.  The full
+general flavor-vector test in Eq.~\eqref{eq:W-binned-one-loop-master} is implemented in
+Sec.~\ref{subsec:toypdf-xconv-validator} with analytic toy PDFs.
+
+The accompanying script \texttt{kt\_kcss\_one\_loop\_validator.py} implements
+Eqs.~\eqref{eq:bin-functional}--\eqref{eq:diag-validator-weight}.  With the sample choice
+$Q=8\,\mathrm{GeV}$, $\alpha_s(Q)=0.25$, and bin edges
+$(0,0.25,0.5,1,2,4,8)\,\mathrm{GeV}$, the tests give
+\begin{equation}
+  \max_n\left|\mathcal B_n(0,Q;Q)\right|=0,
+  \qquad
+  \max\left|\Delta_{\mathrm{additivity}}\right|=0,
+  \qquad
+  \max_{q_a>0}\left|\Delta_{\mathrm{offzero}}\right|\simeq 1.1\times10^{-16}.
+  \label{eq:sample-validator-output}
+\end{equation}
+These numbers are not phenomenological predictions; they are regression-test tolerances
+for the distribution implementation.
+
+\decision{The first executable validation target is now fixed: any pure-$k_T$ implementation of
+one-loop $\KCSS$ must reproduce Eqs.~\eqref{eq:plus-null-test},
+\eqref{eq:bin-additivity-test}, \eqref{eq:off-origin-bin-test}, and
+\eqref{eq:delta-support-test} before adding PDFs, flavor mixing, resummation, or a $Y$
+term.}
+
+
+\subsection{Flavor-vector toy-PDF x-convolution validator}
+\label{subsec:toypdf-xconv-validator}
+
+Version 0.7 extends the diagonal bin test to the full flavor-vector expression in
+Eq.~\eqref{eq:W-binned-one-loop-master}. The point is still not phenomenology. The new
+validator uses analytic toy PDFs only to test the longitudinal convolution algebra and the
+$x$-space plus prescription independently of the transverse plus prescription.
+
+For a test PDF $f(x)$ define
+\begin{equation}
+  \phi_f(z;x)\equiv \frac{1}{z}f\!\left(\frac{x}{z}\right),
+  \qquad
+  \phi_f(1;x)=f(x),
+  \label{eq:phi-test-pdf}
+\end{equation}
+and the ordinary regular-kernel convolution functional
+\begin{equation}
+  \mathcal R_K[f](x)
+  \equiv
+  \int_x^1 \frac{\dd z}{z}\,K(z)\,f\!\left(\frac{x}{z}\right).
+  \label{eq:R-K-functional}
+\end{equation}
+The basic endpoint-subtracted plus convolution is
+\begin{equation}
+  \mathcal P[f](x)
+  \equiv
+  \int_x^1 \dd z\,
+  \frac{\phi_f(z;x)-f(x)}{1-z}
+  +f(x)\ln(1-x),
+  \label{eq:P-plus-functional}
+\end{equation}
+which implements
+\begin{equation}
+  \mathcal P[f](x)
+  =
+  \left[\frac{1}{1-z}\right]_+\ox f .
+  \label{eq:P-plus-meaning}
+\end{equation}
+We use the compact convention in which the plus prescription acts on the full endpoint
+singular function,
+\begin{equation}
+  P_{qq}^{(0)}(z)
+  =C_F\left[\frac{1+z^2}{1-z}\right]_+,
+  \label{eq:Pqq-full-plus-validator}
+\end{equation}
+which is equivalent to Eq.~\eqref{eq:LO-splittings}. In this convention the validator
+checks the decomposed identity
+\begin{equation}
+  \left[P_{qq}^{(0)}\ox f\right](x)
+  =
+  C_F\left\{2\mathcal P[f](x)-\mathcal R_{1+z}[f](x)+\frac{3}{2}f(x)\right\}.
+  \label{eq:Pqq-decomposed-validator}
+\end{equation}
+Equivalently, a direct implementation of the full plus distribution gives
+\begin{align}
+  \left[P_{qq}^{(0)}\ox f\right]_{\rm direct}(x)
+  &=
+  C_F\Bigg[
+  \int_x^1 \dd z\,
+  \frac{1+z^2}{1-z}\,\bigl(\phi_f(z;x)-f(x)\bigr)
+  \notag\\
+  &\qquad
+  +f(x)\left(2\ln(1-x)+x+\frac{x^2}{2}\right)
+  \Bigg].
+  \label{eq:Pqq-direct-validator}
+\end{align}
+Equations~\eqref{eq:Pqq-decomposed-validator} and
+\eqref{eq:Pqq-direct-validator} must agree numerically. The same test also verifies the
+endpoint cancellation in the $\mathcal L_0$ coefficient kernel,
+\begin{equation}
+  \left[b_{q\leftarrow q}\ox f\right](x)
+  =
+  \left[(2P_{qq}^{(0)}-3C_F\delta(1-z))\ox f\right](x)
+  =
+  C_F\left\{4\mathcal P[f](x)-2\mathcal R_{1+z}[f](x)\right\}.
+  \label{eq:bqq-endpoint-cancel-validator}
+\end{equation}
+The remaining one-loop kernels in the validation formula are regular or delta-supported:
+\begin{align}
+  \left[b_{q\leftarrow g}\ox g\right](x)
+  &=2T_F\,\mathcal R_{z^2+(1-z)^2}[g](x),
+  \label{eq:bqg-validator}
+  \\
+  \left[c_{q\leftarrow q}\ox f\right](x)
+  &=
+  C_F\left[-\frac{\pi^2}{6}f(x)+2\mathcal R_{1-z}[f](x)\right],
+  \label{eq:cqq-validator}
+  \\
+  \left[c_{q\leftarrow g}\ox g\right](x)
+  &=\mathcal R_{2z(1-z)}[g](x).
+  \label{eq:cqg-validator}
+\end{align}
+
+The toy PDFs are beta-like analytic functions,
+\begin{equation}
+  f^{\rm toy}_{i/h}(x)
+  =N_{i/h}\,x^{a_{i/h}}(1-x)^{b_{i/h}}(1+c_{i/h}x),
+  \qquad 0<x<1,
+  \label{eq:toy-pdf-beta-form}
+\end{equation}
+with independent parameter choices for the two incoming hadrons and for
+$u,\bar u,d,\bar d,s,\bar s,g$. The exact parameter values are stored in the validator
+JSON output; they are not intended to approximate a physical PDF set.
+
+The second validation layer has four regression tests:
+\begin{align}
+  \Delta_{P}
+  &\equiv
+  \max_{h,i,x}
+  \left|
+  \left[P_{qq}^{(0)}\ox f^{\rm toy}_{i/h}\right]_{\rm direct}(x)
+  -
+  \left[P_{qq}^{(0)}\ox f^{\rm toy}_{i/h}\right]_{\rm decomp}(x)
+  \right|,
+  \label{eq:Delta-P-validator}
+  \\
+  \Delta_{b}
+  &\equiv
+  \max_{h,i,x}
+  \left|
+  \left[(2P_{qq}^{(0)}-3C_F\delta)\ox f^{\rm toy}_{i/h}\right](x)
+  -
+  C_F\{4\mathcal P[f^{\rm toy}_{i/h}]-2\mathcal R_{1+z}[f^{\rm toy}_{i/h}]\}(x)
+  \right|,
+  \label{eq:Delta-b-validator}
+  \\
+  \Delta_{W}
+  &\equiv
+  \max_{r}
+  \left|W^{\rm master}_{r}-W^{\rm explicit\ leg}_{r}\right|,
+  \label{eq:Delta-W-validator}
+  \\
+  \Delta_{\rm add}
+  &\equiv
+  \max\left|W(q_a,q_c)-W(q_a,q_b)-W(q_b,q_c)\right|.
+  \label{eq:Delta-add-validator}
+\end{align}
+Here $W^{\rm master}_{r}$ uses the aggregated luminosities
+$\Phi_q^{(0)},\Phi_q^{b,A},\Phi_q^{b,B},\Phi_q^{c,A},\Phi_q^{c,B}$ in
+Eq.~\eqref{eq:W-binned-one-loop-master}, while $W^{\rm explicit\ leg}_{r}$ independently
+constructs the two partonic channels $q_A\bar q_B$ and $\bar q_A q_B$ from one-leg
+insertions before summing flavors and charges. This duplicate path is deliberate: it checks
+the flavor bookkeeping and the charge-conjugation assumptions in
+Eqs.~\eqref{eq:Phi-b-A}--\eqref{eq:Phi-b-B}.
+
+The accompanying script \texttt{kt\_kcss\_toypdf\_xconv\_validator.py} implements
+Eqs.~\eqref{eq:P-plus-functional}--\eqref{eq:Delta-add-validator}. With the sample choice
+$Q=8\,\mathrm{GeV}$, $\alpha_s(Q)=0.25$, $x_A=0.32$, $x_B=0.21$, and bin edges
+$(0,0.25,0.5,1,2,4,8)\,\mathrm{GeV}$, it gives
+\begin{align}
+  \Delta_P&\simeq 8.0\times10^{-14},
+  &
+  \Delta_b&\simeq 1.8\times10^{-15},
+  \\
+  \Delta_W&\simeq 0,
+  &
+  \Delta_{\rm add}&\simeq 1.4\times10^{-17}.
+  \label{eq:toypdf-validator-output}
+\end{align}
+These values are numerical integration and floating-point regression checks. They do not
+validate a physical cross section; they validate the algebraic separation of longitudinal
+plus distributions, transverse plus distributions, flavor-vector luminosities, and
+one-loop $\KCSS$ hard/matching constants.
+
+\decision{The second executable validation target is now fixed: before attaching physical PDFs,
+resummation, or a $Y$ term, the code must pass the longitudinal plus-distribution tests in
+Eqs.~\eqref{eq:Delta-P-validator}--\eqref{eq:Delta-add-validator} with analytic toy PDFs.}
+
+
+
+\section{Generator convolution algebra}
+\label{sec:generator-convolution-algebra}
+
+Version 0.8 promotes the formal generator identity in Eq.~\eqref{eq:G-conv} into an
+explicit convolution table that can be used by the evolution code. This is the algebraic
+bridge from the fixed one-loop singular spectrum to a genuine convolution-exponential
+Sudakov kernel. The construction follows the distribution-space logic of
+Ebert and Tackmann~\cite{EbertTackmann2017}: one should solve the evolution problem in a
+basis of distributions, not by assigning pointwise values to singular functions at
+$k_T=0$.
+
+\subsection{Exact algebra in the generator basis}
+
+The generator basis is defined by
+\begin{equation}
+  \mathcal F_{k\to b}\!\big[\mathcal G_\eta\big]
+  \equiv
+  \int \dd^2\bk\,e^{i\bb\cdot\bk}\mathcal G_\eta(\bk;\mu)
+  = e^{-\eta L_b},
+  \qquad
+  L_b=\ln\!\left(\frac{\mu^2b_T^2e^{2\gamma_E}}{4}\right).
+  \label{eq:Geta-v08-def}
+\end{equation}
+Since transverse convolution becomes ordinary multiplication after the Fourier map,
+\begin{equation}
+  \mathcal G_\eta\ot\mathcal G_\xi=\mathcal G_{\eta+\xi}.
+  \label{eq:Geta-v08-group-law}
+\end{equation}
+Using the derivative basis of Eq.~\eqref{eq:frakL},
+\begin{equation}
+  \mathfrak L_n(\bk;\mu)
+  =(-1)^{n+1}
+  \left.\frac{\partial^{n+1}}{\partial\eta^{n+1}}\mathcal G_\eta(\bk;\mu)
+  \right|_{\eta=0},
+  \qquad
+  \mathcal F_{k\to b}[\mathfrak L_n]=L_b^{n+1},
+  \label{eq:frak-v08-def}
+\end{equation}
+the convolution algebra is particularly simple:
+\begin{equation}
+  \boxed{\mathfrak L_m\ot\mathfrak L_n=\mathfrak L_{m+n+1}.}
+  \label{eq:frak-conv-rule}
+\end{equation}
+This follows either directly from the Fourier representation or by expanding both sides of
+Eq.~\eqref{eq:Geta-v08-group-law} in powers of $\eta$ and $\xi$. The ordinary delta
+function is the identity element,
+\begin{equation}
+  \deltaT(\bk)\ot A=A\ot\deltaT(\bk)=A.
+  \label{eq:delta-conv-identity}
+\end{equation}
+
+\decision{The internal evolution engine should use Eq.~\eqref{eq:frak-conv-rule} or the
+analytic generator $\mathcal G_\eta$ whenever possible. The conventional
+$\mathcal L_n$ table is mainly for comparison with fixed-order singular coefficients and
+for bin-level output.}
+
+\subsection{Projection onto the conventional Ln basis}
+
+For fixed-order comparison, we still need the conventional basis
+\begin{equation}
+  \mathcal L_n(\bk,\mu)
+  =\frac{1}{\pi\mu^2}\left[\frac{\mu^2}{k_T^2}
+  \ln^n\!\left(\frac{\mu^2}{k_T^2}\right)\right]_+.
+\end{equation}
+Let
+\begin{equation}
+  P_n(X)\equiv\mathcal F_{k\to b}[\mathcal L_n],
+  \qquad X\equiv L_b.
+\end{equation}
+The generator expansion gives a compact formula for the Fourier dictionary:
+\begin{equation}
+  P_n(X)
+  =(-1)^n n!\,[\eta^{n+1}]
+  \frac{e^{-\eta X}}{h(\eta)},
+  \qquad
+  h(\eta)=e^{-2\gamma_E\eta}\frac{\Gamma(1-\eta)}{\Gamma(1+\eta)}
+  =\exp\!\left[2\sum_{r=1}^{\infty}\frac{\zeta_{2r+1}}{2r+1}\eta^{2r+1}\right].
+  \label{eq:Pn-generator-formula}
+\end{equation}
+The first entries are
+\begin{align}
+  P_0(X)&=-X,
+  \label{eq:P0-v08}
+  \\
+  P_1(X)&=-\frac{1}{2}X^2,
+  \label{eq:P1-v08}
+  \\
+  P_2(X)&=-\frac{1}{3}X^3-\frac{4}{3}\zeta_3,
+  \label{eq:P2-v08}
+  \\
+  P_3(X)&=-\frac{1}{4}X^4-4\zeta_3X,
+  \label{eq:P3-v08}
+  \\
+  P_4(X)&=-\frac{1}{5}X^5-8\zeta_3X^2-\frac{48}{5}\zeta_5.
+  \label{eq:P4-v08}
+\end{align}
+Equivalently,
+\begin{align}
+  \mathfrak L_0&=-\mathcal L_0,
+  \\
+  \mathfrak L_1&=-2\mathcal L_1,
+  \\
+  \mathfrak L_2&=-3\mathcal L_2-4\zeta_3\deltaT,
+  \\
+  \mathfrak L_3&=-4\mathcal L_3+16\zeta_3\mathcal L_0,
+  \\
+  \mathfrak L_4&=-5\mathcal L_4+80\zeta_3\mathcal L_1-48\zeta_5\deltaT.
+  \label{eq:frak-to-L-v08}
+\end{align}
+The appearance of $\zeta_3,\zeta_5,\ldots$ is not new dynamics. These constants are a
+basis-conversion effect caused by packaging the Fourier-transform constants into
+$h(\eta)$.
+
+\subsection{Conventional-basis convolution table}
+
+The conventional table is obtained by multiplying $P_m(X)P_n(X)$ and projecting the result
+back onto $\{\deltaT,\mathcal L_0,\mathcal L_1,\ldots\}$. The first entries are
+\begin{align}
+  \mathcal L_0\ot\mathcal L_0
+  &=-2\mathcal L_1,
+  \label{eq:L0L0-conv}
+  \\
+  \mathcal L_0\ot\mathcal L_1
+  &=-\frac{3}{2}\mathcal L_2-2\zeta_3\deltaT,
+  \label{eq:L0L1-conv}
+  \\
+  \mathcal L_0\ot\mathcal L_2
+  &=-\frac{4}{3}\mathcal L_3+4\zeta_3\mathcal L_0,
+  \label{eq:L0L2-conv}
+  \\
+  \mathcal L_1\ot\mathcal L_1
+  &=-\mathcal L_3+4\zeta_3\mathcal L_0,
+  \label{eq:L1L1-conv}
+  \\
+  \mathcal L_0\ot\mathcal L_3
+  &=-\frac{5}{4}\mathcal L_4+12\zeta_3\mathcal L_1-12\zeta_5\deltaT,
+  \label{eq:L0L3-conv}
+  \\
+  \mathcal L_1\ot\mathcal L_2
+  &=-\frac{5}{6}\mathcal L_4+12\zeta_3\mathcal L_1-8\zeta_5\deltaT.
+  \label{eq:L1L2-conv}
+\end{align}
+The table is symmetric under $m\leftrightarrow n$. Higher entries should be generated by
+Eq.~\eqref{eq:Pn-generator-formula}, not typed by hand.
+
+\subsection{First convolution-exponential check}
+
+The one-loop quark Collins-Soper kernel in Eq.~\eqref{eq:Dq-k-one-loop} is proportional
+to $\mathcal L_0$. Therefore the first nontrivial rapidity-evolution Green function is
+already controlled by the generator algebra. For any scalar $\lambda$,
+\begin{equation}
+  \ExpT\{\lambda\mathcal L_0\}
+  =\deltaT+\lambda\mathcal L_0
+  +\frac{\lambda^2}{2}\mathcal L_0\ot\mathcal L_0
+  +\frac{\lambda^3}{6}\mathcal L_0\ot\mathcal L_0\ot\mathcal L_0+\cdots.
+  \label{eq:Exp-L0-start}
+\end{equation}
+Since $\mathcal F[\mathcal L_0]=-L_b$, this exponential is exactly
+\begin{equation}
+  \boxed{\ExpT\{\lambda\mathcal L_0\}=\mathcal G_\lambda.}
+  \label{eq:Exp-L0-G}
+\end{equation}
+Expanding in the conventional basis gives
+\begin{align}
+  \ExpT\{\lambda\mathcal L_0\}
+  &=\deltaT+\lambda\mathcal L_0-\lambda^2\mathcal L_1
+  +\lambda^3\left(\frac{1}{2}\mathcal L_2+\frac{2}{3}\zeta_3\deltaT\right)
+  \notag\\
+  &\quad
+  +\lambda^4\left(-\frac{1}{6}\mathcal L_3+\frac{2}{3}\zeta_3\mathcal L_0\right)
+  +\order{\lambda^5}.
+  \label{eq:Exp-L0-expanded}
+\end{align}
+This check is useful because it verifies the signs in
+Eqs.~\eqref{eq:L0L0-conv}--\eqref{eq:L0L1-conv}. For example,
+\begin{equation}
+  \mathcal L_0\ot\mathcal L_0\ot\mathcal L_0
+  =3\mathcal L_2+4\zeta_3\deltaT,
+  \label{eq:L0-cubed}
+\end{equation}
+which is the $\lambda^3$ coefficient of Eq.~\eqref{eq:Exp-L0-expanded} multiplied by
+$3!$.
+
+\subsection{Executable generator-algebra validator}
+
+The accompanying script \texttt{kt\_kcss\_generator\_convolution\_validator.py} implements
+Eq.~\eqref{eq:Pn-generator-formula}, generates the table through
+$\mathcal L_3\ot\mathcal L_3$, and checks three identities:
+\begin{enumerate}
+  \item the exact generator-basis rule
+  $\mathfrak L_m\ot\mathfrak L_n=\mathfrak L_{m+n+1}$;
+  \item the conventional-basis projection by verifying
+  $P_m(X)P_n(X)-\mathcal F[\mathcal L_m\ot\mathcal L_n]=0$;
+  \item the one-loop exponential identity
+  $\ExpT\{\lambda\mathcal L_0\}=\mathcal G_\lambda$ through the tested order.
+\end{enumerate}
+The regression report gives
+\begin{equation}
+  \mathrm{passed}=\mathrm{True},
+  \qquad
+  N_{\mathrm{frak\ failures}}=0,
+  \qquad
+  \Delta_{\mathrm{projection}}=0,
+  \qquad
+  \Delta_{\mathrm{exp}}=0.
+  \label{eq:generator-validator-results}
+\end{equation}
+This is the first validation step that directly targets the convolution-exponential
+structure needed for $k_T$-space Sudakov evolution.
+
+\decision{The generator algebra is now a validated component of the formalism. It supplies the
+engine used in Sec.~\ref{sec:one-loop-evolution-green} to build the first one-loop
+evolution Green function; the next extension is the running-coupling and two-loop
+version of $\mathcal D_i$ and $\mathcal C_{i\leftarrow j}$.}
+
+
+\section{One-loop evolution Green function}
+\label{sec:one-loop-evolution-green}
+
+Version 0.9 turns the generator algebra of Sec.~\ref{sec:generator-convolution-algebra}
+into the first explicit $k_T$-space evolution Green function. The purpose here is not yet
+to claim a phenomenological NLL implementation. The purpose is to validate the exact
+one-loop, fixed-coupling convolution dynamics that any higher-logarithmic implementation
+must reduce to. Running-coupling evolution, profile scales, and two-loop kernels are the
+next layer.
+
+\subsection{One-loop anomalous dimensions and variables}
+
+At one loop we write
+\begin{equation}
+  \mathcal D_i^{\KCSS}(\bk;\mu)
+  =a_s\Gamma_0^i\mathfrak L_0(\bk;\mu)+\order{a_s^2}
+  =-a_s\Gamma_0^i\mathcal L_0(\bk,\mu)+\order{a_s^2},
+  \label{eq:D-one-loop-green-section}
+\end{equation}
+and
+\begin{equation}
+  \gamma_F^i(\mu,\zeta)
+  =a_s\left[\gamma_{F,0}^i-\Gamma_0^i\ln\!\left(\frac{\zeta}{\mu^2}\right)\right]
+  +\order{a_s^2}.
+  \label{eq:gammaF-one-loop-green-section}
+\end{equation}
+For the quark TMD in the CSS2 convention used above,
+\begin{equation}
+  \Gamma_0^q=4C_F,
+  \qquad
+  \gamma_{F,0}^q=6C_F,
+  \label{eq:quark-anom-one-loop-green-section}
+\end{equation}
+where the second equality follows from the coefficient-evolution check in
+Eq.~\eqref{eq:C-mu-check}. The gluon channel is obtained by replacing these constants by
+the corresponding CSS2 gluon anomalous-dimension coefficients.
+
+For a path from $(\mu_i,\zeta_i)$ to $(\mu_f,\zeta_f)$ define
+\begin{equation}
+  L_\mu\equiv\ln\frac{\mu_f}{\mu_i},
+  \qquad
+  \rho\equiv\ln\sqrt{\frac{\zeta_f}{\zeta_i}},
+  \qquad
+  \ell_i\equiv\ln\frac{\zeta_i}{\mu_i^2},
+  \qquad
+  \ell_f\equiv\ln\frac{\zeta_f}{\mu_f^2}.
+  \label{eq:path-vars-green-section}
+\end{equation}
+These variables obey
+\begin{equation}
+  \ell_f=\ell_i+2\rho-2L_\mu.
+  \label{eq:ell-relation-green-section}
+\end{equation}
+We hold $a_s$ fixed in this subsection. This is an algebraic one-loop Green function;
+NLL evolution will replace the fixed $a_s$ factors by RG integrals.
+
+\subsection{Rapidity evolution at fixed mu}
+
+At fixed $\mu$, Eq.~\eqref{eq:CS-kspace} gives
+\begin{equation}
+  F_i(x,\bk;\mu,\zeta_f)
+  =\left[\mathcal U_i^\zeta(\mu;\zeta_f,\zeta_i)\ot
+  F_i(x;\mu,\zeta_i)\right](\bk),
+  \label{eq:U-zeta-def-green-section}
+\end{equation}
+with
+\begin{equation}
+  \mathcal U_i^\zeta(\bk;\mu;\zeta_f,\zeta_i)
+  =\ExpT\!\left\{-\rho\,\mathcal D_i(\mu)\right\}
+  =\ExpT\!\left\{a_s\Gamma_0^i\rho\,\mathcal L_0(\mu)\right\}
+  +\order{a_s^2\ \text{in the kernel}}.
+  \label{eq:U-zeta-exp-green-section}
+\end{equation}
+Using Eq.~\eqref{eq:Exp-L0-G}, the fixed-$\mu$ rapidity Green function is therefore
+\begin{equation}
+  \boxed{
+  \mathcal U_i^\zeta(\bk;\mu;\zeta_f,\zeta_i)
+  =\mathcal G_{\eta_i}(\bk;\mu),
+  \qquad
+  \eta_i=a_s\Gamma_0^i\rho.
+  }
+  \label{eq:U-zeta-G-green-section}
+\end{equation}
+In $b_T$ space this is simply
+\begin{equation}
+  \widetilde{\mathcal U}_i^\zeta(b;\mu;\zeta_f,\zeta_i)
+  =\exp\!\left[-a_s\Gamma_0^i\rho\,L_b(\mu)\right],
+  \label{eq:U-zeta-b-green-section}
+\end{equation}
+which solves
+\begin{equation}
+  \frac{\partial}{\partial\rho}\widetilde{\mathcal U}_i^\zeta
+  =-a_s\Gamma_0^iL_b(\mu)\,
+  \widetilde{\mathcal U}_i^\zeta.
+  \label{eq:U-zeta-diff-green-section}
+\end{equation}
+
+\subsection{Adding the mu leg}
+
+Choose the path that first evolves in $\mu$ at fixed $\zeta_i$, then evolves in $\zeta$ at
+fixed $\mu_f$. The $\mu$-leg is local in transverse momentum, so it contributes a scalar
+factor. Integrating Eq.~\eqref{eq:gammaF-one-loop-green-section} gives
+\begin{align}
+  R_i^{(1)}(\mu_f,\mu_i;\zeta_i)
+  &\equiv
+  \int_{\ln\mu_i}^{\ln\mu_f}\!\dd\ln\mu\,
+  a_s\left[\gamma_{F,0}^i-\Gamma_0^i\ln\!\left(\frac{\zeta_i}{\mu^2}\right)\right]
+  \notag\\
+  &=a_sL_\mu\left[\gamma_{F,0}^i-\Gamma_0^i(\ell_i-L_\mu)\right].
+  \label{eq:R-one-loop-green-section}
+\end{align}
+The resulting one-loop fixed-coupling Green function, represented with the final scale
+$\mu_f$ in the generator, is
+\begin{equation}
+  \boxed{
+  \mathcal U_i^{(1\ell)}(\bk;\mu_f,\zeta_f;\mu_i,\zeta_i)
+  =\exp\!\left\{R_i^{(1)}(\mu_f,\mu_i;\zeta_i)\right\}
+  \mathcal G_{\eta_i}(\bk;\mu_f),
+  \qquad
+  \eta_i=a_s\Gamma_0^i\rho.
+  }
+  \label{eq:U-one-loop-main-green-section}
+\end{equation}
+Equivalently, the $b_T$-space image is
+\begin{equation}
+  \widetilde{\mathcal U}_i^{(1\ell)}
+  =\exp\!\left\{
+  a_sL_\mu\left[\gamma_{F,0}^i-\Gamma_0^i(\ell_i-L_\mu)\right]
+  -a_s\Gamma_0^i\rho\,L_b(\mu_f)
+  \right\}.
+  \label{eq:U-one-loop-b-green-section}
+\end{equation}
+The corresponding fixed-order expansion in the conventional $\mathcal L_n$ basis is
+\begin{align}
+  \mathcal U_i^{(1\ell)}
+  &=\deltaT
+  +a_sL_\mu\left[\gamma_{F,0}^i-\Gamma_0^i(\ell_i-L_\mu)\right]\deltaT
+  +a_s\Gamma_0^i\rho\,\mathcal L_0(\bk,\mu_f)
+  +\order{a_s^2}.
+  \label{eq:U-one-loop-expanded-green-section}
+\end{align}
+Equation~\eqref{eq:U-one-loop-expanded-green-section} is the object that should appear
+when the resummed kernel is expanded to first order.
+
+\subsection{Path-independence check}
+
+The same endpoint evolution can be obtained by first evolving in $\zeta$ at $\mu_i$ and
+then evolving in $\mu$ at fixed $\zeta_f$. That path gives
+\begin{equation}
+  \mathcal U_{i,\zeta\text{-first}}^{(1\ell)}
+  =\exp\!\left\{
+  a_sL_\mu\left[\gamma_{F,0}^i-\Gamma_0^i(\ell_f+L_\mu)\right]
+  \right\}
+  \mathcal G_{\eta_i}(\bk;\mu_i).
+  \label{eq:U-zeta-first-green-section}
+\end{equation}
+The two forms are identical. In $b_T$ space the generator satisfies
+\begin{equation}
+  L_b(\mu_f)=L_b(\mu_i)+2L_\mu,
+  \qquad
+  \mathcal G_\eta(\mu_i)=e^{2\eta L_\mu}\mathcal G_\eta(\mu_f),
+  \label{eq:G-scale-shift-green-section}
+\end{equation}
+while Eq.~\eqref{eq:ell-relation-green-section} relates $\ell_i$ and $\ell_f$. These two
+relations give
+\begin{equation}
+  \mathcal U_{i,\mu\text{-first}}^{(1\ell)}
+  =\mathcal U_{i,\zeta\text{-first}}^{(1\ell)}.
+  \label{eq:path-independence-green-section}
+\end{equation}
+This is the one-loop fixed-coupling version of path independence in the $(\mu,\zeta)$
+plane. It is the momentum-space analogue of the usual Collins-Soper/RG consistency
+condition.
+
+\subsection{Differential-equation and semigroup checks}
+
+The Green function in Eq.~\eqref{eq:U-one-loop-main-green-section} satisfies the endpoint
+differential equations. Holding the initial point fixed,
+\begin{equation}
+  \frac{\partial}{\partial\rho}\mathcal U_i^{(1\ell)}
+  =-\mathcal D_i(\mu_f)\ot\mathcal U_i^{(1\ell)}
+  +\order{a_s^2\ \text{in the kernel}},
+  \label{eq:U-rho-eq-green-section}
+\end{equation}
+and
+\begin{equation}
+  \frac{\partial}{\partial\ln\mu_f}\mathcal U_i^{(1\ell)}
+  =\gamma_F^i(\mu_f,\zeta_f)\,
+  \mathcal U_i^{(1\ell)}
+  +\order{a_s^2\ \text{in the kernel}}.
+  \label{eq:U-mu-eq-green-section}
+\end{equation}
+The second check uses both the explicit scalar derivative and the scale derivative of
+$\mathcal G_\eta(\bk;\mu_f)$.
+
+The Green function also obeys the semigroup property. For three points
+$(\mu_0,\zeta_0)$, $(\mu_1,\zeta_1)$, and $(\mu_2,\zeta_2)$,
+\begin{equation}
+  \mathcal U_i(2;0)=\mathcal U_i(2;1)\ot\mathcal U_i(1;0),
+  \label{eq:semigroup-green-section}
+\end{equation}
+where the product is a transverse convolution in $k_T$ space and ordinary multiplication
+in $b_T$ space. This check will become nontrivial numerically once the kernel is used on a
+finite $k_T$ grid.
+
+\subsection{Executable evolution-Green validator}
+
+The accompanying script
+\texttt{kt\_kcss\_one\_loop\_evolution\_validator.py} validates
+Eqs.~\eqref{eq:U-one-loop-main-green-section}--\eqref{eq:semigroup-green-section}
+symbolically in $b_T$ space. It checks
+\begin{enumerate}
+  \item equality of the $\mu$-first and $\zeta$-first paths;
+  \item the rapidity differential equation;
+  \item the $\mu$ differential equation at the final endpoint;
+  \item the semigroup law for three arbitrary points;
+  \item the $\order{a_s}$ conventional-basis expansion in Eq.~\eqref{eq:U-one-loop-expanded-green-section}.
+\end{enumerate}
+The regression report gives
+\begin{equation}
+  \mathrm{passed}=\mathrm{True},
+  \qquad
+  \Delta_{\rm path}=0,
+  \qquad
+  \Delta_\rho=0,
+  \qquad
+  \Delta_\mu=0,
+  \qquad
+  \Delta_{\rm semi}=0.
+  \label{eq:evolution-validator-results}
+\end{equation}
+For a quark-like smoke point with $\Gamma_0^q=16/3$, $\gamma_{F,0}^q=8$, and
+$a_s=0.02$, the script finds
+\begin{equation}
+  \eta_q\simeq 2.13\times10^{-2},
+  \qquad
+  R_q^{(1)}\simeq 3.52\times10^{-2},
+  \label{eq:evolution-validator-smoke}
+\end{equation}
+which is only a numerical smoke check, not a phenomenological prediction.
+
+\decision{The first evolution Green function is now fixed and validated at one-loop,
+fixed-coupling level. The next formal layer is to replace the fixed $a_s$ factors by
+running-coupling RG integrals and then include the two-loop Collins-Soper kernel and
+matching coefficients needed for the first NLL/NNLL $W$-term prototype.}
+
+\section{Two-loop Collins-Soper kernel and NNLO matching interface}
+\label{sec:two-loop-cs-matching}
+
+Version 0.10 adds the first genuinely higher-order perturbative ingredient.  The
+Collins-Soper kernel is compact enough to write explicitly in the $\KCSS$ basis.  The
+full two-loop TMD matching coefficients are much longer; for them we define the import
+interface, scheme checks, and $k_T$ projection map rather than duplicating pages of known
+coefficient functions.  This is the right split for the code: the CS kernel is an internal
+analytic kernel, while NNLO matching tables should be imported from a vetted source and
+then transformed into our distribution basis.
+
+\subsection{Conventions and anomalous dimensions}
+
+We keep the expansion parameter
+\begin{equation}
+  a_s(\mu)\equiv \frac{\alpha_s(\mu)}{4\pi},
+  \qquad
+  \frac{\dd a_s}{\dd\ln\mu}
+  =-2\beta_0 a_s^2+\order{a_s^3},
+  \qquad
+  \beta_0=\frac{11}{3}C_A-\frac{4}{3}T_F n_f .
+  \label{eq:beta0-v10}
+\end{equation}
+For a parton in representation $i$, with $C_i=C_F$ for quarks and $C_i=C_A$ for gluons,
+\begin{align}
+  \Gamma_0^i &=4C_i,
+  \label{eq:Gamma0-v10}
+  \\
+  \Gamma_1^i
+  &=4C_i\left[
+      \left(\frac{67}{9}-\frac{\pi^2}{3}\right)C_A
+      -\frac{20}{9}T_F n_f
+    \right].
+  \label{eq:Gamma1-v10}
+\end{align}
+The two-loop boundary coefficient of the CSS2 Collins-Soper kernel, in the present
+normalization $D_i=-\widetilde K_i$, is
+\begin{equation}
+  d_i^{(2)}
+  =C_i\left[
+      C_A\left(\frac{808}{27}-28\zeta_3\right)
+      -\frac{224}{27}T_F n_f
+    \right].
+  \label{eq:d2-v10}
+\end{equation}
+For quarks this follows directly from the two-loop $\widetilde K$ result compiled by
+Collins and Rogers.  Their Eq.~(69) gives $\widetilde K_q$ through $a_s^2$ with
+$\ln(b_T\mu/(2e^{-\gamma_E}))=L_b/2$; after setting $D_q=-\widetilde K_q$ one obtains
+Eqs.~\eqref{eq:Gamma1-v10}--\eqref{eq:d2-v10}.  The same constant is equivalently the
+negative of the two-loop rapidity anomalous-dimension boundary term in the Li-Zhu
+normalization, after translating between $\widetilde K$ and $D$ conventions
+\cite{CollinsRogers2017,LiZhu2017}.
+
+\subsection{Two-loop kernel in bT space}
+
+Solving the RG equation
+\begin{equation}
+  \frac{\dd}{\dd\ln\mu}D_i(b_T;\mu)
+  =2\Gamma_{\rm cusp}^i(\alpha_s)
+  =2\left[a_s\Gamma_0^i+a_s^2\Gamma_1^i+\order{a_s^3}\right]
+  \label{eq:D-rg-v10}
+\end{equation}
+with $L_b=\ln(\mu^2b_T^2e^{2\gamma_E}/4)$ gives
+\begin{equation}
+  \boxed{
+  D_i^{\CSS}(b_T;\mu)
+  =a_s\Gamma_0^i L_b
+  +a_s^2\left[
+      \frac{1}{2}\beta_0\Gamma_0^i L_b^2
+      +\Gamma_1^i L_b
+      +d_i^{(2)}
+    \right]
+  +\order{a_s^3}.}
+  \label{eq:D-b-two-loop-v10}
+\end{equation}
+The coefficient of $L_b^2$ is not independent.  It is fixed by the running of $a_s$ in
+the one-loop term.  The coefficient of $L_b$ is fixed by the two-loop cusp anomalous
+dimension.  The only new constant at this order is $d_i^{(2)}$.
+
+The RG check is useful enough to record explicitly.  Using
+$\dd L_b/\dd\ln\mu=2$ and Eq.~\eqref{eq:beta0-v10},
+\begin{align}
+  \frac{\dd}{\dd\ln\mu}D_i^{\CSS}(b_T;\mu)
+  &
+  =2a_s\Gamma_0^i
+   +a_s^2\left[-2\beta_0\Gamma_0^iL_b
+   +2\beta_0\Gamma_0^iL_b+2\Gamma_1^i\right]
+   +\order{a_s^3}
+  \\
+  &=2a_s\Gamma_0^i+2a_s^2\Gamma_1^i+\order{a_s^3}.
+  \label{eq:D-two-loop-rg-check-v10}
+\end{align}
+
+\subsection{Two-loop kernel in the generator and conventional kT bases}
+
+The $\KCSS$ momentum-space kernel is obtained by the same Fourier map used at one loop:
+\begin{equation}
+  L_b^m\quad\longmapsto\quad
+  \begin{cases}
+    \deltaT(\bk), & m=0,\\
+    \mathfrak L_{m-1}(\bk;\mu), & m\ge 1.
+  \end{cases}
+  \label{eq:Lb-power-map-v10}
+\end{equation}
+Therefore
+\begin{equation}
+  \boxed{
+  \mathcal D_i^{\KCSS}(\bk;\mu)
+  =a_s\Gamma_0^i\mathfrak L_0
+  +a_s^2\left[
+      \frac{1}{2}\beta_0\Gamma_0^i\mathfrak L_1
+      +\Gamma_1^i\mathfrak L_0
+      +d_i^{(2)}\deltaT
+    \right]
+  +\order{a_s^3}.}
+  \label{eq:D-k-frak-two-loop-v10}
+\end{equation}
+Projecting onto the conventional plus basis with
+$\mathfrak L_0=-\mathcal L_0$ and $\mathfrak L_1=-2\mathcal L_1$ gives
+\begin{equation}
+  \boxed{
+  \mathcal D_i^{\KCSS}(\bk;\mu)
+  =-a_s\Gamma_0^i\mathcal L_0
+  +a_s^2\left[
+      -\beta_0\Gamma_0^i\mathcal L_1
+      -\Gamma_1^i\mathcal L_0
+      +d_i^{(2)}\deltaT
+    \right]
+  +\order{a_s^3}.}
+  \label{eq:D-k-L-two-loop-v10}
+\end{equation}
+This is the first nontrivial test of the generator basis.  The $\mathfrak L$ form keeps
+the RG structure transparent, while the $\mathcal L_n$ form is the one to use for binned
+singular spectra.
+
+In the $\mathfrak L$ basis, the scale derivative is
+\begin{equation}
+  \frac{\dd}{\dd\ln\mu}\mathfrak L_n(\bk;\mu)
+  =2(n+1)\mathfrak L_{n-1}(\bk;\mu),
+  \qquad
+  \mathfrak L_{-1}\equiv\deltaT,
+  \label{eq:frak-scale-derivative-v10}
+\end{equation}
+so Eq.~\eqref{eq:D-k-frak-two-loop-v10} obeys the momentum-space RG equation
+\begin{equation}
+  \frac{\dd}{\dd\ln\mu}\mathcal D_i^{\KCSS}(\bk;\mu)
+  =2\left[a_s\Gamma_0^i+a_s^2\Gamma_1^i\right]\deltaT(\bk)
+  +\order{a_s^3}.
+  \label{eq:D-k-two-loop-rg-v10}
+\end{equation}
+
+\subsection{NNLO matching coefficients: import architecture}
+
+The NNLO matching coefficients are needed for NNLL$'$-type accuracy and for a stable
+large-$k_T$ perturbative tail.  They are known in the literature; Gehrmann, L\"ubbert, and Yang give the two-loop transverse-PDF calculation and its
+scale-logarithm recursion, Echevarria, Scimemi, and Vladimirov provide NNLO
+unpolarized TMDPDF/TMDFF matching coefficients for all flavor combinations, and Luo,
+Yang, Zhu, and Zhu provide unpolarized quark and gluon TMDPDF and TMDFF matching
+coefficients through $N^3$LO, including ancillary machine-readable
+files~\cite{GehrmannLuebbertYang2014,EchevarriaScimemiVladimirov2016,LuoYangZhuZhu2021}.
+We should import those coefficients rather than hand-transcribing them.
+
+For the $\KCSS$ engine, the required interface is the polynomial representation
+\begin{equation}
+  \widetilde C_{i\leftarrow j}^{(2),\CSS}(z,b_T;\mu,\zeta)
+  =\sum_{m=0}^{4}
+    \widetilde c_{i\leftarrow j}^{(2,m)}(z;\ell_\zeta)
+    L_b^m,
+  \qquad
+  \ell_\zeta=\ln\frac{\zeta}{\mu^2}.
+  \label{eq:C2-b-poly-v10}
+\end{equation}
+The upper power $m=4$ is allowed because the one-loop coefficient already contains
+$L_b^2$ terms.  The momentum-space projection is then purely mechanical:
+\begin{equation}
+  \boxed{
+  \mathcal C_{i\leftarrow j}^{(2),\KCSS}(z,\bk;\mu,\zeta)
+  =\widetilde c_{i\leftarrow j}^{(2,0)}(z;\ell_\zeta)\deltaT
+  +\sum_{m=1}^{4}
+    \widetilde c_{i\leftarrow j}^{(2,m)}(z;\ell_\zeta)
+    \mathfrak L_{m-1}(\bk;\mu).}
+  \label{eq:C2-k-frak-v10}
+\end{equation}
+For output in the conventional basis, use Eq.~\eqref{eq:frak-to-L-v08}; explicitly,
+\begin{align}
+  \mathcal C_{i\leftarrow j}^{(2),\KCSS}
+  &={}
+  \left[\widetilde c^{(2,0)}_{ij}-4\zeta_3\widetilde c^{(2,3)}_{ij}\right]\deltaT
+  -\left[\widetilde c^{(2,1)}_{ij}-16\zeta_3\widetilde c^{(2,4)}_{ij}\right]
+    \mathcal L_0
+  -2\widetilde c^{(2,2)}_{ij}\mathcal L_1
+  \notag\\
+  &\quad
+  -3\widetilde c^{(2,3)}_{ij}\mathcal L_2
+  -4\widetilde c^{(2,4)}_{ij}\mathcal L_3,
+  \label{eq:C2-k-L-v10}
+\end{align}
+where the common arguments $(z;\ell_\zeta)$ and $(\bk;\mu)$ have been suppressed.  This
+formula is an important implementation checkpoint: all zeta constants in
+Eq.~\eqref{eq:C2-k-L-v10} are basis-conversion constants, not new hard physics.
+
+
+
+\subsection{Logarithmic reconstruction of the NNLO matching coefficient}
+\label{subsec:nnlo-matching-reconstruction}
+
+The finite functions $\widetilde c^{(2,0)}_{i\leftarrow j}(z)$ must be imported from a
+vetted CSS2-compatible source.  However, the $L_b$ and $\ell_\zeta$ dependence is not an
+independent input.  It is fixed by the Collins-Soper equation, the $\mu$-RG equation, the
+DGLAP kernels, and the two-loop kernel above.  This gives a strong convention check on
+any imported NNLO table.
+
+For a compact scalar-channel projection, suppress the flavor matrices and $x$-convolutions
+and write
+\begin{equation}
+  \widetilde C
+  =1+a_s C_1+a_s^2 C_2+\order{a_s^3},
+  \qquad
+  P_\mu=4a_s P_0+8a_s^2 P_1+\order{a_s^3},
+  \label{eq:scalar-C-expansion-v10}
+\end{equation}
+with
+\begin{align}
+  D_1(L_b)&=\Gamma_0 L_b,\\
+  D_2(L_b)&=\frac{1}{2}\beta_0\Gamma_0L_b^2+\Gamma_1L_b+d^{(2)},\\
+  \gamma_F(a_s,\ell_\zeta)
+  &=a_s(\gamma_0-\Gamma_0\ell_\zeta)
+   +a_s^2(\gamma_1-\Gamma_1\ell_\zeta)+\order{a_s^3}.
+  \label{eq:scalar-D-gamma-v10}
+\end{align}
+The one-loop coefficient may be written as
+\begin{equation}
+  C_1(L_b,\ell_\zeta)
+  =C_1^{[0]}(L_b)-\frac{1}{2}\Gamma_0\ell_\zeta L_b,
+  \qquad
+  C_1^{[0]}(L_b)
+  =c_1+\left(\frac{\gamma_0}{2}-2P_0\right)L_b-\frac{1}{4}\Gamma_0L_b^2.
+  \label{eq:C1-scalar-reconstruct-v10}
+\end{equation}
+Then the NNLO logarithmic terms are reconstructed from the finite boundary
+$c_2\equiv C_2(0,0)$ by
+\begin{align}
+  C_2^{[0]}(L_b)
+  &=c_2+\frac{1}{2}\int_0^{L_b}\!\dd L\,
+  \Big[
+    \gamma_1-D_2(L)-8P_1
+    +(\gamma_0+2\beta_0)C_1^{[0]}(L)
+    -D_1(L)C_1^{[0]}(L)
+    -4C_1^{[0]}(L)P_0
+  \Big],
+  \label{eq:C20-scalar-reconstruct-v10}
+  \\
+  C_2(L_b,\ell_\zeta)
+  &=C_2^{[0]}(L_b)
+    -\frac{\ell_\zeta}{2}
+      \left[D_2(L_b)+D_1(L_b)C_1^{[0]}(L_b)\right]
+    +\frac{\Gamma_0^2}{8}\ell_\zeta^2 L_b^2.
+  \label{eq:C2-scalar-reconstruct-v10}
+\end{align}
+Equations~\eqref{eq:C20-scalar-reconstruct-v10} and
+\eqref{eq:C2-scalar-reconstruct-v10} are not intended to replace the full NNLO
+coefficient tables.  Their role is to reconstruct and validate all logarithmic terms once
+the finite boundary functions are imported.
+
+The full flavor-vector form is obtained by restoring matrix multiplication under
+$x$-convolution.  Thus $P_0$ and $P_1$ are DGLAP matrices, products such as
+$C_1^{[0]}P_0$ become $C_1^{[0]}\ox P_0$, and the quantities
+$D_n^i,\Gamma_n^i,\gamma_n^i$ multiply the outgoing TMD row $i$.  The ordering in
+$x$-space should not be changed when translating the scalar check into code.
+
+The two evolution equations checked by this reconstruction are
+\begin{align}
+  2\frac{\partial}{\partial \ell_\zeta}\widetilde C_{i\leftarrow j}
+  &=-D_i\,\widetilde C_{i\leftarrow j},
+  \label{eq:C-CS-reconstruct-check-v10}
+  \\
+  \frac{\dd}{\dd\ln\mu}\widetilde C_{i\leftarrow j}
+  &=\gamma_F^i\,\widetilde C_{i\leftarrow j}
+  -\sum_k \widetilde C_{i\leftarrow k}\ox (P_\mu)_{k\leftarrow j}.
+  \label{eq:C-mu-reconstruct-check-v10}
+\end{align}
+Here $P_\mu=4a_sP^{(0)}+8a_s^2P^{(1)}+\cdots$ is the DGLAP kernel for evolution with respect to $\ln\mu$.  The factors of four and eight follow from the standard $\dd f/\dd\ln\mu^2=(\alpha_s/2\pi)P^{(0)}\otimes f+(\alpha_s/2\pi)^2P^{(1)}\otimes f+\cdots$ convention together with $a_s=\alpha_s/(4\pi)$.
+
+\subsection{Flavor channels required at two loops}
+
+The import layer must be flavor-vector valued.  For a quark TMD, the NNLO channels are
+schematically
+\begin{equation}
+  q\leftarrow q,
+  \qquad
+  q\leftarrow \bar q,
+  \qquad
+  q\leftarrow q',
+  \qquad
+  q\leftarrow \bar q',
+  \qquad
+  q\leftarrow g,
+  \label{eq:quark-C2-channels-v10}
+\end{equation}
+with $q'\ne q$.  For a gluon TMD, the corresponding channels are
+\begin{equation}
+  g\leftarrow g,
+  \qquad
+  g\leftarrow q,
+  \qquad
+  g\leftarrow \bar q.
+  \label{eq:gluon-C2-channels-v10}
+\end{equation}
+Drell-Yan fixed-target phenomenology will mostly stress the quark channels, but the
+formalism and code must carry the gluon entries from the start so that the same $\KCSS$
+objects can be used for collider Drell-Yan, Higgs-like color-singlet production, SIDIS,
+and eventually $e^+e^-$ fragmentation observables.
+
+\subsection{Validation gates before using NNLO matching in a fit}
+
+The two-loop matching interface should not be considered active until the following tests
+pass:
+\begin{enumerate}
+  \item \textbf{Scheme test.}  The imported coefficients must be in CSS2 or converted to
+  CSS2 by explicit finite factors.  If an SCET/RRG table is used, the conversion must be
+  applied before Eq.~\eqref{eq:C2-k-frak-v10}.
+  \item \textbf{One-loop regression.}  Applying the same import/projection machinery to
+  the one-loop table must reproduce Eqs.~\eqref{eq:Cqq-k-one-loop} and
+  \eqref{eq:Cqg-k-one-loop}.
+  \item \textbf{RG test.}  The imported $\widetilde C^{(2)}$ must satisfy the two-loop
+  $\mu$ and $\zeta$ evolution equations with the kernel in
+  Eq.~\eqref{eq:D-b-two-loop-v10} and the NLO DGLAP kernels.
+  \item \textbf{Distribution projection test.}  The $b_T$-space polynomial and the
+  $k_T$-space distribution representation must agree after transforming back to
+  $b_T$ space.
+  \item \textbf{Observable test.}  The expanded NNLO singular $W$ term must agree with
+  the known small-$q_T$ singular coefficients bin by bin before any $Y$ term or
+  nonperturbative model is attached.
+\end{enumerate}
+
+\decision{For the next implementation stage, the CS kernel is internal and analytic.  The NNLO
+matching coefficients are external perturbative data with a strict import, conversion, and
+projection interface.  This prevents transcription errors and keeps the $\KCSS$ formalism
+from becoming tied to a single paper's coefficient notation.}
+
+\subsection{Executable two-loop ingredient validator}
+
+The accompanying script
+\texttt{kt\_kcss\_two\_loop\_ingredients\_validator.py} checks the compact CS-kernel
+part of this section and the scalar projection of the NNLO matching-interface equations.
+It verifies
+\begin{enumerate}
+  \item equivalence between Collins-Rogers Eq.~(69), rewritten with $L_b$, and
+  Eq.~\eqref{eq:D-b-two-loop-v10};
+  \item the two-loop RG identity in Eq.~\eqref{eq:D-two-loop-rg-check-v10};
+  \item the projection from Eq.~\eqref{eq:D-k-frak-two-loop-v10} to
+  Eq.~\eqref{eq:D-k-L-two-loop-v10};
+  \item Casimir scaling through two loops, $D_g/D_q=C_A/C_F$, for the perturbative
+  coefficients;
+  \item the scalar-channel CS and $\mu$ evolution equations for the NNLO matching
+  reconstruction, with the finite $c^{(2,0)}(z)$ table left as external input.
+\end{enumerate}
+The regression report gives
+\begin{equation}
+  \mathrm{passed}=\mathrm{True},
+  \qquad
+  \Delta_{K\to D}=0,
+  \qquad
+  \Delta_{\rm RG}=0,
+  \qquad
+  \Delta_{\rm proj}=0,
+  \qquad
+  \Delta_{\rm Casimir}=0,
+  \qquad
+  \Delta_{C^{(2)}\,{\rm RG}}=0.
+  \label{eq:two-loop-cs-validator-results}
+\end{equation}
+
+
+\section{Running-coupling evolution kernel}
+\label{sec:running-coupling-evolution}
+
+Version 0.11 promotes the fixed-coupling Green function of
+Sec.~\ref{sec:one-loop-evolution-green} to a running-coupling endpoint kernel.  The goal
+is still formal and algorithmic: define the RG-integral object that the pure-$k_T$ code
+will evaluate, expose the path-independence checks, and obtain the first two-loop
+rapidity-leg projection in the generator and conventional distribution bases.
+
+\subsection{General RG-integral form}
+
+We write
+\begin{align}
+  \Gamma_i(a_s)&=\sum_{n\ge0}a_s^{n+1}\Gamma_n^i,
+  &
+  \gamma_i(a_s)&=\sum_{n\ge0}a_s^{n+1}\gamma_n^i,
+  \label{eq:anom-general-v11}
+  \\
+  \frac{\dd a_s}{\dd\ln\mu}
+  &=-2\sum_{n\ge0}\beta_n a_s^{n+2}
+  =-2\beta_0a_s^2-2\beta_1a_s^3+\cdots .
+  \label{eq:beta-general-v11}
+\end{align}
+Here $\Gamma_i$ is the cusp anomalous dimension for the TMD parton representation and
+$\gamma_i$ is the noncusp piece in
+\begin{equation}
+  \gamma_F^i(\mu,\zeta)
+  =\gamma_i(a_s(\mu))
+  -\Gamma_i(a_s(\mu))\ln\!\left(\frac{\zeta}{\mu^2}\right).
+  \label{eq:gammaF-running-v11}
+\end{equation}
+For reference,
+\begin{equation}
+  \beta_1=\frac{34}{3}C_A^2-\frac{20}{3}C_AT_Fn_f-4C_FT_Fn_f .
+  \label{eq:beta1-v11}
+\end{equation}
+The coefficient $\gamma_1^i$ is a CSS2 scheme input.  We keep it as an imported
+perturbative coefficient rather than hard-coding a convention before the complete CSS2
+coefficient interface is active.
+
+For endpoint evolution from $(\mu_i,\zeta_i)$ to $(\mu_f,\zeta_f)$ define
+\begin{equation}
+  L\equiv\ln\frac{\mu_f}{\mu_i},
+  \qquad
+  \rho\equiv\ln\sqrt{\frac{\zeta_f}{\zeta_i}},
+  \qquad
+  \ell_i\equiv\ln\frac{\zeta_i}{\mu_i^2}.
+  \label{eq:running-vars-v11}
+\end{equation}
+It is useful to introduce the RG integrals
+\begin{align}
+  A_{\Gamma_i}(\mu_f,\mu_i)
+  &\equiv
+  \int_{\ln\mu_i}^{\ln\mu_f}\!\dd\ln\mu\,\Gamma_i(a_s(\mu)),
+  \label{eq:A-Gamma-v11}
+  \\
+  A_{\gamma_i}(\mu_f,\mu_i)
+  &\equiv
+  \int_{\ln\mu_i}^{\ln\mu_f}\!\dd\ln\mu\,\gamma_i(a_s(\mu)),
+  \label{eq:A-gamma-v11}
+  \\
+  S_{\Gamma_i}(\mu_f,\mu_i)
+  &\equiv
+  \int_{\ln\mu_i}^{\ln\mu_f}\!\dd\ln\mu\,
+  \ln\!\left(\frac{\mu}{\mu_i}\right)\Gamma_i(a_s(\mu)).
+  \label{eq:S-Gamma-v11}
+\end{align}
+Then the $\mu$ leg at fixed $\zeta_i$ gives the scalar exponent
+\begin{equation}
+  \boxed{
+  R_i(\mu_f,\mu_i;\zeta_i)
+  =A_{\gamma_i}-\ell_iA_{\Gamma_i}+2S_{\Gamma_i}.}
+  \label{eq:R-running-integral-v11}
+\end{equation}
+This reduces to Eq.~\eqref{eq:R-one-loop-green-section} when $a_s$ is fixed and only the
+one-loop anomalous dimensions are retained.
+
+Using a $\mu$-first path, the parent CSS2 image of the evolution kernel is
+\begin{equation}
+  \boxed{
+  \widetilde{\mathcal U}_i(b_T;\mu_f,\zeta_f;\mu_i,\zeta_i)
+  =\exp\!\left[
+      R_i(\mu_f,\mu_i;\zeta_i)-\rho D_i(b_T;\mu_f)
+    \right].}
+  \label{eq:U-running-b-v11}
+\end{equation}
+This equation is used as a proof and validation image.  The implementation remains in
+$k_T$ space by replacing the last factor with a transverse convolution exponential.
+
+\subsection{Path independence}
+
+The $\zeta$-first path gives
+\begin{equation}
+  \widetilde{\mathcal U}_{i,\zeta\text{-first}}
+  =\exp\!\left[
+      -\rho D_i(b_T;\mu_i)
+      +A_{\gamma_i}-(\ell_i+2\rho)A_{\Gamma_i}+2S_{\Gamma_i}
+    \right].
+  \label{eq:U-zeta-first-running-v11}
+\end{equation}
+Equations~\eqref{eq:U-running-b-v11} and \eqref{eq:U-zeta-first-running-v11} are equal
+through the same perturbative order because
+\begin{equation}
+  D_i(b_T;\mu_f)-D_i(b_T;\mu_i)=2A_{\Gamma_i}(\mu_f,\mu_i),
+  \label{eq:D-difference-A-v11}
+\end{equation}
+which is the integrated Collins-Soper-kernel RG equation
+$\dd D_i/\dd\ln\mu=2\Gamma_i$.  In $k_T$ space this is a statement about convolution
+kernels.  The kernels commute because their Fourier images are ordinary functions of
+$L_b$.
+
+\subsection{Momentum-space representation through two loops}
+
+Separate the $\KCSS$ kernel into its identity and plus-distribution pieces,
+\begin{equation}
+  \mathcal D_i^{\KCSS}(\bk;\mu)
+  =D_i^\delta(a_s(\mu))\,\deltaT(\bk)
+  +\sum_{n\ge0}D_{i,n}(a_s(\mu))\,\mathfrak L_n(\bk;\mu).
+  \label{eq:D-decomposition-v11}
+\end{equation}
+Through two loops, Eq.~\eqref{eq:D-k-frak-two-loop-v10} gives
+\begin{align}
+  D_i^\delta(a_f)&=a_f^2d_i^{(2)}+\order{a_f^3},
+  \label{eq:D-delta-v11}
+  \\
+  D_{i,0}(a_f)&=a_f\Gamma_0^i+a_f^2\Gamma_1^i+\order{a_f^3},
+  \label{eq:D0-v11}
+  \\
+  D_{i,1}(a_f)&=\frac{1}{2}a_f^2\beta_0\Gamma_0^i+\order{a_f^3},
+  \label{eq:D1-v11}
+\end{align}
+where $a_f\equiv a_s(\mu_f)$.  It is useful to isolate the new two-loop generator
+associated with the $L_b^2$ term:
+\begin{equation}
+  \mathcal H_\kappa(\bk;\mu)
+  \equiv\ExpT\!\left[-\kappa\mathfrak L_1(\bk;\mu)\right],
+  \qquad
+  \mathcal F_{k\to b}[\mathcal H_\kappa]=\exp[-\kappa L_b^2].
+  \label{eq:H-kappa-v11}
+\end{equation}
+Then the rapidity leg through the two-loop CS kernel may be written as
+\begin{equation}
+  \ExpT[-\rho\mathcal D_i(\mu_f)]
+  =e^{-\rho D_i^\delta(a_f)}\,
+  \mathcal H_{\kappa_i}(\mu_f)\ot\mathcal G_{\eta_i}(\mu_f)
+  +\order{a_f^3\ \text{in }\mathcal D_i},
+  \label{eq:U-rapidity-HG-v11}
+\end{equation}
+with
+\begin{equation}
+  \eta_i=\rho D_{i,0}(a_f),
+  \qquad
+  \kappa_i=\rho D_{i,1}(a_f).
+  \label{eq:eta-kappa-v11}
+\end{equation}
+No new scheme information is hidden in $\mathcal H_\kappa$; it is just the $k_T$-space
+representation of the $L_b^2$ term in the two-loop Collins-Soper kernel.  The pure-$k_T$
+running-coupling kernel is therefore
+\begin{equation}
+  \boxed{
+  \mathcal U_i^{\rm run}(\bk;f,i)
+  =\exp\!\left[R_i(\mu_f,\mu_i;\zeta_i)-\rho D_i^\delta(a_f)\right]
+  \ExpT\!\left\{-\rho\sum_{n\ge0}D_{i,n}(a_f)\mathfrak L_n(\bk;\mu_f)\right\}.}
+  \label{eq:U-running-k-v11}
+\end{equation}
+The expression is diagonal in the TMD parton representation.  Flavor mixing enters in the
+matching coefficients and collinear PDFs, not in the Collins-Soper rapidity kernel.
+
+Expanding the rapidity part of Eq.~\eqref{eq:U-running-k-v11} through $a_f^2$ gives
+\begin{align}
+  \mathcal U_i^\zeta(\bk;\mu_f)
+  &=\deltaT
+  -a_f\rho\Gamma_0^i\mathfrak L_0
+  +a_f^2\Bigg[
+     -\rho\Gamma_1^i\mathfrak L_0
+     +\left(\frac{1}{2}\rho^2(\Gamma_0^i)^2
+            -\frac{1}{2}\rho\beta_0\Gamma_0^i\right)\mathfrak L_1
+     -\rho d_i^{(2)}\deltaT
+   \Bigg]
+  +\order{a_f^3}.
+  \label{eq:U-zeta-frak-expanded-v11}
+\end{align}
+Projecting to the conventional basis gives
+\begin{align}
+  \mathcal U_i^\zeta(\bk;\mu_f)
+  &=\deltaT
+  +a_f\rho\Gamma_0^i\mathcal L_0
+  +a_f^2\Big[
+     \rho\Gamma_1^i\mathcal L_0
+     +\left(\rho\beta_0\Gamma_0^i-\rho^2(\Gamma_0^i)^2\right)\mathcal L_1
+     -\rho d_i^{(2)}\deltaT
+   \Big]
+  +\order{a_f^3}.
+  \label{eq:U-zeta-L-expanded-v11}
+\end{align}
+This equation is a useful regression target for the binned distribution layer.  The
+$\mathcal L_1$ term contains both the genuine two-loop $L_b^2$ contribution in $D_i$ and
+the square of the one-loop rapidity kernel.
+
+\subsection{Expansion around the initial coupling}
+
+For algebraic checks it is convenient to expand around $a_i\equiv a_s(\mu_i)$.  To
+$\order{a_i^2}$,
+\begin{equation}
+  a_f=a_i-2\beta_0a_i^2L+\order{a_i^3}.
+  \label{eq:af-exp-v11}
+\end{equation}
+The RG integrals are
+\begin{align}
+  A_{\Gamma_i}
+  &=a_i\Gamma_0^iL
+    +a_i^2\left(\Gamma_1^iL-\beta_0\Gamma_0^iL^2\right)
+    +\order{a_i^3},
+  \label{eq:A-Gamma-exp-v11}
+  \\
+  A_{\gamma_i}
+  &=a_i\gamma_0^iL
+    +a_i^2\left(\gamma_1^iL-\beta_0\gamma_0^iL^2\right)
+    +\order{a_i^3},
+  \label{eq:A-gamma-exp-v11}
+  \\
+  S_{\Gamma_i}
+  &=\frac{1}{2}a_i\Gamma_0^iL^2
+    +a_i^2\left(\frac{1}{2}\Gamma_1^iL^2
+      -\frac{2}{3}\beta_0\Gamma_0^iL^3\right)
+    +\order{a_i^3}.
+  \label{eq:S-Gamma-exp-v11}
+\end{align}
+Thus
+\begin{align}
+  R_i
+  &=a_iL\left(\gamma_0^i-\Gamma_0^i\ell_i\right)
+    +a_i\Gamma_0^iL^2
+  \notag\\
+  &\quad
+    +a_i^2\Big[
+      \gamma_1^iL-\beta_0\gamma_0^iL^2
+      -\ell_i\left(\Gamma_1^iL-\beta_0\Gamma_0^iL^2\right)
+      +\Gamma_1^iL^2
+      -\frac{4}{3}\beta_0\Gamma_0^iL^3
+    \Big]
+    +\order{a_i^3}.
+  \label{eq:R-exp-v11}
+\end{align}
+Setting $\beta_0=\Gamma_1^i=\gamma_1^i=d_i^{(2)}=0$ reduces the full endpoint exponent to
+\begin{equation}
+  a_iL\left[\gamma_0^i-\Gamma_0^i(\ell_i-L)\right]
+  -a_i\rho\Gamma_0^iL_b(\mu_f),
+  \label{eq:fixed-coupling-reduction-v11}
+\end{equation}
+which is Eq.~\eqref{eq:U-one-loop-b-green-section}.
+
+
+\subsection{Executable running-coupling validator}
+
+The accompanying script
+\texttt{kt\_kcss\_running\_coupling\_evolution\_validator.py} checks the
+$\order{a_i^2}$ algebra symbolically.  It verifies
+\begin{enumerate}
+  \item the fixed-coupling limit of the scalar exponent;
+  \item the integrated identity $D_i(\mu_f)-D_i(\mu_i)=2A_{\Gamma_i}$;
+  \item equality of the $\mu$-first and $\zeta$-first paths;
+  \item the rapidity endpoint equation;
+  \item the $\mu$ endpoint equation;
+  \item the semigroup law for two consecutive endpoint evolutions;
+  \item the projection of Eq.~\eqref{eq:U-rapidity-HG-v11} back to the two-loop
+  $b_T$-space rapidity exponent.
+\end{enumerate}
+The regression report gives
+\begin{align}
+  \mathrm{passed}&=\mathrm{True},
+  &
+  \Delta_{\rm fixed}&=0,
+  &
+  \Delta_D&=0,
+  &
+  \Delta_{\rm path}&=0,
+  \notag\\
+  \Delta_\rho&=0,
+  &
+  \Delta_\mu&=0,
+  &
+  \Delta_{\rm semi}&=0,
+  &
+  \Delta_{\rm HG}&=0.
+  \label{eq:running-validator-results-v11}
+\end{align}
+For the quark-like smoke point used by the script,
+\begin{equation}
+  R_q\simeq9.49\times10^{-2},
+  \qquad
+  \eta_q\simeq2.14\times10^{-2},
+  \qquad
+  \kappa_q\simeq1.12\times10^{-3},
+  \label{eq:running-validator-smoke-v11}
+\end{equation}
+which is only a numerical regression check, not a phenomenological prediction.  The
+coefficient $\beta_1$ is already part of the running-coupling interface, but it first
+contributes to this explicit initial-coupling expansion at $\order{a_i^3}$.
+
+\decision{The evolution layer is now formulated as a running-coupling $k_T$-space convolution
+kernel.  Version 0.12 attaches this kernel to the first binned resummed $W$-term
+prototype and validates its one-loop fixed-order expansion.}
+
+
+\section{Binned resummed W-term prototype}
+\label{sec:binned-wterm-prototype}
+
+Version 0.12 is the first point where the perturbative ingredients are assembled into a
+forward-operator prototype.  The purpose is deliberately narrow.  We do not yet attach a
+nonperturbative core, a $Y$ term, fiducial recoil corrections, or external NNLO matching
+tables.  Instead, we define the scale map and the perturbative boundary blocks, then check
+that the fixed-order expansion of the profile-scale construction reproduces the canonical
+CSS2 singular spectrum bin by bin.
+
+\subsection{Endpoint scale map}
+
+For the first Drell--Yan prototype use the symmetric endpoint choice
+\begin{equation}
+  \mu_H=Q,
+  \qquad
+  \mu_f=Q,
+  \qquad
+  \zeta_{A,f}=\zeta_{B,f}=Q^2,
+  \qquad
+  \zeta_{A,f}\zeta_{B,f}=Q^4 .
+  \label{eq:wproto-final-scales-v12}
+\end{equation}
+The perturbative TMD boundary is evaluated at a transverse profile scale
+\begin{equation}
+  \mu_i=\mu_T,
+  \qquad
+  \zeta_i=\mu_T^2,
+  \qquad
+  \rho_T\equiv\ln\frac{Q}{\mu_T},
+  \qquad
+  \ell_i=\ln\frac{\zeta_i}{\mu_i^2}=0 .
+  \label{eq:wproto-boundary-scales-v12}
+\end{equation}
+For formal validation, $\mu_T$ is held fixed over the bins being tested.  A phenomenology
+implementation may later use a smooth profile, for example
+\begin{equation}
+  \mu_T(q;Q,\mu_0)=\min\!\left[Q,\sqrt{q^2+\mu_0^2}\right],
+  \label{eq:wproto-simple-profile-v12}
+\end{equation}
+but such bin-dependent choices must be handled with care because changing the profile
+from bin to bin can spoil exact distributional additivity.  The safe validation gate is a
+constant auxiliary $\mu_T$ followed by explicit scale-variation tests.
+
+\subsection{Perturbative boundary block and evolved TMD leg}
+
+Define the perturbative boundary block
+\begin{equation}
+  \mathbb B_{i/h}^{[m_C]}(x,\bk;\mu_T)
+  \equiv
+  \sum_j
+  \left[
+    \mathcal C_{i\leftarrow j}^{[m_C],\KCSS}\left(\bk;\mu_T,\mu_T^2\right)
+    \ox f_{j/h}(\mu_T)
+  \right](x),
+  \label{eq:wproto-boundary-block-v12}
+\end{equation}
+where $m_C$ is the matching order retained.  The evolved perturbative TMD leg is
+\begin{equation}
+  \mathbb F_{i/h}^{[N,m_C]}(x,\bk;Q,\mu_T)
+  =
+  \mathcal U_i^{[N]}(\bk;Q,Q^2;\mu_T,\mu_T^2)
+  \ot
+  \mathbb B_{i/h}^{[m_C]}(x,\bk;\mu_T).
+  \label{eq:wproto-evolved-leg-v12}
+\end{equation}
+Here $N$ denotes the perturbative order of the evolution kernel and anomalous-dimension
+integrals.  The first prototype uses the running-coupling kernel of
+Eq.~\eqref{eq:U-running-k-v11} and the one-loop matching block of
+Sec.~\ref{sec:one-loop-kcss}.
+
+The binned $W$-term prototype is
+\begin{align}
+  W_{AB,r}^{\rm proto}(Q,y)
+  &=\int_{q_a<|\bq|<q_b}\dd^2\bq\,
+  H_{q\bar q}^{\CSS}(Q,Q)
+  \sum_q e_q^2
+  \Big[
+    \mathbb F_{q/A}\ot\mathbb F_{\bar q/B}
+    +\mathbb F_{\bar q/A}\ot\mathbb F_{q/B}
+  \Big](\bq),
+  \label{eq:wproto-binned-v12}
+\end{align}
+with $x_A=(Q/\sqrt{s})e^y$ and $x_B=(Q/\sqrt{s})e^{-y}$ understood.  In the symmetric
+quark channel the two evolution kernels can be combined before the boundary convolution:
+\begin{align}
+  \mathbb U_q^{\rm pair}(\bk;Q,\mu_T)
+  &\equiv
+  \mathcal U_q(\bk;Q,Q^2;\mu_T,\mu_T^2)
+  \ot
+  \mathcal U_q(\bk;Q,Q^2;\mu_T,\mu_T^2)
+  \notag\\
+  &=\exp\!\left[2R_q(Q,\mu_T;\mu_T^2)-2\rho_TD_q^\delta(a_Q)\right]
+  \ExpT\!\left\{-2\rho_T\sum_{n\ge0}D_{q,n}(a_Q)\mathfrak L_n(\bk;Q)\right\}.
+  \label{eq:wproto-pair-evolution-v12}
+\end{align}
+This is still a pure-$k_T$ object: the expression is evaluated by generator algebra and
+then projected onto bin-integrated distributions.
+
+\subsection{One-loop fixed-order expansion gate}
+
+The first nontrivial check is independence of the auxiliary scale $\mu_T$ at
+$\order{a_s}$.  Work in the parent Fourier image only as a proof device and define
+\begin{equation}
+  X\equiv L_b(Q),
+  \qquad
+  L\equiv\ln\frac{Q}{\mu_T},
+  \qquad
+  L_i\equiv L_b(\mu_T)=X-2L .
+  \label{eq:wproto-X-L-v12}
+\end{equation}
+Let $P_A$ denote the action of the one-loop DGLAP kernel on the leg-$A$ luminosity, and
+let $c_A$ denote the finite $\delta^{(2)}$ matching contribution on that leg.  The
+one-loop boundary coefficient in the diagonal quark channel is
+\begin{equation}
+  C_A^{(1)}(\mu_T)
+  =c_A+3C_FL_i-C_FL_i^2-2P_A L_i .
+  \label{eq:wproto-leg-boundary-v12}
+\end{equation}
+Since our DGLAP convention is
+$\dd f/\dd\ln\mu=4a_sP^{(0)}\ox f+\cdots$, expressing the boundary PDF at
+$\mu_T$ through a PDF at $Q$ gives
+\begin{equation}
+  f(\mu_T)=f(Q)-4a_sL\,P^{(0)}\ox f(Q)+\order{a_s^2}.
+  \label{eq:wproto-pdf-conversion-v12}
+\end{equation}
+The one-loop evolution factor for a quark leg from $(\mu_T,\mu_T^2)$ to $(Q,Q^2)$ is
+\begin{equation}
+  E_q^{(1)}=6C_FL+4C_FL^2-4C_FLX .
+  \label{eq:wproto-leg-evolution-v12}
+\end{equation}
+Therefore
+\begin{align}
+  C_A^{(1)}(\mu_T)-4LP_A+E_q^{(1)}
+  &=c_A+3C_FX-C_FX^2-2P_A X,
+  \label{eq:wproto-leg-identity-v12}
+\end{align}
+so the auxiliary $\mu_T$ dependence cancels at the first fixed-order gate.  For two
+Drell--Yan legs and one-loop hard coefficient $h_q^{(1)}$,
+\begin{equation}
+  W_{q\bar q,b}^{(1)}(X)
+  =h_q^{(1)}+c_A+c_B+6C_FX-2C_FX^2-2(P_A+P_B)X .
+  \label{eq:wproto-bspace-one-loop-v12}
+\end{equation}
+Using $\mathcal F[\mathcal L_0]=-X$ and
+$\mathcal F[\mathcal L_1]=-X^2/2$, this maps back to
+\begin{equation}
+  \boxed{
+  W_{q\bar q,k}^{(1)}
+  =4C_F\mathcal L_1
+  +\left[2(P_A+P_B)-6C_F\right]\mathcal L_0
+  +\left[h_q^{(1)}+c_A+c_B\right]\deltaT .}
+  \label{eq:wproto-kspace-one-loop-v12}
+\end{equation}
+This is the same diagonal/splitting structure as the one-loop binned singular-spectrum
+master formula in Sec.~\ref{sec:one-loop-kcss}, now derived from a profile-scale
+evolved boundary.  Its bin action is
+\begin{equation}
+  W_{q\bar q,r}^{(1)}
+  =4C_F\mathcal B_{1,r}
+  +\left[2(P_A+P_B)-6C_F\right]\mathcal B_{0,r}
+  +\left[h_q^{(1)}+c_A+c_B\right]\mathcal B_{\delta,r}.
+  \label{eq:wproto-bin-one-loop-v12}
+\end{equation}
+
+\subsection{Two-loop rapidity projection for the prototype}
+
+The NNLL-style bridge begins with the pair rapidity kernel.  Let
+\begin{equation}
+  \rho_{\rm pair}=2\rho_T .
+  \label{eq:wproto-rho-pair-v12}
+\end{equation}
+Then the two-loop CS-kernel projection in the conventional basis is
+\begin{align}
+  \mathbb U_{q,\zeta}^{\rm pair}(\bk;Q,\mu_T)
+  &=\deltaT
+  +a_Q\rho_{\rm pair}\Gamma_0^q\mathcal L_0
+  \notag\\
+  &\quad
+  +a_Q^2\Big[
+     \rho_{\rm pair}\Gamma_1^q\mathcal L_0
+     +\left(\rho_{\rm pair}\beta_0\Gamma_0^q
+       -\rho_{\rm pair}^2(\Gamma_0^q)^2\right)\mathcal L_1
+     -\rho_{\rm pair}d_q^{(2)}\deltaT
+   \Big]
+  +\order{a_Q^3}.
+  \label{eq:wproto-pair-rapidity-two-loop-v12}
+\end{align}
+This is not yet the complete $\order{a_s^2}$ Drell--Yan singular spectrum: completing that
+requires the two-loop hard factor, the imported NNLO matching coefficients, the
+$P^{(1)}$ PDF evolution term, and products of one-loop matching and evolution pieces.
+Equation~\eqref{eq:wproto-pair-rapidity-two-loop-v12} is the first validated kernel
+sub-block needed for that calculation.
+
+\subsection{Executable binned W-term prototype validator}
+
+The accompanying script
+\texttt{kt\_kcss\_binned\_wterm\_prototype\_validator.py} checks the algebra above.
+It verifies
+\begin{enumerate}
+  \item the one-leg profile-scale identity in Eq.~\eqref{eq:wproto-leg-identity-v12};
+  \item the two-leg identity in Eq.~\eqref{eq:wproto-bspace-one-loop-v12};
+  \item the projection to the distribution coefficients in
+  Eq.~\eqref{eq:wproto-kspace-one-loop-v12};
+  \item the two-loop pair rapidity projection in
+  Eq.~\eqref{eq:wproto-pair-rapidity-two-loop-v12};
+  \item bin-level equality for several auxiliary $\mu_T$ values.
+\end{enumerate}
+The regression report gives
+\begin{align}
+  \mathrm{passed}&=\mathrm{True},
+  &
+  \Delta_{\rm leg}&=0,
+  &
+  \Delta_{\rm pair}&=0,
+  &
+  \Delta_{\rm coeffs}&=0,
+  &
+  \Delta_{\rm rapidity}&=0,
+  \notag\\
+  \max_r\left|W_{r}^{\rm profile}-W_{r}^{\rm canonical}\right|&=0
+  \quad\text{for the smoke-test bins.}
+  \label{eq:wproto-validator-results-v12}
+\end{align}
+The last check is not a physical prediction.  It is a regression test that the binned
+distribution layer, the DGLAP normalization, and the profile-scale cancellation are all
+consistent before the NNLO matching import and $Y$-term are activated.
+
+\decision{Version 0.12 establishes the first binned pure-$k_T$ resummed-$W$ prototype.
+The next required gate is the complete $\order{a_s^2}$ singular expansion: import the
+CSS2-compatible NNLO matching tables, include $H^{(2)}$ and $P^{(1)}$, and check the
+result against the CSS2 $b_T$ expansion before benchmarking any fixed-order $Y$ term.}
+
+
+\section{Perturbative matching onto collinear PDFs}
+
+For $k_T\gg \Lambda_{\rm QCD}$, the TMD must match onto collinear PDFs~\cite{EbertMistlbergerVita2020,LuoYangZhuZhu2021}:
+\begin{equation}
+  F_{i/h}(x,\bk;\muR,\zeta)
+  =
+  \sum_j
+  \left[
+    \mathcal C_{i\leftarrow j}(\bk;\muR,\zeta)\ox f_{j/h}(\muR)
+  \right](x)
+  +
+  \order{\frac{\Lambda_{\rm QCD}^2}{k_T^2}}.
+  \label{eq:kT-OPE}
+\end{equation}
+The matching coefficient has the distributional structure
+\begin{equation}
+  \mathcal C_{i\leftarrow j}(z,\bk;\muR,\zeta)
+  =
+  c^{\delta}_{i\leftarrow j}(z;\muR,\zeta)\,\deltaT(\bk)
+  +
+  \sum_{n\ge 0} c^n_{i\leftarrow j}(z;\muR,\zeta)\,\mathcal L_n(\bk,\muR)
+  +
+  \mathcal R_{i\leftarrow j}(z,\bk;\muR,\zeta),
+  \label{eq:C-structure}
+\end{equation}
+where $\mathcal R$ is less singular as $k_T\to 0$ but contributes to the perturbative tail.
+
+A pure-$k_T$ extraction must not ask a flexible nonperturbative model to reproduce
+Eq.~\eqref{eq:kT-OPE}. The large-$k_T$ tail is a perturbative boundary condition.
+
+\subsection{TMD tail versus cross-section tail}
+
+There are two different tails, and they should not be merged conceptually. The
+\emph{TMD} tail is the universal OPE in Eq.~\eqref{eq:kT-OPE}; it is controlled by
+$\mathcal C_{i\leftarrow j}^{[\KCSS]}$ and collinear PDFs. The \emph{cross-section}
+large-$q_T$ tail is the nonsingular fixed-order remainder,
+\begin{equation}
+  Y_{AB}^{[\KCSS]}
+  =
+  \left[\frac{1}{\sigma_0}\frac{\dd\sigma}{\dd Q^2\,\dd y\,\dd^2\bq}\right]_{\FO}
+  -
+  \left[W_{AB}^{[\KCSS],\mathrm{resum}}\right]_{\FO\,\mathrm{exp.}}.
+  \label{eq:Y-KCSS}
+\end{equation}
+Codes such as DYTurbo and CuTe-MCFM/MCFM are appropriate for validating the
+fixed-order and matched cross-section side of Eq.~\eqref{eq:Y-KCSS}~\cite{CamardaEtAlDYTurbo2020,CamardaCieriFerrera2021,NeumannCampbell2023}.
+They do not replace the universal TMD matching coefficients in Eq.~\eqref{eq:kT-OPE}.
+
+
+\section{Model-agnostic nonperturbative module}
+\label{sec:np-module-final}
+
+The perturbative accuracy label belongs to the $\KCSS$ operator, not to a particular
+parameterization of long-distance physics.  The nonperturbative input is therefore defined
+as a module,
+\begin{equation}
+  \mathcal M_{\NP}:
+  (i,h,x,\bk;\mu_0,\zeta_0,\theta)
+  \longmapsto
+  \text{an admissible long-distance transverse structure},
+  \label{eq:NP-module-map}
+\end{equation}
+which may be supplied by a neural network, spline basis, Gaussian mixture, analytic model,
+lattice-informed input, renormalon-inspired ansatz, or any other controlled
+parameterization.  A paper or code may choose one such realization, but the formal
+prescription does not require DNNs.
+
+There are three useful module placements.
+\begin{enumerate}
+  \item \textbf{Boundary-core module.}  At a boundary scale $(\mu_0,\zeta_0)$,
+  \begin{equation}
+    F_{i/h}^{\KCSS}
+    =
+    F_{i/h}^{\pert}
+    +F_{i/h}^{\core}(\theta)
+    -F_{i/h}^{\sub}(\theta),
+    \label{eq:NP-additive-final}
+  \end{equation}
+  where $F^{\pert}=\mathcal C\ox f$ gives the perturbative tail and $F^{\sub}$ removes
+  the overlap between the fitted core and the perturbative matching region.
+
+  \item \textbf{Smearing module.}  The perturbative boundary is convolved with a
+  normalized or regulated transverse smearing kernel,
+  \begin{equation}
+    F_{i/h}^{\KCSS}
+    =
+    S_{i/h}^{\NP}(\theta)\ot F_{i/h}^{\pert}
+    +F_{i/h}^{\rm power},
+    \label{eq:NP-smearing-final}
+  \end{equation}
+  with the normalization of $S^{\NP}$ defined through regulated cumulants rather than an
+  unregulated full-$k_T$ probability condition.
+
+  \item \textbf{CS-kernel module.}  Long-distance rapidity evolution is parametrized by
+  an additive contribution to the Collins-Soper kernel,
+  \begin{equation}
+    \mathcal D_i
+    =
+    \mathcal D_i^{\pert}
+    +\mathcal D_i^{\NP}(\theta),
+    \label{eq:NP-D-final}
+  \end{equation}
+  with the perturbative part fixed by the $N^k\mathrm{LL}$ ingredient manifest.
+\end{enumerate}
+
+Any admissible module must satisfy the following minimal conditions.
+\begin{enumerate}
+  \item It must not alter the perturbative ingredient content used to assign the
+  $N^k\mathrm{LL}'$ label.
+  \item It must be defined in the same flavor basis, scheme, and $(\mu,\zeta)$ convention
+  as the perturbative legs it modifies.
+  \item It must have well-defined actions on bins, cumulants, or smooth test functions.
+  \item It must not be asked to reproduce the perturbative large-$k_T$ tail that is already
+  fixed by $\mathcal C_{i\leftarrow j}\ox f_j$.
+  \item It must include a stated overlap or matching prescription when it is combined
+  additively with a perturbative tail.
+\end{enumerate}
+
+\decision{DNNs are a flexible implementation of $\mathcal M_{\NP}$, not part of the
+formal definition of $\KCSS$ and not part of the perturbative accuracy label.  The formal
+paper should present the module interface; a later extraction paper may choose a DNN
+realization and assign model, experimental, and replica uncertainties to it.}
+
+\section{Regulated normalization and transverse moments}
+\label{sec:regulated-normalization-final}
+
+Once perturbative tails are present, an unregulated identity such as
+\begin{equation}
+  \int \dd^2\bk\,F_{i/h}(x,\bk;Q)=f_{i/h}(x,Q)
+\end{equation}
+is not a scheme-independent normalization condition.  The renormalized $k_T$-space TMD is
+a distribution with a perturbative large-$k_T$ tail, and full moments are UV sensitive.
+The correct objects are regulated integral functionals~\cite{EbertMichelStewartSun2022},
+\begin{equation}
+  \mathcal I_w[F_i]
+  \equiv
+  \int \dd^2\bk\,w(k_T;K)\,
+  F_{i/h}(x,\bk;\mu,\zeta),
+  \label{eq:Iw-final}
+\end{equation}
+where $w$ may be a hard cumulant cutoff, a smooth profile, a bin window, or an
+experimental acceptance weight.  For perturbative $K$ the short-distance part has the
+matching form
+\begin{equation}
+  \mathcal I_w[F_i]
+  =
+  \sum_j
+  \left[Z^{w}_{i\leftarrow j}(K;\mu,\zeta)\ox f_{j/h}(\mu)\right](x)
+  +
+  \mathcal I_w[F_i^{\NP}]
+  +
+  \order{\Lambda_{\rm QCD}^p/K^p}.
+  \label{eq:Iw-matching-final}
+\end{equation}
+This relation is the normalization constraint.  The special Fernando-Keller-style
+condition of a normalized profile is recovered only after choosing a finite low-scale
+model space in which the perturbative tail and UV-sensitive cumulants have been removed
+or regulated.
+
+A regulated transverse width is therefore defined by
+\begin{equation}
+  \langle k_T^2\rangle_w(x;\mu,\zeta)
+  =
+  \frac{
+    \int \dd^2\bk\,w_2(k_T;K)\,k_T^2F_{i/h}(x,\bk;\mu,\zeta)
+  }{
+    \int \dd^2\bk\,w_0(k_T;K)\,F_{i/h}(x,\bk;\mu,\zeta)
+  }.
+  \label{eq:regulated-width-final}
+\end{equation}
+The weight functions and cutoff are part of the definition of the observable.  This is
+what allows the same framework to be used in fixed-target kinematics, where $Q$ and the
+available $q_T$ range are modest, and in collider kinematics, where the perturbative tail,
+fiducial cuts, and $Y$ term are essential.
+
+For the formal paper the default recommendation is a hybrid numerical representation:
+singular perturbative kernels are integrated analytically over bins or smooth test
+functions, while ordinary nonperturbative modules are evaluated on a radial grid and
+convolved with analytic subtraction terms.  This keeps distributional information exact
+and avoids treating plus distributions as pointwise functions.
+
+\section{Accuracy theorem and N3LL-prime ingredient map}
+\label{sec:accuracy-theorem}
+
+Version 0.13 fixes the formal accuracy convention used by the note.  The purpose is to
+make the eventual paper independent of any particular nonperturbative parametrization.  A
+DNN, spline, Gaussian-mixture model, lattice-informed model, or analytic ansatz may supply
+long-distance information, but none of those choices defines the perturbative accuracy
+label.  The label belongs to the perturbative forward operator.
+
+\decision{From this point onward the project target is written in standard notation as
+$N^3\mathrm{LL}'_{\KCSS}$ for the singular TMD operator.  A full-spectrum Drell--Yan
+prediction should only be labeled $N^3\mathrm{LL}'+N^3\mathrm{LO}$ after the corresponding
+$Y$ term and fixed-order subtraction are implemented through $\order{\alpha_s^3}$.}
+
+\subsection{Definition of NkLL-prime-KCSS}
+
+Let $W^{\CSS}$ denote the parent CSS2 singular term evaluated with a specified set of hard
+functions, TMD matching coefficients, anomalous dimensions, DGLAP kernels, PDFs, and
+scale profiles.  Let $W^{\KCSS}$ denote the direct momentum-space expression obtained by
+\begin{equation}
+  L_b^m \longmapsto \mathfrak L_{m-1}(\bk;\mu)\quad (m\ge1),
+  \qquad
+  1 \longmapsto \deltaT(\bk),
+  \label{eq:accuracy-Lb-map-v13}
+\end{equation}
+and by replacing ordinary products in $b_T$ space by transverse convolutions in $k_T$ space.
+
+\noindent\textbf{Definition.}
+A calculation has $N^k\mathrm{LL}'_{\KCSS}$ accuracy if:
+\begin{enumerate}
+  \item the anomalous dimensions and running coupling are included to the same loop order
+  as in the corresponding $N^k\mathrm{LL}'$ CSS2 calculation;
+  \item the hard and TMD matching boundary functions are included through
+  $\order{\alpha_s^k}$;
+  \item the $k_T$ kernels are obtained from the CSS2 kernels by the analytic distribution
+  map in Eq.~\eqref{eq:accuracy-Lb-map-v13};
+  \item every transverse convolution is evaluated as a distributional convolution, or by its
+  action on bins/test functions;
+  \item if a matched full-spectrum result is quoted, the $Y$ term is built from the same
+  fixed-order expansion order as the claimed matched accuracy.
+\end{enumerate}
+The unprimed $N^k\mathrm{LL}_{\KCSS}$ convention uses the same evolution ingredients but
+keeps the hard and matching boundary functions one order lower, through
+$\order{\alpha_s^{k-1}}$ for $k\ge1$.
+
+This is an ingredient-equivalence definition.  It does not require a numerical Fourier-Bessel
+transform in the extraction code.  The Fourier image is used only to prove and validate the
+operator identity.
+
+\subsection{Representation-equivalence theorem}
+
+\noindent\textbf{Theorem.}
+Assume that the parent CSS2 calculation and the $\KCSS$ calculation use the same
+renormalized perturbative ingredients, the same collinear PDFs, the same scale choices, and
+the same nonperturbative boundary module expressed in their respective representations.  If
+the $\KCSS$ kernels are obtained by Eq.~\eqref{eq:accuracy-Lb-map-v13} and evolved by the
+generator convolution algebra, then for any infrared-safe bin or smooth test function $\varphi$,
+\begin{equation}
+  \int \dd^2\bq\,\varphi(\bq)\,
+  W^{\KCSS,N^k\mathrm{LL}'}(\bq)
+  =
+  \int \dd^2\bq\,\varphi(\bq)\,
+  W^{\CSS,N^k\mathrm{LL}'}(\bq),
+  \label{eq:accuracy-theorem-v13}
+\end{equation}
+up to the perturbative truncation and power corrections of the parent CSS2 calculation.
+
+\noindent\textbf{Proof sketch.}
+The transform of the derivative basis satisfies
+\begin{equation}
+  \mathcal F_{k\to b}\!\left[\mathfrak L_n(\bk;\mu)\right]=L_b^{n+1},
+  \qquad
+  \mathcal F_{k\to b}\!\left[\deltaT(\bk)\right]=1 .
+  \label{eq:accuracy-transform-dictionary-v13}
+\end{equation}
+Therefore the convolution exponential obeys
+\begin{equation}
+  \mathcal F_{k\to b}\!\left[
+  \ExpT\left\{\sum_{n\ge0} r_n\mathfrak L_n\right\}
+  \right]
+  =
+  \exp\!\left\{\sum_{n\ge0}r_nL_b^{n+1}\right\}.
+  \label{eq:accuracy-exponential-proof-v13}
+\end{equation}
+Products of two $b_T$-space TMDs map to transverse convolutions of the corresponding
+$k_T$-space TMDs.  The hard function and collinear PDFs are unchanged by the
+representation map.  Thus the two expressions have identical distributional Fourier images,
+and hence identical actions on bins and test functions.  This is the same logic underlying the
+use of distribution-space evolution kernels for transverse-momentum resummation, but lifted
+from the color-singlet spectrum to the TMD-leg operator~\cite{EbertTackmann2017}.
+
+\subsection{Generic counting table}
+
+The counting convention used in this note is summarized in
+Table~\ref{tab:generic-accuracy-v13}.  It follows the common SCET/CSS practice that the
+cusp anomalous dimension is needed one loop higher than the noncusp anomalous dimensions,
+while the prime means that fixed-order boundary functions are kept through the same order
+as the logarithmic label.  Different codes sometimes vary in naming conventions, so a paper
+using this framework must state this table explicitly.
+
+\begin{longtable}{p{0.16\linewidth} p{0.14\linewidth} p{0.14\linewidth} p{0.14\linewidth} p{0.17\linewidth} p{0.17\linewidth}}
+\caption{Working logarithmic accuracy convention for the singular $W$ operator.  Here
+$k=0,1,2,3,\ldots$ corresponds to LL, NLL, NNLL, N$^3$LL, etc.  The boundary order refers
+to hard functions and TMD matching coefficients.}\label{tab:generic-accuracy-v13}\\
+\toprule
+Label & $\Gamma_{\rm cusp}$ & $\beta$ function & noncusp $\gamma_F$ & CS kernel / rapidity anomalous dimension & hard and TMD matching boundary \\
+\midrule
+\endfirsthead
+\toprule
+Label & $\Gamma_{\rm cusp}$ & $\beta$ function & noncusp $\gamma_F$ & CS kernel / rapidity anomalous dimension & hard and TMD matching boundary \\
+\midrule
+\endhead
+LL & 1 loop & 1 loop & none/tree & tree or RG-generated one-loop log & tree \\
+NLL & 2 loops & 2 loops & 1 loop & 1 loop & tree \\
+NLL$'$ & 2 loops & 2 loops & 1 loop & 1 loop & 1 loop \\
+NNLL & 3 loops & 3 loops & 2 loops & 2 loops & 1 loop \\
+NNLL$'$ & 3 loops & 3 loops & 2 loops & 2 loops & 2 loops \\
+N$^3$LL & 4 loops & 4 loops & 3 loops & 3 loops & 2 loops \\
+N$^3$LL$'$ & 4 loops & 4 loops & 3 loops & 3 loops & 3 loops \\
+\bottomrule
+\end{longtable}
+
+The two-loop import interface in Eq.~\eqref{eq:C2-b-poly-v10} generalizes directly: an $n$-loop matching coefficient contains powers up
+to $L_b^{2n}$.  The $\KCSS$ import rule is therefore purely mechanical:
+\begin{equation}
+  \widetilde C_{i\leftarrow j}^{(n)}(z,L_b,\ell_\zeta)
+  =\sum_{m=0}^{2n}\widetilde c_{i\leftarrow j}^{(n,m)}(z;\ell_\zeta)L_b^m
+  \quad\Longrightarrow\quad
+  \mathcal C_{i\leftarrow j}^{(n),\KCSS}
+  =\widetilde c^{(n,0)}\deltaT+
+  \sum_{m=1}^{2n}\widetilde c^{(n,m)}\mathfrak L_{m-1}.
+  \label{eq:N3LO-import-map-v13}
+\end{equation}
+No Bessel integral is required once the coefficient tables are expressed as polynomials in
+$L_b$.
+
+\subsection{Required ingredients for N3LL-prime-KCSS}
+
+Table~\ref{tab:N3LLprime-ingredients-v13} is the project manifest for the perturbative
+operator.  The entries are phrased as requirements for the singular TMD operator; the final
+row adds the extra requirement for a matched full-spectrum Drell--Yan prediction.
+
+\begin{longtable}{p{0.24\linewidth} p{0.27\linewidth} p{0.36\linewidth}}
+\caption{Ingredient manifest for a $N^3\mathrm{LL}'_{\KCSS}$ singular TMD operator.}\label{tab:N3LLprime-ingredients-v13}\\
+\toprule
+Ingredient & Required order & Role in the pure-$k_T$ prescription \\
+\midrule
+\endfirsthead
+\toprule
+Ingredient & Required order & Role in the pure-$k_T$ prescription \\
+\midrule
+\endhead
+Cusp anomalous dimension $\Gamma_{\rm cusp}^i$ &
+4 loops, $\Gamma_0^i,\ldots,\Gamma_3^i$ &
+Controls the double-logarithmic part of the $\mu$ evolution and the RG evolution of the CS kernel.  The four-loop cusp anomalous dimension is available in QCD~\cite{HennKorchemskyMistlberger2020}. \\
+\addlinespace
+QCD beta function &
+4 loops, $\beta_0,\ldots,\beta_3$ &
+Required for the running-coupling integrals $A_\Gamma$, $A_\gamma$, and $S_\Gamma$ at N$^3$LL accuracy. \\
+\addlinespace
+TMD noncusp anomalous dimension $\gamma_F^i$ &
+3 loops, $\gamma_{F,0}^i,\gamma_{F,1}^i,\gamma_{F,2}^i$ &
+Enters the scalar endpoint factor multiplying the transverse convolution exponential. \\
+\addlinespace
+Collins--Soper kernel / rapidity anomalous dimension $D_i$ &
+3 loops, including $d_i^{(2)}$ and $d_i^{(3)}$ in the chosen CSS2 convention &
+Defines the transverse convolution generator in the rapidity leg.  The three-loop rapidity anomalous dimension was extracted by Li and Zhu~\cite{LiZhu2017}; four-loop results provide the path beyond N$^3$LL~\cite{MoultZhuZhu2022,DuhrMistlbergerVita2022}. \\
+\addlinespace
+Hard function $H_{ij\to F}$ &
+3 loops for the relevant channel &
+Provides the short-distance virtual coefficient.  For Drell--Yan and Higgs color-singlet channels, the needed three-loop hard functions are obtained from finite parts of the quark and gluon form factors~\cite{GehrmannGloverHuberIkizlerliStuderus2010}. \\
+\addlinespace
+TMD matching coefficients $\mathcal C_{i\leftarrow j}$ and, where needed, TMDFF coefficients &
+3 loops, i.e. N$^3$LO boundary functions &
+Fix the perturbative large-$k_T$ tail and the primed boundary.  Unpolarized quark and gluon TMDPDF/TMDFF matching coefficients through N$^3$LO are available in machine-readable or ancillary form in the modern TMD literature~\cite{EbertMistlbergerVita2020,LuoYangZhuZhu2021}. \\
+\addlinespace
+Collinear DGLAP kernels for $x$ evolution inside the matching logs &
+$P^{(0)},P^{(1)},P^{(2)}$ for the N$^3$LL$'$ singular operator &
+Needed to reconstruct the $\mu$ dependence of the three-loop matching coefficients and to convert boundary PDFs between profile scales.  The three-loop unpolarized splitting functions are the NNLO DGLAP kernels~\cite{MochVermaserenVogt2004,VogtMochVermaseren2004}. \\
+\addlinespace
+Flavor matrix structure &
+Full quark, antiquark, and gluon matrix &
+The formalism is not a fixed-target DY ansatz.  The matching and evolution act on parton flavor vectors, with process-specific hard functions and charge/color projectors. \\
+\addlinespace
+Distribution basis &
+All $\mathfrak L_n$ required by the imported coefficients and the expanded convolution exponential &
+At three loops, matching polynomials can reach $L_b^6$, hence the import map can require $\mathfrak L_5$ before convolutions with evolution are expanded. \\
+\addlinespace
+Fixed-order subtraction for full-spectrum matching &
+$\order{\alpha_s^3}$ for an N$^3$LL$'$+N$^3$LO Drell--Yan spectrum &
+Not part of the universal TMD definition.  It is required only when the prediction is extended beyond the singular region through $Y=d\sigma_{\rm FO}-[W]_{\rm FO}$.  Modern Drell--Yan benchmarks already combine N$^3$LL$'$ resummation with available $\order{\alpha_s^3}$ fixed-order information~\cite{BillisMichelTackmann2025}. \\
+\bottomrule
+\end{longtable}
+
+The DGLAP entry should not be confused with the PDF-set order.  For a self-contained
+N$^3$LL$'$ singular operator, $P^{(0)}$ through $P^{(2)}$ are sufficient to reconstruct the
+three-loop matching-scale logarithms.  A phenomenological implementation may still use
+NNLO, approximate N$^3$LO, or future full N$^3$LO PDF evolution depending on the chosen
+PDF input and on whether one aims at an approximate N$^4$LL or full-spectrum N$^3$LO
+benchmark.
+
+\subsection{What the prime does and does not mean}
+
+The prime in $N^3\mathrm{LL}'_{\KCSS}$ means
+\begin{equation}
+  \text{N$^3$LL evolution}
+  +
+  \text{three-loop hard and TMD matching boundary functions}.
+  \label{eq:prime-definition-v13}
+\end{equation}
+It does \emph{not} mean that the nonperturbative model is determined to third order, and it
+does not certify the quality of a DNN fit.  The most precise statement is
+\begin{equation}
+  W^{\KCSS}_{\rm theory}
+  =
+  W^{\KCSS,N^3\mathrm{LL}'}_{\rm pert}
+  \ot
+  \mathcal M_{\rm NP}
+  + \text{power corrections},
+  \label{eq:accuracy-NP-separation-v13}
+\end{equation}
+where $\mathcal M_{\rm NP}$ is a separately specified nonperturbative module.  A DNN is one
+possible representation of $\mathcal M_{\rm NP}$, but so are splines, Gaussian mixtures,
+renormalon-inspired models, lattice-informed inputs, or process-specific effective models.
+
+\subsection{Executable ingredient-manifest validator}
+
+The companion script
+\texttt{kt\_kcss\_accuracy\_ingredient\_validator.py} encodes the counting convention in
+Table~\ref{tab:generic-accuracy-v13}.  It checks that the generic rule gives the manifest
+orders in Table~\ref{tab:N3LLprime-ingredients-v13} for $N^3\mathrm{LL}'$, namely
+\begin{equation}
+  \Gamma_{\rm cusp}:4\text{ loops},\quad
+  \beta:4\text{ loops},\quad
+  \gamma_F:3\text{ loops},\quad
+  D_i:3\text{ loops},\quad
+  H,C:3\text{ loops},\quad
+  P_{ij}:P^{(0)}\ldots P^{(2)}.
+  \label{eq:ingredient-validator-target-v13}
+\end{equation}
+This validator is intentionally simple.  Its purpose is to prevent later sections and code
+from silently changing the project accuracy convention.
+
+\decision{The accuracy convention is now fixed. Version 0.14 adds the N$^3$LO
+matching-import interface and manifest-driven kernel object needed to turn the convention
+into an executable perturbative operator.}
+
+
+\section{N3LO matching-import interface and manifest-driven kernel object}
+\label{sec:n3lo-import-kernel-object}
+
+Version 0.14 turns the accuracy manifest of Sec.~\ref{sec:accuracy-theorem} into an
+operator contract.  The purpose is to make the high-order implementation reproducible
+without hand-transcribing multi-page coefficient functions into the text.  The note should
+state the interface precisely, while the code should import vetted coefficient tables from
+external ancillary files or equivalent libraries.  The relevant published inputs include the
+N$^3$LO unpolarized TMDPDF/TMDFF matching calculations of Ebert--Mistlberger--Vita and
+Luo--Yang--Zhu--Zhu~\cite{EbertMistlbergerVita2020,LuoYangZhuZhu2021,EbertMistlbergerVita2021FF}, plus the
+high-order rapidity anomalous-dimension inputs discussed in
+Refs.~\cite{LiZhu2017,MoultZhuZhu2022,DuhrMistlbergerVita2022}.
+
+\decision{The paper should not print the full N$^3$LO matching tables.  It should print the
+scheme, normalization, basis, and import map, and require that an implementation import
+machine-readable CSS2-compatible coefficient data satisfying the checks below.}
+
+\subsection{Coefficient-table contract}
+
+An external matching table accepted by the $\KCSS$ importer must be convertible to the
+CSS2 parent convention before the $k_T$ map is applied.  The minimal metadata contract is
+\begin{equation}
+  \mathbb C_{\rm in}=
+  \left\{
+  \begin{array}{l}
+  \text{scheme},\ \text{operator type},\ a_s\text{ normalization},\\
+  L_b\text{ convention},\ \ell_\zeta\text{ convention},\\
+  \text{flavor basis},\ \text{coefficient terms}
+  \end{array}
+  \right\} .
+  \label{eq:n3lo-import-metadata-v14}
+\end{equation}
+The first implementation uses
+\begin{equation}
+  a_s=\frac{\alpha_s}{4\pi},
+  \qquad
+  L_b=\ln\!\left(\frac{\mu^2 b_T^2}{b_0^2}\right),
+  \qquad
+  \ell_\zeta=\ln\!\left(\frac{\zeta}{\mu^2}\right).
+  \label{eq:n3lo-import-conventions-v14}
+\end{equation}
+The table may be supplied in a full flavor-vector basis or in an equivalent singlet,
+non-singlet, and gluon basis, but the loader must expose a full parton-vector action on
+\begin{equation}
+  \mathbf f_h=(g,u,\bar u,d,\bar d,s,\bar s,\ldots)_h .
+  \label{eq:n3lo-flavor-vector-v14}
+\end{equation}
+A source table in another TMD scheme is allowed only if a finite conversion kernel is
+provided:
+\begin{equation}
+  \widetilde C_{i\leftarrow j}^{\CSS}
+  =
+  \sum_{a}
+  \widetilde Z_{i\leftarrow a}^{\CSS\leftarrow S}
+  \ox
+  \widetilde C_{a\leftarrow j}^{S} .
+  \label{eq:n3lo-scheme-convert-v14}
+\end{equation}
+Only after this conversion is the $\KCSS$ distribution map applied.  This keeps the first
+paper's accuracy claim tied to the Collins/CSS2 parent scheme rather than to an implicit
+mixture of rapidity-regulator conventions.
+
+For each loop order $n\le3$, the CSS2-compatible input must be expressible as
+\begin{equation}
+  \widetilde C_{i\leftarrow j}^{(n),\CSS}(z,L_b,\ell_\zeta)
+  =
+  \sum_{m=0}^{2n}
+  \widetilde c_{i\leftarrow j}^{(n,m)}(z;\ell_\zeta)\,L_b^m,
+  \label{eq:n3lo-C-polynomial-v14}
+\end{equation}
+where the coefficients \(\widetilde c^{(n,m)}\) are still distributions or functions in
+\(z\).  They must not be flattened into ordinary numbers unless the action on an
+$x$-space test function has already been specified.  The $x$-space plus prescriptions and
+the transverse plus prescriptions are independent layers.
+
+\subsection{Mechanical map into the KCSS2 basis}
+
+Define the import operator \(\mathsf I_{\KCSS}\) by
+\begin{align}
+  \mathsf I_{\KCSS}\!
+  \left[\widetilde c(z;\ell_\zeta)\right]
+  & = \widetilde c(z;\ell_\zeta)\,\deltaT(\bk),
+  \label{eq:IK-delta-v14}
+  \\
+  \mathsf I_{\KCSS}\!
+  \left[\widetilde c(z;\ell_\zeta)L_b^m\right]
+  & = \widetilde c(z;\ell_\zeta)\,\mathfrak L_{m-1}(\bk;\mu),
+  \qquad m\ge1 .
+  \label{eq:IK-frak-v14}
+\end{align}
+Then the imported three-loop matching operator is
+\begin{equation}
+  \mathcal C_{i\leftarrow j}^{\KCSS,[3]}
+  =
+  \delta_{ij}\delta(1-z)\deltaT
+  +
+  \sum_{n=1}^{3} a_s^n
+  \left[
+  \widetilde c_{i\leftarrow j}^{(n,0)}\deltaT
+  +
+  \sum_{m=1}^{2n}
+  \widetilde c_{i\leftarrow j}^{(n,m)}\mathfrak L_{m-1}
+  \right] .
+  \label{eq:C-imported-v14}
+\end{equation}
+At N$^3$LO the largest logarithmic power is \(L_b^6\), so the matching import can require
+\(\mathfrak L_5\).  Subsequent convolutions with the evolution Green function can generate
+higher \(\mathfrak L_n\) in fixed-order expansions, which is why the implementation should
+use the generator algebra rather than a hand-coded finite convolution table.
+
+\subsection{Manifest-driven N3LL-prime kernel object}
+
+The perturbative object assembled by the implementation is not a single function.  It is a
+manifest-driven operator
+\begin{equation}
+  \mathbb K_{F}^{N^3\mathrm{LL}'}
+  =
+  \left[
+  H_{ij\to F}^{[3]},\
+  \mathcal U_i^{N^3\mathrm{LL}},\
+  \mathcal C_{i\leftarrow j}^{[3]},\
+  P_{ij}^{(0,1,2)},\
+  \mathcal B_{\rm dist}
+  \right]_{\KCSS},
+  \label{eq:kernel-object-v14}
+\end{equation}
+where \(\mathcal B_{\rm dist}\) denotes the distribution-basis engine for bins, cumulants,
+or test functions.  The rapidity part of the N$^3$LL kernel uses the three-loop CS kernel
+in the derivative basis,
+\begin{align}
+  \mathcal D_i^{[3]}(\bk;\mu)
+  & = D_i^{\delta,[3]}\,\deltaT
+  + D_{i,0}^{[3]}\,\mathfrak L_0
+  + D_{i,1}^{[3]}\,\mathfrak L_1
+  + D_{i,2}^{[3]}\,\mathfrak L_2,
+  \label{eq:D3-decomp-v14}
+\end{align}
+with
+\begin{align}
+  D_i^{\delta,[3]}
+  &= a_s^2 d_i^{(2)}+a_s^3 d_i^{(3)},
+  \label{eq:Ddelta3-v14}
+  \\
+  D_{i,0}^{[3]}
+  &= a_s\Gamma_0^i
+   + a_s^2\Gamma_1^i
+   + a_s^3\left(\Gamma_2^i+2\beta_0d_i^{(2)}\right),
+  \label{eq:D0-3loop-v14}
+  \\
+  D_{i,1}^{[3]}
+  &= a_s^2\frac{\beta_0\Gamma_0^i}{2}
+   + a_s^3\left(\beta_0\Gamma_1^i+\frac{\beta_1\Gamma_0^i}{2}\right),
+  \label{eq:D1-3loop-v14}
+  \\
+  D_{i,2}^{[3]}
+  &= a_s^3\frac{\beta_0^2\Gamma_0^i}{3} .
+  \label{eq:D2-3loop-v14}
+\end{align}
+These coefficients follow from the RG equation
+\begin{equation}
+  \frac{\dd}{\dd\ln\mu}\,D_i(b_T;\mu)=2\Gamma_i(\alpha_s)
+  \label{eq:D-rg-3loop-v14}
+\end{equation}
+with \(\dd a_s/\dd\ln\mu=-2\beta_0a_s^2-2\beta_1a_s^3+\order{a_s^4}\).  In
+particular, the \(2\beta_0d_i^{(2)}\) term in Eq.~\eqref{eq:D0-3loop-v14} is required by
+running-coupling consistency; omitting it would break path independence at
+\(\order{a_s^3}\).
+
+The endpoint evolution kernel is then represented as
+\begin{equation}
+  \mathcal U_i^{N^3\mathrm{LL}}(\bk;f,i)
+  =
+  \exp\!\left[R_i^{[3]}(f,i)-\rho D_i^{\delta,[3]}(a_f)\right]
+  \ExpT\!\left\{
+  -\rho\sum_{r=0}^{2}D_{i,r}^{[3]}(a_f)\mathfrak L_r(\bk;\mu_f)
+  \right\},
+  \label{eq:U-N3LL-v14}
+\end{equation}
+where \(R_i^{[3]}\) is built from \(\Gamma_{0\ldots3}\),
+\(\gamma_{F,0\ldots2}\), and \(\beta_{0\ldots3}\) through the RG integrals in
+Sec.~\ref{sec:running-coupling-evolution}.  Equation~\eqref{eq:U-N3LL-v14} is the direct
+$k_T$-space replacement for the local CSS2 Sudakov factor.
+
+\subsection{Assembly of the perturbative W operator}
+
+At a perturbative boundary scale \((\mu_T,\zeta_T)\), the imported matching coefficients
+construct the boundary block
+\begin{equation}
+  \mathbb B_{i/h}^{[3]}(x,\bk;\mu_T,\zeta_T)
+  =
+  \sum_j
+  \left[
+  \mathcal C_{i\leftarrow j}^{\KCSS,[3]}(\bk;\mu_T,\zeta_T)
+  \ox f_{j/h}(\mu_T)
+  \right](x).
+  \label{eq:B-boundary-N3-v14}
+\end{equation}
+The perturbative TMD leg is
+\begin{equation}
+  \mathbb F_{i/h}^{\pert,[3]}(x,\bk;Q)
+  =
+  \mathcal U_i^{N^3\mathrm{LL}}(\bk;Q,Q^2;\mu_T,\zeta_T)
+  \ot
+  \mathbb B_{i/h}^{[3]}(x,\bk;\mu_T,\zeta_T).
+  \label{eq:Fleg-N3-v14}
+\end{equation}
+For a generic color-singlet process \(AB\to F\),
+\begin{equation}
+  W_{AB\to F}^{\KCSS,N^3\mathrm{LL}'}(\bq)
+  =
+  \sum_{ij}
+  H_{ij\to F}^{[3]}(Q,\mu_H)
+  \left[
+  \mathbb F_{i/A}^{\pert,[3]}
+  \ot
+  \mathbb F_{j/B}^{\pert,[3]}
+  \right](\bq),
+  \label{eq:W-generic-N3-v14}
+\end{equation}
+with the obvious replacement of one or both TMDPDF legs by TMDFF legs for SIDIS or
+back-to-back hadron production in \(e^+e^-\).  A nonperturbative module may be convolved
+with the perturbative leg or supplied as a boundary correction, but it is not part of the
+N$^3$LL$'$ accuracy label:
+\begin{equation}
+  \mathbb F_{i/h}
+  =
+  \mathbb F_{i/h}^{\pert,[3]}
+  \ot
+  \mathcal M_{i/h}^{\NP}
+  + \text{power-suppressed or overlap-subtracted terms} .
+  \label{eq:NP-module-in-kernel-v14}
+\end{equation}
+This is the desired separation for the eventual paper: the perturbative prescription is
+generic, while DNNs, splines, analytic ansatzes, and lattice-informed inputs are choices for
+\(\mathcal M_{\NP}\).
+
+\subsection{Import and kernel validation gates}
+
+Before any extracted TMD is assigned an N$^3$LL$'$ label, the following gates must pass:
+\begin{enumerate}
+  \item \textbf{Metadata gate:} the coefficient source must specify its scheme, coupling
+  normalization, \(L_b\), \(\ell_\zeta\), operator type, and flavor basis.
+  \item \textbf{Scheme gate:} if the source is not CSS2, the finite conversion in
+  Eq.~\eqref{eq:n3lo-scheme-convert-v14} must be supplied and tested.
+  \item \textbf{Power gate:} an \(n\)-loop coefficient may contain no power higher than
+  \(L_b^{2n}\), and \(L_b^6\) must map to \(\mathfrak L_5\) at N$^3$LO.
+  \item \textbf{Flavor gate:} the loaded basis must act on the full quark, antiquark, and
+  gluon vector, even if a first Drell--Yan application uses only a subset of channels.
+  \item \textbf{RG gate:} the logarithmic coefficients must satisfy the CS, \(\mu\)-RG,
+  and DGLAP reconstruction equations through \(\order{a_s^3}\).
+  \item \textbf{Distribution gate:} transverse convolutions must be validated by generator
+  algebra and by bin/test-function actions, not by pointwise evaluation at \(q_T=0\).
+  \item \textbf{Expansion gate:} the fixed-order expansion of
+  Eq.~\eqref{eq:W-generic-N3-v14} through \(\order{a_s^3}\) must agree with the
+  equivalent CSS2 singular expansion bin by bin.
+\end{enumerate}
+
+The companion script
+\texttt{kt\_kcss\_n3lo\_matching\_import\_validator.py} implements a symbolic version
+of these checks.  It builds a mock CSS2-compatible three-loop coefficient table, maps
+\(L_b^m\) to \(\deltaT\) or \(\mathfrak L_{m-1}\), constructs a manifest-driven
+N$^3$LL$'$ kernel object, and verifies the three-loop CS-kernel RG identity.  The mock
+coefficients are placeholders; the point of the validator is the interface and algebra, not
+phenomenology.
+
+\decision{After v0.15, the next nontrivial physics task is to acquire the raw ancillary files into the local coefficient directory, convert the Mathematica tables into the canonical coefficient schema, and run the \(\order{a_s^2}\) and \(\order{a_s^3}\) singular-spectrum gates with physical coefficients.}
+
+
+
+\section{Physical high-order coefficient import gate}
+\label{sec:physical-import-gate}
+
+Section~\ref{sec:n3lo-import-kernel-object} defined the abstract coefficient-table
+contract and used a synthetic payload only to validate the map
+\begin{equation}
+  L_b^0\mapsto \deltaT(\bk),
+  \qquad
+  L_b^m\mapsto \mathfrak L_{m-1}(\bk;\mu),\quad m\ge1 .
+  \label{eq:physical-import-map-v15}
+\end{equation}
+That test is necessary, but it is not physics input.  Version 0.15 introduced the hard
+gate that separates a mock interface test from a source-stamped perturbative coefficient
+package.  A run may not advertise an $N^3$LL$'_{\KCSS}$ boundary unless the imported
+three-loop matching payload carries provenance, convention metadata, a scheme map to
+CSS2, and a successful fixed-order expansion check.
+
+\decision{Synthetic coefficient tables are allowed only for importer regression tests.  They are
+not allowed to satisfy the hard, matching, or expansion requirements of an $N^3$LL$'$ physics
+claim.  If the raw ancillary files or a verified normalized export are absent, the physical
+import gate must remain blocked.}
+
+\subsection{Registered source families}
+
+The first source registry is deliberately conservative.  It contains the NNLO analytic
+reference used for lower-order checks and the two public N$^3$LO source families needed
+for the unpolarized quark, antiquark, and gluon matching interface.
+
+\begin{center}\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.18\linewidth}
+                >{\raggedright\arraybackslash}p{0.16\linewidth}
+                >{\raggedright\arraybackslash}p{0.20\linewidth}
+                >{\raggedright\arraybackslash}p{0.36\linewidth}}
+\toprule
+Source key & Order and legs & Local payload status & Role in the $\KCSS$ importer \\
+\midrule
+ESV2016 & NNLO PDF/FF & paper-level reference & Analytic NNLO reference for unpolarized TMDPDF and TMDFF matching in all flavor combinations; used for the $\order{a_s^2}$ gate and lower-order checks of any N$^3$LO import. \\
+EMV2020 & N$^3$LO PDF & ancillary files expected & Independent N$^3$LO TMDPDF/beam-function source for quark and gluon initial-state channels.  Registered files include \texttt{TMDPDF.m}, \texttt{PTBF.m}, \texttt{PTBF\_ZExpansion.m}, \texttt{PTBF\_ZbExpansion.m}, and soft-function files. \\
+LYZZ2021 & N$^3$LO PDF/FF & ancillary files expected & Primary all-leg unpolarized matching source for PDFs and FFs. Registered files include \texttt{TMDPDF.m}, \texttt{TMDPDFN.m}, \texttt{BeamFunction.m}, \texttt{BeamfunctionN.m}, \texttt{TMDFF.m}, \texttt{TMDFFN.m}, \texttt{FFMatchingKernels.m}, \texttt{FFMatchingKernelsN.m}, \texttt{ancillary\_readme.pdf}, and \texttt{softfunction.m}. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This registry is not itself a coefficient table.  It is a provenance and convention layer
+that decides which external payloads are eligible to be converted into canonical
+coefficient records.  The public arXiv records for EMV2020 and LYZZ2021 list the relevant
+ancillary files, while the publications describe the N$^3$LO unpolarized TMDPDF/TMDFF
+matching calculations~\cite{EbertMistlbergerVita2020,LuoYangZhuZhu2021}.
+
+\subsection{Source stamp and hash protocol}
+
+Each physical coefficient payload must carry a source stamp
+\begin{equation}
+  S_C=\{\mathrm{source},\mathrm{arXiv\ version},\mathrm{journal\ record},
+  \mathrm{file\ name},\mathrm{SHA256},\mathrm{parser\ version},
+  \mathrm{scheme\ map}\} .
+  \label{eq:source-stamp-v15}
+\end{equation}
+The importer must reject a payload if
+\begin{equation}
+  \mathrm{source}\in\{\mathrm{mock},\mathrm{synthetic},\mathrm{placeholder},\mathrm{toy}\}
+  \label{eq:reject-mock-source-v15}
+\end{equation}
+or if the source is not convertible to the CSS2 parent convention.  In other words, the
+v0.14 mock table validates the map in Eq.~\eqref{eq:physical-import-map-v15}, but only a
+source-stamped physical table validates the perturbative content.
+
+The accepted coefficient package should use a local read-only layout such as
+\begin{verbatim}
+coefficients/
+  2012.03256/
+    TMDPDF.m
+    TMDPDFN.m
+    BeamFunction.m
+    BeamfunctionN.m
+    ancillary_readme.pdf
+    ...
+  2006.05329/
+    TMDPDF.m
+    PTBF.m
+    PTBF_ZExpansion.m
+    PTBF_ZbExpansion.m
+    info.txt
+    ...
+\end{verbatim}
+A released analysis should archive the exact source package or a normalized export with
+hashes.  Live network access should not be required to reproduce a fit.
+
+\subsection{Canonical record schema}
+
+Most public high-order matching tables are distributed as Mathematica ancillary files.
+The extraction code should not evaluate arbitrary Mathematica programs during a fit.  The
+preferred contract is a two-stage conversion,
+\begin{equation}
+  \texttt{*.m\ source}
+  \longrightarrow
+  \texttt{canonical\ JSON/YAML\ coefficient\ table}
+  \longrightarrow
+  \KCSS\text{ operator} .
+  \label{eq:mathematica-to-json-v15}
+\end{equation}
+The canonical table exposes records
+\begin{equation}
+  \mathcal R_C=\{n,\text{object},i\leftarrow j,m,r,
+  c_{i\leftarrow j}^{(n,m,r)}(z),S_C\},
+  \label{eq:canonical-record-v15}
+\end{equation}
+where $n$ is the loop order, $m$ is the power of $L_b^m$, $r$ labels rapidity-logarithm
+structure such as powers of $\ell_\zeta$, and $S_C$ is the source stamp.  The $z$-space
+object may remain symbolic, provided the importer can apply it to test functions and can
+check DGLAP and CS logarithmic recursions.
+
+\subsection{Acceptance predicate}
+
+The accepted physical payload for an $N^3$LL$'$ claim must satisfy
+\begin{equation}
+\begin{split}
+  \mathrm{Accept}_{N^3\mathrm{LL}'}
+  ={}& \mathrm{Source}\wedge \mathrm{Hash}\wedge \mathrm{NotMock}
+  \wedge \mathrm{Scheme}\wedge \mathrm{Power}\wedge \mathrm{Flavor}\\
+  &\wedge\ \mathrm{RG}\wedge \mathrm{Expansion} .
+\end{split}
+\label{eq:acceptance-predicate-v15}
+\end{equation}
+The individual gates are:
+\begin{enumerate}
+  \item \textbf{Source/hash:} the raw or normalized file has a documented source and SHA256
+  hash;
+  \item \textbf{NotMock:} the source is not synthetic or placeholder data;
+  \item \textbf{Scheme:} the payload is already CSS2 or has an explicit finite conversion to CSS2;
+  \item \textbf{Power:} an $n$-loop coefficient has no power higher than $L_b^{2n}$;
+  \item \textbf{Flavor:} the flavor basis covers the process class being claimed;
+  \item \textbf{RG:} the logarithmic terms satisfy the CS, $\mu$-RG, and DGLAP reconstruction
+  equations;
+  \item \textbf{Expansion:} the fixed-order expansion of the imported $W$ operator agrees with
+  the reference singular spectrum through the claimed order.
+\end{enumerate}
+
+\subsection{NNLO then N3LO staged replacement}
+
+The physical replacement of the mock payload should be staged:
+\begin{enumerate}
+  \item \textbf{NNLO gate:} import the vetted two-loop coefficient package and verify the
+  $\order{a_s^2}$ singular $W$ expansion, including all one-loop products,
+  $H^{(1)}C^{(1)}$, $C^{(1)}\ot C^{(1)}$, $P^{(1)}$, $D^{(2)}$, and $H^{(2)}$ terms.
+  \item \textbf{N$^3$LO gate:} import the vetted three-loop coefficient package and verify
+  the $\order{a_s^3}$ singular expansion, including $H^{(3)}$, $C^{(3)}$, three-loop
+  DGLAP, three-loop CS evolution, and all lower-order products generated by the
+  convolution exponential.
+\end{enumerate}
+The expansion check is a binned or test-function equality,
+\begin{equation}
+  \int_{\rm bin}\!\dd^2\bq\,
+  \left[
+  W_{\KCSS}^{\rm imported}-W_{\CSS}^{\rm singular}
+  \right]_{\order{a_s^n}}
+  =0,
+  \qquad n=2,3,
+  \label{eq:vetted-expansion-gate-v15}
+\end{equation}
+for every channel, flavor basis element, and chosen test luminosity.
+
+\subsection{Executable v0.15 audit status}
+
+The companion script
+\texttt{kt\_kcss\_physical\_coeff\_import\_validator.py} implements the source-level audit.
+It does not load the v0.14 synthetic coefficient payload.  It checks whether the expected
+EMV2020 and LYZZ2021 ancillary files are present in the local coefficient staging directory and
+records whether the higher-order expansion gate can be enabled.
+
+In the v0.15 sandbox run the raw ancillary files were not locally available, so the audit
+status is
+\begin{center}
+\fbox{\begin{minipage}{0.86\linewidth}
+Source registry: defined.\quad
+Mock payload: disabled for physics.\quad
+Raw coefficient files: not locally present.\quad
+Physical NNLO/N$^3$LO expansion gates: specified but not yet executed.
+\end{minipage}}
+\end{center}
+This is a deliberate hard stop.  It prevents the note from overclaiming that physical
+three-loop matching coefficients have been imported when only the interface algebra has
+been tested.
+
+
+\section{N3LL-prime label certificate}
+\label{sec:n3llprime-label-certificate}
+
+The previous sections define the ingredients and the physical import gate.  We now make
+explicit what it means for a calculation, a code path, or an extraction to carry the
+label N$^3$LL$'_{\KCSS}$.  The goal is to make the eventual paper's claim precise: the
+paper may present a generic N$^3$LL$'$ prescription in $k_T$ space, while any numerical
+implementation or data extraction must satisfy the concrete certificate below.
+
+\subsection{Prescription label versus instantiated-implementation label}
+
+There are two logically distinct labels.
+\begin{enumerate}
+  \item \textbf{Formal prescription label.}  A paper-level formula may be called an
+  N$^3$LL$'_{\KCSS}$ prescription if every perturbative object is specified by the same
+  ingredient content as the parent CSS2 calculation, and if all $b_T$ logarithms are mapped
+  analytically to $k_T$-space distributions by the rules of Sections~\ref{sec:n3lo-import-kernel-object}
+  and~\ref{sec:physical-import-gate}.  This is a statement about the perturbative
+  construction, not about any particular nonperturbative model.
+
+  \item \textbf{Instantiated implementation label.}  A concrete code run or extracted TMD
+  may advertise an N$^3$LL$'_{\KCSS}$ perturbative label only after the physical coefficient
+  payload has been staged, hashed, converted to the canonical schema, and validated through
+  the $\order{a_s^3}$ expansion gate.
+\end{enumerate}
+
+Thus the label is not attached to the DNN, Gaussian ansatz, spline basis, or other
+nonperturbative module.  It is attached to the perturbative $W$ operator:
+\begin{equation}
+  W^{\KCSS,N^3\mathrm{LL}'}
+  =
+  H^{[3]}
+  \otimes
+  \mathcal U^{N^3\mathrm{LL}}
+  \otimes
+  \mathcal C^{[3]}
+  \otimes
+  f,
+  \label{eq:n3llprime-certificate-core-v16}
+\end{equation}
+where the transverse parts of the products are convolution products in the
+$\{\deltaT,\mathfrak L_n\}$ distribution algebra.  The nonperturbative module is appended
+only after this operator has been defined:
+\begin{equation}
+  F_{i/h}^{\mathrm{full}}
+  =
+  \mathcal P_{i/h}^{N^3\mathrm{LL}'}
+  \bigl[f_h;\,H,D,\mathcal C,P,\beta,\Gamma,\gamma_F\bigr]
+  \ \ot\
+  \mathcal M_{i/h}^{\NP}
+  + \text{overlap or power corrections} .
+  \label{eq:n3llprime-np-separated-v16}
+\end{equation}
+This is the intended publication-level separation: the perturbative accuracy is universal,
+while the soft/nonperturbative choice is modular.
+
+\subsection{Minimal N3LL-prime certificate}
+
+Define a certificate
+\begin{equation}
+  \mathfrak C_{N^3\mathrm{LL}'}
+  =
+  \{\mathrm{scheme},\mathrm{ingredients},\mathrm{coefficient\ provenance},
+  \mathrm{basis},\mathrm{RG},\mathrm{expansion},\mathrm{process},\mathrm{NP\ separation}\} .
+  \label{eq:n3llprime-certificate-set-v16}
+\end{equation}
+The certificate is accepted only if
+\begin{equation}
+\begin{aligned}
+  \mathrm{ClaimAllowed}_{N^3\mathrm{LL}'}={}&
+  \mathrm{ParentScheme}_{\KCSS}
+  \wedge \mathrm{IngredientComplete}_{N^3\mathrm{LL}'}
+  \wedge \mathrm{PhysicalPayload}
+  \\
+  &\wedge\ \mathrm{NoMockCoefficients}
+  \wedge \mathrm{NoNumericalBTransform}
+  \wedge \mathrm{RGConsistent}
+  \\
+  &\wedge\ \mathrm{ExpandedTo}\{a_s^3\}
+  \wedge \mathrm{NPSeparated} .
+\end{aligned}
+\label{eq:claim-allowed-n3llprime-v16}
+\end{equation}
+The ingredients required by \(\mathrm{IngredientComplete}_{N^3\mathrm{LL}'}\) are the
+manifest of Section~\ref{sec:accuracy-theorem}: four-loop cusp anomalous dimension,
+four-loop QCD beta function, three-loop noncusp TMD anomalous dimension, three-loop
+Collins-Soper/rapidity kernel, three-loop hard function, three-loop TMD matching
+coefficients, and DGLAP splitting functions through \(P^{(2)}\).  For full-spectrum
+predictions outside the singular region, the separate $Y$-term also requires the chosen
+fixed-order accuracy.
+
+The implementation-level certificate has two modes:
+\begin{center}\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.25\linewidth}
+                >{\raggedright\arraybackslash}p{0.33\linewidth}
+                >{\raggedright\arraybackslash}p{0.32\linewidth}}
+\toprule
+Mode & What may be claimed & What may not be claimed \\
+\midrule
+Formal prescription & A generic pure-$k_T$ N$^3$LL$'$ construction equivalent to CSS2 by ingredient map and distribution algebra. & A completed numerical extraction or a verified physical coefficient import. \\
+Implementation dry run & Importer, generator algebra, RG, and expansion machinery using mock or partial payloads. & A physical N$^3$LL$'$ prediction. \\
+Certified implementation & A physical N$^3$LL$'_{\KCSS}$ perturbative $W$ operator for the declared process class. & Universality beyond the declared process, flavor basis, or nonperturbative module assumptions. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\decision{The paper can legitimately present an N$^3$LL$'$ prescription once the ingredient map,
+distribution algebra, and generic operator are stated.  A numerical extraction can only carry the
+N$^3$LL$'$ label after Eq.~\eqref{eq:claim-allowed-n3llprime-v16} evaluates to true with
+physical coefficient payloads.}
+
+\subsection{Physical payloads required to unlock the label}
+
+For a Drell--Yan TMDPDF-only implementation, the minimal physical payload is
+\begin{equation}
+  \mathcal P_{\DY}^{\rm min}
+  =
+  \left\{
+  H_{q\bar q}^{(0,1,2,3)},
+  C_{i\leftarrow j}^{(0,1,2,3)},
+  D_i^{(1,2,3)},
+  \Gamma_i^{(0,1,2,3)},
+  \gamma_{F,i}^{(0,1,2)},
+  \beta_{0,1,2,3},
+  P_{ij}^{(0,1,2)}
+  \right\} .
+  \label{eq:dy-minimal-payload-v16}
+\end{equation}
+For SIDIS or back-to-back hadron production in $e^+e^-$, the payload must additionally
+include TMDFF matching through three loops and the appropriate timelike DGLAP kernels.
+For gluon-initiated color-singlet processes, the gluon hard function and gluon matching
+channels must pass the same source and expansion checks.
+
+The public high-order source records justify the availability of these matching inputs:
+EMV2020 states that the N$^3$LO quark and gluon TMDPDF matching kernels are the last
+missing ingredient for N$^3$LL$'$ $q_T$ spectra, and LYZZ2021 provides N$^3$LO
+unpolarized quark/gluon TMDPDF and TMDFF matching coefficients with arXiv ancillary
+files~\cite{EbertMistlbergerVita2020,LuoYangZhuZhu2021}.  The present note does not
+claim that those files have been parsed unless their hashes appear in the local coefficient
+ledger.
+
+\subsection{Coefficient staging kit}
+
+Since the sandbox used for this note does not have live network access from the code
+runtime, this note includes a reproducible staging kit rather than pretending to have imported the
+physical files.  The script
+\begin{center}
+  \texttt{kt\_kcss\_stage\_public\_coefficients.sh}
+\end{center}
+records the official arXiv source packages and ancillary-file paths for EMV2020 and
+LYZZ2021.  When run in an environment with network access, it should populate
+\begin{verbatim}
+/mnt/data/kcss_coeff_sources/2006.05329v2/
+/mnt/data/kcss_coeff_sources/2012.03256v2/
+\end{verbatim}
+then compute SHA256 hashes.  The certificate validator refuses to accept files without
+these hashes and refuses to accept mock coefficients for physics mode.
+
+\subsection{Current certificate status}
+
+In the present run, the formal-prescription part of the certificate is active, while the
+physical implementation part remains blocked by the absence of local source-stamped
+coefficient files:
+\begin{center}
+\fbox{\begin{minipage}{0.88\linewidth}
+Formal N$^3$LL$'_{\KCSS}$ prescription: \textbf{specified}.\quad
+Mock coefficient payload: \textbf{forbidden for physics}.\quad
+Physical coefficient import: \textbf{not yet staged in this sandbox}.\quad
+Implementation-level N$^3$LL$'$ claim: \textbf{blocked until source hashes and
+$\order{a_s^3}$ expansion gates pass}.
+\end{minipage}}
+\end{center}
+This is the disciplined route to the label: the paper can present the pure-$k_T$
+N$^3$LL$'$ prescription generically, and the first phenomenological implementation earns
+the label by completing the certificate.
+
+\section{Full-spectrum matching and perturbative uncertainties}
+\label{sec:WY-uncertainties-final}
+
+The singular operator $W^{\KCSS}$ is the object that carries the TMD resummation accuracy.
+For a full transverse-momentum spectrum it must be combined with a nonsingular fixed-order
+remainder,
+\begin{equation}
+  \dd\sigma
+  =
+  \dd\sigma_W^{\KCSS,N^k\mathrm{LL}'}
+  +
+  \dd\sigma_Y
+  +
+  \dd\sigma_{\rm pow},
+  \label{eq:full-spectrum-final}
+\end{equation}
+with
+\begin{equation}
+  \dd\sigma_Y
+  =
+  \dd\sigma_{\FO}^{[m]}
+  -
+  \left[\dd\sigma_W^{\KCSS,N^k\mathrm{LL}'}\right]_{\rm expanded\ to\ \order{a_s^m}}.
+  \label{eq:Y-final-prescription}
+\end{equation}
+The subtraction in Eq.~\eqref{eq:Y-final-prescription} must use the same PDFs, hard
+normalization, flavor basis, scale choices, electroweak inputs, and bin definitions as the
+fixed-order calculation.  External programs such as DYTurbo, SCETlib, CuTe-MCFM/MCFM, or
+other fixed-order/resummed implementations are benchmark and provider tools for
+$\dd\sigma_{\FO}$ and matched spectra~\cite{CamardaEtAlDYTurbo2020,CamardaCieriFerrera2021,NeumannCampbell2023,BillisMichelTackmann2025}; they do not define the universal TMD legs.
+
+The two tails remain distinct:
+\begin{equation}
+  \boxed{\text{TMD large-}k_T\text{ tail}}
+  \quad\Longleftrightarrow\quad
+  \mathcal C_{i\leftarrow j}\ox f_j,
+  \qquad
+  \boxed{\text{cross-section large-}q_T\text{ tail}}
+  \quad\Longleftrightarrow\quad
+  Y.
+  \label{eq:tail-distinction-final}
+\end{equation}
+Conflating these two objects would turn a universal TMD extraction into a process-specific
+spectrum fit.
+
+For the formalism paper the perturbative uncertainty budget is separated from the
+nonperturbative model uncertainty:
+\begin{equation}
+  \Delta_{\rm pert}
+  =
+  \Delta_{\rm scale}
+  \oplus
+  \Delta_{\rm match}
+  \oplus
+  \Delta_{\rm scheme}
+  \oplus
+  \Delta_{\rm numerical}.
+  \label{eq:pert-uncertainty-final}
+\end{equation}
+Here $\Delta_{\rm scale}$ comes from variations of $\mu_H$, boundary scales, final scales,
+and rapidity scales subject to constraints such as $\zeta_A\zeta_B=Q^4$ in Drell-Yan;
+$\Delta_{\rm match}$ comes from the $W$-$Y$ transition and fixed-order truncation;
+$\Delta_{\rm scheme}$ comes from any finite conversion between $\KCSS$ and a future child
+scheme; and $\Delta_{\rm numerical}$ comes from binned distribution evaluation,
+quadrature, interpolation, and convolution-grid errors.  Experimental errors, PDF-replica
+errors, and nonperturbative model/DNN uncertainties belong to the later extraction paper.
+
+\section{Paper-ready claim table and extraction workflow}
+\label{sec:paper-ready-claims-final}
+
+The first paper should make a formalism claim, not a completed data-fit claim.  The
+appropriate claim hierarchy is:
+\begin{center}
+\begin{tabular}{p{0.28\linewidth} p{0.36\linewidth} p{0.26\linewidth}}
+\toprule
+Claim & Allowed when & Not implied \\
+\midrule
+Formal $N^3\mathrm{LL}'_{\KCSS}$ prescription
+& The ingredient map, distribution basis, convolution algebra, evolution kernel, matching
+import contract, and $W+Y$ subtraction formula are specified.
+& A numerical extraction has been performed. \\
+\addlinespace
+Numerical $N^3\mathrm{LL}'_{\KCSS}$ implementation
+& Physical three-loop coefficient payloads are staged, hashed, parsed, converted, and the
+$\order{a_s^3}$ singular gate passes.
+& Data have been fitted. \\
+\addlinespace
+$k_T$-space $N^3\mathrm{LL}'$ extraction
+& The numerical operator is combined with a specified nonperturbative module, data set,
+fit protocol, and uncertainty model.
+& The nonperturbative module is unique. \\
+\addlinespace
+DNN-based extraction
+& The chosen $\mathcal M_{\NP}$ is a neural parameterization satisfying the admissibility
+conditions of Sec.~\ref{sec:np-module-final}.
+& The perturbative label is produced by the DNN. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+A paper based on this note can therefore be organized as follows.
+\begin{enumerate}
+  \item Motivation: why a direct-$k_T$ extraction is useful and what it does not claim to
+  invent.
+  \item Parent scheme: definition of $\KCSS$ as a $k_T$-space representation of CSS2.
+  \item Distribution algebra: plus distributions, generators, bin actions, and convolution
+  exponentials.
+  \item Perturbative evolution and matching: $D_i$, $\mathcal C_{i\leftarrow j}$, hard
+  functions, DGLAP, and the $N^3\mathrm{LL}'$ ingredient map.
+  \item Process-level $W$ operator: DY, SIDIS, $e^+e^-$, and gluon-channel templates.
+  \item Nonperturbative module: admissibility conditions and examples, including but not
+  limited to DNNs.
+  \item Regulated normalization and cumulants.
+  \item $W+Y$ matching and perturbative uncertainties.
+  \item Validation hierarchy and implementation certificate.
+  \item Outlook toward a genuine numerical $N^3\mathrm{LL}'$ extraction.
+\end{enumerate}
+
+\section{Numerical representation}
+
+Because perturbative kernels are distributions, the numerical implementation should avoid
+unbinned pointwise evaluation near $q_T=0$. Preferred representations are:
+\begin{enumerate}
+  \item bin-integrated kernels matching experimental binning;
+  \item cumulants $\Sigma(q_T^{\rm max}) = \int^{q_T^{\rm max}} \dd^2\bq\,W(\bq)$;
+  \item smooth test-function projections;
+  \item radial basis expansions with analytically known integrals over bins.
+\end{enumerate}
+
+The transverse convolution of radial functions can be evaluated through the angular
+integral
+\begin{equation}
+  (A\ot B)(q)
+  =
+  \int_0^\infty \dd k\,k\,A(k)
+  \int_0^{2\pi}\dd\phi\,
+  B\!\left(\sqrt{q^2+k^2-2qk\cos\phi}\right),
+  \label{eq:radial-conv}
+\end{equation}
+for ordinary functions. Distributional pieces should be handled analytically before
+numerical quadrature.
+
+\decision{The paper-level recommendation is the hybrid approach: singular kernels are
+handled analytically through bin or test-function actions, while ordinary
+nonperturbative modules are represented on radial grids or flexible bases and combined
+with analytic subtraction terms.}
+
+\section{Validation sequence}
+\label{sec:validation-final}
+
+The formal prescription becomes a numerical implementation only after a validation ladder
+has been completed.  The required checks are:
+\begin{enumerate}
+  \item \textbf{Distribution algebra.} Validate $\deltaT$, $\mathcal L_n$, $\mathfrak L_n$,
+  generator derivatives, bin actions, and transverse convolution identities.
+
+  \item \textbf{One-loop singular spectrum.} Reproduce the $A_q^{(1)}=C_F$ and
+  $B_q^{(1)}=-3C_F/2$ Drell-Yan singular spectrum in bins, including the correct
+  $d^2\bq$ versus $dq_T^2$ normalization.
+
+  \item \textbf{Flavor-vector and $x$-convolution tests.} Validate the longitudinal
+  plus-prescription, DGLAP kernels, and quark/gluon mixing independently of the transverse
+  plus prescription.
+
+  \item \textbf{Evolution tests.} Check path independence in $(\mu,\zeta)$, semigroup
+  closure, fixed-coupling limits, and running-coupling endpoint identities.
+
+  \item \textbf{NNLO singular gate.} Import the physical $\mathcal C^{(2)}$, $H^{(2)}$,
+  and $P^{(1)}$ ingredients; expand $W^{\KCSS}$ through $\order{a_s^2}$ and compare bin by
+  bin with the parent CSS2 singular expansion.
+
+  \item \textbf{N$^3$LO singular gate.} Import the physical $\mathcal C^{(3)}$, $H^{(3)}$,
+  $D^{(3)}$, and $P^{(2)}$ ingredients; expand through $\order{a_s^3}$ and compare bin by
+  bin with the parent CSS2 singular expansion.
+
+  \item \textbf{$Y$-term consistency.} Add Eq.~\eqref{eq:Y-final-prescription}; verify
+  that the matched result tends to the resummed result at small $q_T$ and to fixed order
+  at large $q_T$.
+
+  \item \textbf{Nonperturbative closure.} Generate pseudo-data from a known
+  $\mathcal M_{\NP}$ and recover it without allowing the model to absorb missing
+  perturbative ingredients.
+\end{enumerate}
+
+Only after this ladder is passed should a data fit advertise an implementation-level
+$N^3\mathrm{LL}'$ extraction.
+
+\section{Relation to Fernando-Keller pipeline}
+
+Fernando-Keller can be summarized schematically as
+\begin{equation}
+  \text{data}
+  \longrightarrow
+  \text{learned structure kernel}
+  \longrightarrow
+  s(x,k;Q)
+  \longrightarrow
+  F_{q/h}(x,k;Q)\simeq f_{q/h}(x,Q)\,s(x,k;Q).
+\end{equation}
+The perturbative upgrade is instead
+\begin{equation}
+  \text{data}
+  \longrightarrow
+  N^k\mathrm{LL}_{k_T}\text{ forward operator}
+  \longrightarrow
+  F^{\core}_{i/h}(x,k;\theta)
+  \longrightarrow
+  F_{i/h}^{\pert+\NP-\sub}(x,k;\mu,\zeta).
+\end{equation}
+The neural network is moved from ``the full transverse profile'' to ``the nonperturbative
+boundary condition.''
+
+
+\section{Closure of the formalism note}
+\label{sec:formalism-closure}
+
+The formalism note is now complete for the purpose of drafting the first paper.  It has
+resolved the conceptual questions as follows.
+\begin{enumerate}
+  \item \textbf{Scheme.}  The parent construction is $\KCSS$, a direct $k_T$-space
+  representation of Collins/CSS2.  Future child schemes require explicit finite
+  conversion kernels and inverse kernels.
+
+  \item \textbf{Distribution basis.}  The conventional $\mathcal L_n$ basis is used for
+  bin actions and comparison to singular spectra; the generator basis is used for
+  convolution algebra and Sudakov exponentiation.
+
+  \item \textbf{Perturbative tail.}  The universal TMD large-$k_T$ tail is fixed by
+  $\mathcal C_{i\leftarrow j}\ox f_j$.  The large-$q_T$ cross-section tail is the
+  $Y$ term.  These are distinct objects.
+
+  \item \textbf{Normalization.}  Physical constraints are regulated cumulants and
+  weighted moments, not unregulated full-$k_T$ integrals.
+
+  \item \textbf{Uncertainty.}  The formalism note defines perturbative uncertainty
+  classes only.  Experimental, PDF-replica, and nonperturbative-model uncertainties are
+  extraction-level additions.
+
+  \item \textbf{Flavor.}  The formalism is flavor-vector valued from the start.  Any
+  simplified flavor model is a data-fit choice, not a property of $\KCSS$.
+
+  \item \textbf{DNN role.}  A DNN is one possible realization of $\mathcal M_{\NP}$.
+  It is not the source of the perturbative accuracy label.
+\end{enumerate}
+
+The remaining tasks belong to the implementation and phenomenology program, not to the
+formal definition.  They are: stage and hash the physical NNLO/N$^3$LO coefficient files;
+convert them to the canonical CSS2-compatible schema; complete the $\order{a_s^2}$ and
+$\order{a_s^3}$ singular gates; benchmark $W+Y$ against external Drell-Yan codes; choose a
+specific $\mathcal M_{\NP}$; and perform closure tests and data fits.  Those tasks are the
+basis for the later numerical extraction paper.
+
+\appendix
+\appendix
+
+\section{Minimal notation dictionary}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.18\linewidth} p{0.74\linewidth}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$F_{i/h}(x,\bk;\mu,\zeta)$ & Renormalized TMDPDF for parton $i$ in hadron $h$ in transverse-momentum space. \\
+$H_{ij}(Q,\mu)$ & Hard function for the partonic channel $ij$. \\
+$\mathcal D_i(\bk;\mu)$ & Momentum-space Collins-Soper kernel. \\
+$\mathcal U_i$ & Evolution Green's function acting by transverse convolution. \\
+$\mathcal C_{i\leftarrow j}$ & Perturbative matching coefficient from collinear PDF $j$ to TMD parton $i$. \\
+$W$ & Resummed/singular TMD contribution to the cross section. \\
+$Y$ & Fixed-order remainder: full fixed order minus the fixed-order expansion of $W$. \\
+$F^{\core}$ & Neural or parametric nonperturbative core at the boundary scale. \\
+$F^{\sub}$ & Overlap subtraction between the perturbative tail and nonperturbative core. \\
+\bottomrule
+\end{longtable}
+
+
+\section{Reference anchors}
+
+\begin{itemize}
+  \item Foundations of the baseline $b_T$ framework and scheme translation: Collins-Soper, CSS, Collins 2011, Collins-Rogers,
+  and the TMD Handbook~\cite{CollinsSoper1981,CSS1985,Collins2011,CollinsRogers2017,TMDHandbook2023}.
+  \item Early direct-$q_T$ and transverse-momentum-space resummation: Ellis-Veseli,
+  Frixione-Nason-Ridolfi, and Kulesza-Stirling~\cite{EllisVeseli1998,FrixioneNasonRidolfi1999,KuleszaStirling1999,KuleszaStirling2000}.
+  \item Modern direct-space and distribution-space resummation: Monni-Re-Torrielli,
+  Bizon et al., Ebert-Tackmann, and Simonelli~\cite{MonniReTorrielli2016,BizonMonniReRottoliTorrielli2018,EbertTackmann2017,Simonelli2026}.
+  \item Perturbative ingredients for a high-order $k_T$ implementation: RRG soft/beam
+  functions, $N^3$LO TMD matching, high-order rapidity anomalous dimensions, four-loop cusp information,
+  three-loop hard functions, and modern N$^3$LL$'$ Drell--Yan benchmarks~\cite{LuebbertOredssonStahlhofen2016,EbertMistlbergerVita2020,LuoYangZhuZhu2021,LiZhu2017,MoultZhuZhu2022,DuhrMistlbergerVita2022,HennKorchemskyMistlberger2020,GehrmannGloverHuberIkizlerliStuderus2010,BillisMichelTackmann2025}.
+  \item Integral constraints and large-$k_T$ consistency: Ebert-Michel-Stewart-Sun,
+  Gonzalez-Hernandez-Rainaldi-Rogers, and HSO phenomenology~\cite{EbertMichelStewartSun2022,GonzalezHernandezRainaldiRogers2023,AslanBoglioneGHRRainaldiRogersSimonelli2024}.
+  \item Existing high-accuracy and neural TMD extractions: Moos-Scimemi-Vladimirov-Zurita
+  and MAP neural-network fits~\cite{MoosScimemiVladimirovZurita2024,MoosScimemiVladimirovZurita2025,BacchettaEtAl2025NN}.
+  \item Direct $k_T$ inverse reconstruction template: Fernando-Keller~\cite{FernandoKeller2026}.
+  \item Cross-section fixed-order and matched benchmarks for the $Y$ term: DYTurbo and
+  CuTe-MCFM/MCFM~\cite{CamardaEtAlDYTurbo2020,CamardaCieriFerrera2021,NeumannCampbell2023}.
+  \item Momentum-space TMD evolution in a neighboring framework: Parton Branching and
+  PB-to-CSS comparisons~\cite{BubanjaEtAl2024PB,BermudezMartinez2023PBtoCSS}.
+\end{itemize}
+
+
+\begin{thebibliography}{99}
+
+\bibitem{CollinsSoper1981}
+J.~C. Collins and D.~E. Soper,
+\textit{Back-to-back jets in QCD},
+Nucl. Phys. B \textbf{193}, 381--443 (1981);
+Erratum: Nucl. Phys. B \textbf{213}, 545 (1983).
+
+\bibitem{CSS1985}
+J.~C. Collins, D.~E. Soper, and G.~F. Sterman,
+\textit{Transverse momentum distribution in Drell-Yan pair and W and Z boson production},
+Nucl. Phys. B \textbf{250}, 199--224 (1985).
+
+\bibitem{Collins2011}
+J.~C. Collins,
+\textit{Foundations of Perturbative QCD},
+Cambridge University Press, Cambridge (2011).
+
+\bibitem{TMDHandbook2023}
+R.~Boussarie et al.,
+\textit{TMD Handbook},
+arXiv:2304.03302 [hep-ph].
+
+\bibitem{EllisVeseli1998}
+R.~K. Ellis and S.~Veseli,
+\textit{W and Z transverse momentum distributions: resummation in $q_T$ space},
+Nucl. Phys. B \textbf{511}, 649--669 (1998),
+hep-ph/9706526.
+
+\bibitem{FrixioneNasonRidolfi1999}
+S.~Frixione, P.~Nason, and G.~Ridolfi,
+\textit{Problems in the resummation of soft-gluon effects in the transverse-momentum distributions of massive vector bosons in hadronic collisions},
+Nucl. Phys. B \textbf{542}, 311--328 (1999),
+hep-ph/9809367.
+
+\bibitem{KuleszaStirling1999}
+A.~Kulesza and W.~J. Stirling,
+\textit{Sudakov logarithm resummation in transverse momentum space for electroweak boson production at hadron colliders},
+Nucl. Phys. B \textbf{555}, 279--305 (1999),
+hep-ph/9902234.
+
+\bibitem{KuleszaStirling2000}
+A.~Kulesza and W.~J. Stirling,
+\textit{On the resummation of subleading logarithms in the transverse momentum distribution of vector bosons produced at hadron colliders},
+JHEP \textbf{01}, 016 (2000),
+hep-ph/9909271.
+
+\bibitem{MonniReTorrielli2016}
+P.~F. Monni, E.~Re, and P.~Torrielli,
+\textit{Higgs transverse-momentum resummation in direct space},
+Phys. Rev. Lett. \textbf{116}, 242001 (2016),
+arXiv:1604.02191 [hep-ph].
+
+\bibitem{BizonMonniReRottoliTorrielli2018}
+W.~Bizo\'n, P.~F. Monni, E.~Re, L.~Rottoli, and P.~Torrielli,
+\textit{Momentum-space resummation for transverse observables and the Higgs $p_\perp$ at N$^3$LL+NNLO},
+JHEP \textbf{02}, 108 (2018),
+arXiv:1705.09127 [hep-ph].
+
+\bibitem{EbertTackmann2017}
+M.~A. Ebert and F.~J. Tackmann,
+\textit{Resummation of transverse momentum distributions in distribution space},
+JHEP \textbf{02}, 110 (2017),
+arXiv:1611.08610 [hep-ph].
+
+\bibitem{Simonelli2026}
+A.~Simonelli,
+\textit{Transverse momentum resummation and analytic continuation into the deep infrared},
+Eur. Phys. J. C \textbf{86}, 291 (2026),
+arXiv:2509.06843 [hep-ph].
+
+
+\bibitem{GehrmannLuebbertYang2014}
+T.~Gehrmann, T.~L\"ubbert, and L.~L. Yang,
+\textit{Calculation of the transverse parton distribution functions at next-to-next-to-leading order},
+JHEP \textbf{06}, 155 (2014),
+arXiv:1403.6451 [hep-ph].
+
+\bibitem{EchevarriaScimemiVladimirov2016}
+M.~G. Echevarria, I.~Scimemi, and A.~Vladimirov,
+\textit{Unpolarized transverse momentum dependent parton distribution and fragmentation functions at next-to-next-to-leading order},
+JHEP \textbf{09}, 004 (2016),
+arXiv:1604.07869 [hep-ph].
+
+\bibitem{LiZhu2017}
+Y.~Li and H.~X. Zhu,
+\textit{Bootstrapping rapidity anomalous dimensions for transverse-momentum resummation},
+Phys. Rev. Lett. \textbf{118}, 022004 (2017),
+arXiv:1604.01404 [hep-ph].
+
+\bibitem{LuebbertOredssonStahlhofen2016}
+T.~L\"ubbert, J.~Oredsson, and M.~Stahlhofen,
+\textit{Rapidity renormalized TMD soft and beam functions at two loops},
+JHEP \textbf{03}, 168 (2016),
+arXiv:1602.01829 [hep-ph].
+
+\bibitem{EbertMistlbergerVita2020}
+M.~A. Ebert, B.~Mistlberger, and G.~Vita,
+\textit{Transverse momentum dependent PDFs at N$^3$LO},
+JHEP \textbf{09}, 146 (2020),
+arXiv:2006.05329 [hep-ph].
+
+\bibitem{EbertMistlbergerVita2021FF}
+M.~A. Ebert, B.~Mistlberger, and G.~Vita,
+\textit{TMD fragmentation functions at N$^3$LO},
+JHEP \textbf{07}, 121 (2021),
+arXiv:2012.07853 [hep-ph].
+
+\bibitem{LuoYangZhuZhu2021}
+M.-x. Luo, T.-Z. Yang, H.~X. Zhu, and Y.~J. Zhu,
+\textit{Unpolarized quark and gluon TMD PDFs and FFs at N$^3$LO},
+JHEP \textbf{06}, 115 (2021),
+arXiv:2012.03256 [hep-ph].
+
+\bibitem{MoultZhuZhu2022}
+I.~Moult, H.~X. Zhu, and Y.~J. Zhu,
+\textit{The four loop QCD rapidity anomalous dimension},
+JHEP \textbf{08}, 280 (2022),
+arXiv:2205.02249 [hep-ph].
+
+\bibitem{DuhrMistlbergerVita2022}
+C.~Duhr, B.~Mistlberger, and G.~Vita,
+\textit{Four-loop rapidity anomalous dimension and event shapes to fourth logarithmic order},
+Phys. Rev. Lett. \textbf{129}, 162001 (2022),
+arXiv:2205.02242 [hep-ph].
+
+\bibitem{EbertMichelStewartSun2022}
+M.~A. Ebert, J.~K.~L. Michel, I.~W. Stewart, and Z.~Sun,
+\textit{Disentangling long and short distances in momentum-space TMDs},
+JHEP \textbf{07}, 129 (2022),
+arXiv:2201.07237 [hep-ph].
+
+\bibitem{GonzalezHernandezRainaldiRogers2023}
+J.~O. Gonzalez-Hernandez, T.~Rainaldi, and T.~C. Rogers,
+\textit{The resolution to the problem of consistent large transverse momentum in TMDs},
+Phys. Rev. D \textbf{107}, 094029 (2023),
+arXiv:2303.04921 [hep-ph].
+
+\bibitem{AslanBoglioneGHRRainaldiRogersSimonelli2024}
+F.~Aslan, M.~Boglione, J.~O. Gonzalez-Hernandez, T.~Rainaldi, T.~C. Rogers, and A.~Simonelli,
+\textit{Phenomenology of TMD parton distributions in Drell-Yan and $Z^0$ boson production in a hadron structure oriented approach},
+Phys. Rev. D \textbf{110}, 074016 (2024),
+arXiv:2401.14266 [hep-ph].
+
+\bibitem{MoosScimemiVladimirovZurita2024}
+V.~Moos, I.~Scimemi, A.~Vladimirov, and P.~Zurita,
+\textit{Extraction of unpolarized transverse momentum distributions from the fit of Drell-Yan data at N$^4$LL},
+JHEP \textbf{05}, 036 (2024),
+arXiv:2305.07473 [hep-ph].
+
+\bibitem{MoosScimemiVladimirovZurita2025}
+V.~Moos, I.~Scimemi, A.~Vladimirov, and P.~Zurita,
+\textit{Determination of unpolarized TMD distributions from the fit of Drell-Yan and SIDIS data at N$^4$LL},
+JHEP \textbf{11}, 134 (2025),
+arXiv:2503.11201 [hep-ph].
+
+\bibitem{BacchettaEtAl2025NN}
+A.~Bacchetta, V.~Bertone, C.~Bissolotti, M.~Cerutti, M.~Radici, S.~Rodini, and L.~Rossi,
+\textit{Neural-network extraction of unpolarized transverse-momentum-dependent distributions},
+Phys. Rev. Lett. \textbf{135}, 021904 (2025),
+arXiv:2502.04166 [hep-ph].
+
+\bibitem{BermudezMartinez2023PBtoCSS}
+A.~Bermudez Martinez,
+\textit{Transformation of transverse momentum distributions from Parton Branching to Collins-Soper-Sterman framework},
+Phys. Lett. B \textbf{845}, 138182 (2023),
+arXiv:2307.06704 [hep-ph].
+
+\bibitem{BubanjaEtAl2024PB}
+I.~Bubanja et al.,
+\textit{The small $k_{\rm T}$ region in Drell-Yan production at next-to-leading order with the Parton Branching Method},
+Eur. Phys. J. C \textbf{84}, 154 (2024),
+arXiv:2312.08655 [hep-ph].
+
+\bibitem{HennKorchemskyMistlberger2020}
+J.~M. Henn, G.~P. Korchemsky, and B.~Mistlberger,
+\textit{The full four-loop cusp anomalous dimension in $\mathcal N=4$ super Yang-Mills and QCD},
+JHEP \textbf{04}, 018 (2020),
+arXiv:1911.10174 [hep-th].
+
+\bibitem{GehrmannGloverHuberIkizlerliStuderus2010}
+T.~Gehrmann, E.~W.~N. Glover, T.~Huber, N.~Ikizlerli, and C.~Studerus,
+\textit{Calculation of the quark and gluon form factors to three loops in QCD},
+JHEP \textbf{06}, 094 (2010),
+arXiv:1004.3653 [hep-ph].
+
+\bibitem{MochVermaserenVogt2004}
+S.~Moch, J.~A.~M. Vermaseren, and A.~Vogt,
+\textit{The three-loop splitting functions in QCD: The non-singlet case},
+Nucl. Phys. B \textbf{688}, 101--134 (2004),
+hep-ph/0403192.
+
+\bibitem{VogtMochVermaseren2004}
+A.~Vogt, S.~Moch, and J.~A.~M. Vermaseren,
+\textit{The three-loop splitting functions in QCD: The singlet case},
+Nucl. Phys. B \textbf{691}, 129--181 (2004),
+hep-ph/0404111.
+
+\bibitem{BillisMichelTackmann2025}
+G.~Billis, J.~K.~L. Michel, and F.~J. Tackmann,
+\textit{Drell-Yan transverse-momentum spectra at N$^3$LL$'$ and approximate N$^4$LL with SCETlib},
+JHEP \textbf{02}, 170 (2025),
+arXiv:2411.16004 [hep-ph].
+
+\bibitem{FernandoKeller2026}
+I.~P. Fernando and D.~Keller,
+\textit{Deep Neural Network extraction of Unpolarized Transverse Momentum Distributions},
+Phys. Rev. D \textbf{113}, 096017 (2026),
+arXiv:2510.17243 [hep-ph].
+
+\bibitem{CollinsRogers2017}
+J.~Collins and T.~C. Rogers,
+\textit{Connecting different TMD factorization formalisms in QCD},
+Phys. Rev. D \textbf{96}, 054011 (2017),
+arXiv:1705.07167 [hep-ph].
+
+\bibitem{CamardaEtAlDYTurbo2020}
+S.~Camarda et al.,
+\textit{DYTurbo: Fast predictions for Drell-Yan processes},
+Eur. Phys. J. C \textbf{80}, 251 (2020),
+arXiv:1910.07049 [hep-ph].
+
+\bibitem{CamardaCieriFerrera2021}
+S.~Camarda, L.~Cieri, and G.~Ferrera,
+\textit{Drell-Yan lepton-pair production: $q_T$ resummation at N$^3$LL accuracy and fiducial cross sections at N$^3$LO},
+Phys. Rev. D \textbf{104}, L111503 (2021),
+arXiv:2103.04974 [hep-ph].
+
+\bibitem{NeumannCampbell2023}
+T.~Neumann and J.~Campbell,
+\textit{Fiducial Drell-Yan production at the LHC improved by transverse-momentum resummation at N$^4$LL+N$^3$LO},
+Phys. Rev. D \textbf{107}, L011506 (2023),
+arXiv:2207.07056 [hep-ph].
+
+\bibitem{CollinsGambergProkudinRogersSatoWang2016}
+J.~Collins, L.~Gamberg, A.~Prokudin, T.~C. Rogers, N.~Sato, and B.~Wang,
+\textit{Relating transverse-momentum-dependent and collinear factorization theorems in a generalized formalism},
+Phys. Rev. D \textbf{94}, 034014 (2016),
+arXiv:1605.00671 [hep-ph].
+
+\end{thebibliography}
+
+\end{document}
