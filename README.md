@@ -250,19 +250,7 @@ along with each validator's JSON, CSV, text report, and log file.
 - No validator evaluates a physical cross section or performs a data fit.
 - The coefficient-import validators deliberately distinguish mock or synthetic payloads from source-stamped physical coefficient payloads.
 
-## Repository maintenance
-
-GitHub should render Markdown and source files with normal line breaks.
-To catch accidental newline stripping during uploads, run:
-
-```bash
-make linebreak-check
-```
-
-This check is separate from the physics/formalism validators.
-It only verifies that text files such as Markdown, Python, shell, TOML, and CFF files have not been collapsed into a few long lines.
-
 ## Citing this repository
 
 Use the metadata in `CITATION.cff` once the repository has a tagged release or archived DOI.
-For now, cite the repository URL and the associated formalism note or paper draft.
+For now, cite the repository URL and the associated formalism note or paper draft on arxiv once we get it there.
