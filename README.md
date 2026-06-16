@@ -17,7 +17,7 @@ CSS2 (introduced/emphasized in Collins' 2011 book Foundations of Perturbative QC
 Exact evolution equations without power-suppressed corrections in the definitions. Better separation of perturbative and non-perturbative contributions, with explicit dependence on renormalization scale μ and rapidity scale ζ.
 
 The repository validates the algebra and perturbative bookkeeping needed for a **CSS2-equivalent pure-k-space prescription for high-accuracy TMD extractions**.
-It provides the need steps to completed numerical N³LL′ extraction.
+The goal is to provide the needed steps to completed N³LL′ extraction.
 
 ## Status at a glance
 
