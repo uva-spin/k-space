@@ -250,23 +250,6 @@ along with each validator's JSON, CSV, text report, and log file.
 - No validator evaluates a physical cross section or performs a data fit.
 - The coefficient-import validators deliberately distinguish mock or synthetic payloads from source-stamped physical coefficient payloads.
 
-## Relationship to DNN extractions
-
-This repository is model agnostic.
-A DNN may be used later as a nonperturbative module,
-
-```math
-\mathcal M_{\mathrm{NP}},
-```
-
-but the perturbative accuracy label belongs to the operator
-
-```math
-\mathcal K_{\mathrm{CSS2}}
-```
-
-and to the ingredient manifest, not to the DNN parametrization.
-
 ## Repository maintenance
 
 GitHub should render Markdown and source files with normal line breaks.
