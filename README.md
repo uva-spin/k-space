@@ -209,7 +209,7 @@ The repository enforces the following certificate:
 ```
 
 The formalism paper may claim a **generic pure-k-space N³LL′ prescription** by ingredient equivalence to CSS2.
-A future extraction paper may claim a **completed numerical N³LL′ extraction** only after the physical coefficient files are imported and the order-α<sub>s</sub>³ expansion gate passes.
+Extractions may claim a **completed numerical N³LL′ extraction** only after the physical coefficient files are imported and the order-α<sub>s</sub>³ expansion gate passes.
 
 ## Staging physical coefficient files
 
