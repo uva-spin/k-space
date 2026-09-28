@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "Please cite the repository and record the commit hash used for your verification run."
+title: "k-space: verification of transverse-momentum TMD operators"
+authors:
+  - name: "uva-spin"
+repository-code: "https://github.com/uva-spin/k-space"
+license: MIT
+abstract: "Reproducible distributional, RG, boundary-conversion, logarithmic-counting and momentum-resolvent checks for a CSS2 transverse-momentum formulation."

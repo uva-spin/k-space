@@ -1,0 +1,142 @@
+{
+  "schema": "k-space-source-provenance/1",
+  "prepared_date": "2026-09-28",
+  "repository": "https://github.com/uva-spin/k-space",
+  "sources": [
+    {
+      "id": "audit14",
+      "filename": "kcss_theory_audit_v1p4.zip",
+      "sha256": "7e103656aaa038940d2d1715022510c337ff52f4e9e16f3f6f1b1191824d976d"
+    },
+    {
+      "id": "unexpanded15",
+      "filename": "kcss_unexpanded_evolution_v1p5.zip",
+      "sha256": "14384725b46c2f148170626044b947f97b9e317781d942f1fb82943dd993eefc"
+    },
+    {
+      "id": "legacy13",
+      "filename": "k_space_repository_consistent_v1p3.zip",
+      "sha256": "6c10ac460731a343f07303ffe757f7a6807856f97c6be474934da7e1bfd1a7e2"
+    }
+  ],
+  "files": [
+    {
+      "target": "validators/kt_kcss_one_loop_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_one_loop_validator.py",
+      "source_sha256": "1d565d16ff65a943811de9aae45191ed284f25e38da350635fac5d6b9d6cac64",
+      "prepared_sha256": "1d565d16ff65a943811de9aae45191ed284f25e38da350635fac5d6b9d6cac64",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_toypdf_xconv_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_toypdf_xconv_validator.py",
+      "source_sha256": "fe666ed76defb9bf98bf8739d8b5b6570c0b2a490cd2f4699d92751a536f2473",
+      "prepared_sha256": "fe666ed76defb9bf98bf8739d8b5b6570c0b2a490cd2f4699d92751a536f2473",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_generator_convolution_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_generator_convolution_validator.py",
+      "source_sha256": "882e5a0a597ab97a0b7eb0fe0e13570e34aeb5e9aac2b1466342cd0a4cd1adce",
+      "prepared_sha256": "882e5a0a597ab97a0b7eb0fe0e13570e34aeb5e9aac2b1466342cd0a4cd1adce",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_one_loop_evolution_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_one_loop_evolution_validator.py",
+      "source_sha256": "e81f3729d17bc70630da5e569926cfa9d68228cd3d65ddf5bb7bb6e730b1406a",
+      "prepared_sha256": "e81f3729d17bc70630da5e569926cfa9d68228cd3d65ddf5bb7bb6e730b1406a",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_two_loop_ingredients_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_two_loop_ingredients_validator.py",
+      "source_sha256": "785ae2b036b6d5f3241c0af34d0c38b4b2a0508367cf3b5b9905bf30ea857a77",
+      "prepared_sha256": "785ae2b036b6d5f3241c0af34d0c38b4b2a0508367cf3b5b9905bf30ea857a77",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_running_coupling_evolution_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_running_coupling_evolution_validator.py",
+      "source_sha256": "628cf19d8dc2e4fdf71ff6f510e56a99d06d862755bdeacae7a7e61c122bd69f",
+      "prepared_sha256": "628cf19d8dc2e4fdf71ff6f510e56a99d06d862755bdeacae7a7e61c122bd69f",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_binned_wterm_prototype_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_binned_wterm_prototype_validator.py",
+      "source_sha256": "2031d43e77f21fcb17f22d21c09520465fc753e4c1cfda5c1dcfa1361188cb61",
+      "prepared_sha256": "2031d43e77f21fcb17f22d21c09520465fc753e4c1cfda5c1dcfa1361188cb61",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_accuracy_ingredient_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_accuracy_ingredient_validator.py",
+      "source_sha256": "03c9603ee7b087f1c94ab90a8aaea138d37ac9e6cea30cfb173d0e755f795660",
+      "prepared_sha256": "03c9603ee7b087f1c94ab90a8aaea138d37ac9e6cea30cfb173d0e755f795660",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/kt_kcss_n3lo_matching_import_validator.py",
+      "source": "legacy13",
+      "source_member": "validators/kt_kcss_n3lo_matching_import_validator.py",
+      "source_sha256": "41a1be720cce7c23c19808f27b650840467b8fc7f9d8258a5d720be0110393b7",
+      "prepared_sha256": "41a1be720cce7c23c19808f27b650840467b8fc7f9d8258a5d720be0110393b7",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/validate_v1p4.py",
+      "source": "audit14",
+      "source_member": "validators/validate_v1p4.py",
+      "source_sha256": "f2945bfdc10b8400406ac3f8a699a60abb1f2ee5036adc3b913588ac5c3790da",
+      "prepared_sha256": "51c59a6c767a45383739173fb233885b9e4b66c31437c1032486cee452ea245f",
+      "adaptation": "I/O and provenance adaptation only; mathematical test bodies retained"
+    },
+    {
+      "target": "validators/resolvent_operator_demo.py",
+      "source": "audit14",
+      "source_member": "validators/resolvent_operator_demo.py",
+      "source_sha256": "d8046650fd9bd4d892f1113238d590cbb6d7c45048b5798098c7fa2a0c0b061f",
+      "prepared_sha256": "d8046650fd9bd4d892f1113238d590cbb6d7c45048b5798098c7fa2a0c0b061f",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "src/resummed_operator.py",
+      "source": "unexpanded15",
+      "source_member": "src/resummed_operator.py",
+      "source_sha256": "10369948544c37c9e5d52fdd07bf5df3c9ac8f2ca5dc590f94b00fdbbe049450",
+      "prepared_sha256": "10369948544c37c9e5d52fdd07bf5df3c9ac8f2ca5dc590f94b00fdbbe049450",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "data/coefficients_demo.json",
+      "source": "unexpanded15",
+      "source_member": "coefficients_demo.json",
+      "source_sha256": "8a66cca1538797a5a921b10f45c5311a8aa18cf3787d1b079c2afd12b1f5a964",
+      "prepared_sha256": "8a66cca1538797a5a921b10f45c5311a8aa18cf3787d1b079c2afd12b1f5a964",
+      "adaptation": "byte-identical"
+    },
+    {
+      "target": "validators/validate_unexpanded.py",
+      "source": "unexpanded15",
+      "source_member": "validators/validate_unexpanded.py",
+      "source_sha256": "1e6fd430f7db78d1b7695afd44f55f7f32a2f9031322137b7eb05655a5723a41",
+      "prepared_sha256": "7d9a08718a8cfaeca142f8de2776d1b375a9abecc4f6aeab8ca9480ac6ecca30",
+      "adaptation": "I/O and provenance adaptation only; mathematical test bodies retained"
+    }
+  ],
+  "origin": "Scientific sources imported from the identified v1.3, v1.4, and v1.5 archives.",
+  "adaptations": [
+    "validate_v1p4.py: replace manuscript hash dependency with this provenance ledger; remove generated LaTeX macros; clarify finite-test scope field.",
+    "validate_unexpanded.py: change data path; replace external manuscript provenance dependency with this ledger.",
+    "All other imported scientific Python files and the coefficient fixture are byte-identical to the identified source archive."
+  ]
+}

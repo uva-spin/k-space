@@ -1,0 +1,36 @@
+name: verification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python tools/check_repository_policy.py
+      - run: python tools/check_documentation.py
+      - run: python -m pytest -q
+      - run: python run_all_checks.py --clean
+      - run: python examples/canonical_evolution.py
+      - run: python examples/momentum_grid.py --reference
+      - run: python tools/check_repository_policy.py
+      - name: Preserve generated reports and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-reports
+          path: outputs/
+          if-no-files-found: warn

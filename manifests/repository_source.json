@@ -1,0 +1,192 @@
+{
+  "schema": "k-space-source-snapshot/1",
+  "prepared_date": "2026-09-28",
+  "input_archive_sha256": "ee743bcb5e54f53be396f62f52665827c0989a7a4adac58203c65c57ceec79eb",
+  "source_prefix": "k_space_verification_handoff_v1/k-space/",
+  "source_selection": "The uploaded archive contains three byte-identical current source copies. The scientific files and CSV tables below are preserved unchanged.",
+  "files": [
+    {
+      "path": "src/resummed_operator.py",
+      "sha256": "10369948544c37c9e5d52fdd07bf5df3c9ac8f2ca5dc590f94b00fdbbe049450",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "data/coefficients_demo.json",
+      "sha256": "8a66cca1538797a5a921b10f45c5311a8aa18cf3787d1b079c2afd12b1f5a964",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_accuracy_ingredient_validator.py",
+      "sha256": "03c9603ee7b087f1c94ab90a8aaea138d37ac9e6cea30cfb173d0e755f795660",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_binned_wterm_prototype_validator.py",
+      "sha256": "2031d43e77f21fcb17f22d21c09520465fc753e4c1cfda5c1dcfa1361188cb61",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_generator_convolution_validator.py",
+      "sha256": "882e5a0a597ab97a0b7eb0fe0e13570e34aeb5e9aac2b1466342cd0a4cd1adce",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_n3lo_matching_import_validator.py",
+      "sha256": "41a1be720cce7c23c19808f27b650840467b8fc7f9d8258a5d720be0110393b7",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_one_loop_evolution_validator.py",
+      "sha256": "e81f3729d17bc70630da5e569926cfa9d68228cd3d65ddf5bb7bb6e730b1406a",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_one_loop_validator.py",
+      "sha256": "1d565d16ff65a943811de9aae45191ed284f25e38da350635fac5d6b9d6cac64",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_running_coupling_evolution_validator.py",
+      "sha256": "628cf19d8dc2e4fdf71ff6f510e56a99d06d862755bdeacae7a7e61c122bd69f",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_toypdf_xconv_validator.py",
+      "sha256": "fe666ed76defb9bf98bf8739d8b5b6570c0b2a490cd2f4699d92751a536f2473",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/kt_kcss_two_loop_ingredients_validator.py",
+      "sha256": "785ae2b036b6d5f3241c0af34d0c38b4b2a0508367cf3b5b9905bf30ea857a77",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/resolvent_operator_demo.py",
+      "sha256": "d8046650fd9bd4d892f1113238d590cbb6d7c45048b5798098c7fa2a0c0b061f",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/validate_unexpanded.py",
+      "sha256": "7d9a08718a8cfaeca142f8de2776d1b375a9abecc4f6aeab8ca9480ac6ecca30",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "validators/validate_v1p4.py",
+      "sha256": "51c59a6c767a45383739173fb233885b9e4b66c31437c1032486cee452ea245f",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/ATLAS_13.csv",
+      "sha256": "ae0b6a0061d11025c147a62884c86eb5c1a04972be0cf97f2e1ec739e7a39c95",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/ATLAS_7.csv",
+      "sha256": "475604de3097e08684470961ad62382fdcabaa35fbfa2ae38f2e4926338b43da",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/ATLAS_8.csv",
+      "sha256": "15ac6e8e3ae955184d2f35218a843d725e320ddf114051f05f5ead6d8b202e8b",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/CDF_RUN_1.csv",
+      "sha256": "0ab654bb05d20aa6d5b64e569d4087c20e40cc2617b8308a2beb3f49668f0f56",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/CDF_RUN_2.csv",
+      "sha256": "b1b973cb5f82eceaef9aebd61564ebb88ce54153637cee19438cfb1d1cab2cca",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/CMS_13.csv",
+      "sha256": "3386756af90d56825b91f09d7b0b21546992bde75a241b1f218f53a12cd1c5fd",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/CMS_7.csv",
+      "sha256": "d56a7dc7730a7f354b4b40a3a6e3565943ee57d3a6182b27cfa3bcad01942fef",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/CMS_8.csv",
+      "sha256": "55c1914a3d016c7883cc62c81fd14a02dc2f5620d455778366690f4e3991537a",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/D0_RUN_1.csv",
+      "sha256": "92e6a9b0118bed687702db558e8e507f442ed4c7beeee9479d5d9278cb0b7835",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/D0_RUN_2.csv",
+      "sha256": "d06245db51d52863ced8952a05d7c3d7b897f6730d81b7c5ebb36af1a9abf1ea",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/D0_RUN_2N.csv",
+      "sha256": "5dc06f7f846d1d03db339f8913460d46abec90a26c0ae8a90265633f50c07b16",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/E288_200.csv",
+      "sha256": "71a3e811a868c267671ad69112de0be98bee9b153392a1d952d18fa27f2a1cf7",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/E288_300.csv",
+      "sha256": "6e056ad633f58ceabab9273c35b1b713b009824a4bdf04779f8ba74e4432b7d6",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/E288_400.csv",
+      "sha256": "bfb784522d471185f965db6aa8ca969d9c16d6bfe1f27bc8c8e260ae0df3f0cd",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/E605.csv",
+      "sha256": "a5f8dbfb8b304c3a9d8e08a84d7e5536a15e00dc2de4297a47d57f9955360d55",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/E772.csv",
+      "sha256": "669d72993baff543da6fe5651c55437df6699cf663cf65e7c03cb53f9d4985df",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/LHCb_13.csv",
+      "sha256": "ed7fcabc090087e7b749711a4f21ecf2b969d3734ee68d1f742aa74d11021aaa",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/LHCb_7.csv",
+      "sha256": "91a7fc148ab13a522c55a7f70bb2246a8e4685284f0365b7c983c2791eda8714",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/LHCb_8.csv",
+      "sha256": "22f7073bfaccfd266b8928fea944f1e937fa7d538d5a50cf8b42d79a60e4808f",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/PHENIX200.csv",
+      "sha256": "6736353cf59e10fc68c6d90b90618b3e6fa804a4341d16f3ba438457496ccca7",
+      "unchanged_from_supplied_snapshot": true
+    },
+    {
+      "path": "Data_DY_test/STAR_510.csv",
+      "sha256": "8712248e2b36512eedecc8b702a7c91b71fd305e92281d312a1f0730cd418f53",
+      "unchanged_from_supplied_snapshot": true
+    }
+  ],
+  "package_changes": [
+    "Expanded goals, physics interpretation, and usage documentation.",
+    "Added runnable canonical-symbol and momentum-grid example clients using the preserved operator.",
+    "Added software tests and offline local-documentation checks.",
+    "Updated CI and Make targets for the example and documentation checks."
+  ],
+  "external_coefficients_downloaded": false,
+  "github_modified": false
+}

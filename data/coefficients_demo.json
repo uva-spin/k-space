@@ -1,0 +1,29 @@
+{
+  "description": "Lower-order massless nf=5 QCD RG demonstration: beta0,1; Gamma0,1; gammaF0; d1=0,d2. NOT an N3LL-prime numerical prediction.",
+  "scheme": "CSS2 D=-K; a=alpha_s/(4*pi); derivative ln(mu)",
+  "physical_n3llprime_payload": false,
+  "beta": [
+    7.666666666666666,
+    38.66666666666667
+  ],
+  "cusp": [
+    5.333333333333333,
+    36.84359134233823
+  ],
+  "noncusp": [
+    8.0
+  ],
+  "d": [
+    0.0,
+    -42.580990437825164
+  ],
+  "sources": [
+    "Collins and Rogers, arXiv:1705.07167v3, two-loop CS and one-loop noncusp conventions; formulas retained in note Sections 12 and 15."
+  ],
+  "run_parameters": {
+    "mu0_GeV": 2.0,
+    "a0": 0.02,
+    "n_f": 5
+  },
+  "note": "The engine supports four/ four/ three/ three loop vectors. No unknown physical coefficient is filled with a mock value in this demonstration."
+}
