@@ -12,7 +12,7 @@ license = {text = "MIT"}
 authors = [{name = "KCSS pure-kT formalism contributors"}]
 
 [tool.setuptools]
-py-modules = ["resummed_operator"]
+py-modules = ["resummed_operator", "css2_coefficients", "css2_matching", "css2_reference", "lhapdf_provider", "rational_radial"]
 package-dir = {"" = "src"}
 
 [tool.pytest.ini_options]

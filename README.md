@@ -433,3 +433,10 @@ should record its new hash rather than retain a byte-identity claim.
 
 The software license is [MIT](LICENSE). Third-party data and downloaded coefficient
 sources retain their own licensing and attribution requirements.
+
+## Corrected CSS2 diagnostic branch
+
+The [resolution prescription](docs/CSS2_RESOLUTION.md) adds sourced N3LL
+evolution, corrected general-scale NLO matching, strict insertion assembly,
+and an independently checked physical-PDF point. Its scope is a fixed
+proton--proton diagnostic; experimental reference reproduction remains separate.

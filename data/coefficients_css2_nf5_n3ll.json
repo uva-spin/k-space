@@ -1,0 +1,31 @@
+{
+  "beta": [
+    7.666666666666666,
+    38.666666666666664,
+    180.9074074074073,
+    4826.156328790895
+  ],
+  "cusp": [
+    5.333333333333333,
+    36.84359134233823,
+    239.2080331989596,
+    141.2460845029018
+  ],
+  "noncusp": [
+    8.0,
+    -1.1419392681383584,
+    249.38756710544476
+  ],
+  "d": [
+    0.0,
+    -42.580990437825164,
+    -684.0910647572292
+  ],
+  "description": "Physical massless SU(3), fixed nf=5; N3LL evolution, strict NLO boundaries",
+  "scheme": "CSS2 D=-K; a=alpha_s/(4*pi); derivatives ln(mu)",
+  "physical_n3llprime_payload": false,
+  "evolution_accuracy": "N3LL",
+  "hard_and_ope_order": "strict NLO",
+  "nf": 5,
+  "source_manifest": "manifests/css2_sources.json"
+}

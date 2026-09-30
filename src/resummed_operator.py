@@ -125,6 +125,8 @@ class CanonicalRG:
             raise ValueError("s must be nonnegative")
         out = np.zeros_like(s)
         sel = s > 0
+        if not np.any(sel):
+            return out
         out[sel] = np.exp(self.log_v_tc(self.tc(s[sel]), mu, zeta))
         return out
 

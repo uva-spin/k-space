@@ -1,0 +1,111 @@
+{
+  "schema": "css2-corrected-reference-sources/1",
+  "source_storage": "External sibling ../sources; third-party archives are not vendored into this repository",
+  "base_commit": "360801adf6abaf1c0af301d527e9ffb50fdf164a",
+  "branch": "codex/css2-reference-resolution",
+  "records": [
+    {
+      "archive": "collins_rogers_1705.07167v3.tar",
+      "url": "https://arxiv.org/src/1705.07167v3",
+      "sha256": "d40c7f97084854ffd75acd88efadc6542cd802908e75f14709083ee64620d679",
+      "locator_and_conversion": "gamma_j eq:gammaj (58); gamma_K/2 eq:gammaK (59); K eq:K; H eq:HDY (62); C eq:C.CSS2 (74); C evolution (75),(76); Appendix B K=gamma_r"
+    },
+    {
+      "archive": "hkm_cusp.tar",
+      "url": "https://arxiv.org/src/1911.10174v1",
+      "sha256": "3dc9badbb871fd5316cc02afd3e8c45c5715e795d51c621c6576b82f6f4fefe5",
+      "locator_and_conversion": "Independent cusp reference HKM_GammaC.txt; aS=4a; quartic invariants denominator N_F"
+    },
+    {
+      "archive": "mps_cusp.tar",
+      "url": "https://arxiv.org/src/2002.04617v2",
+      "sha256": "69cd8587a68fe98c54f1297a4d80ce4a5f0f511110365159483233e4ab031075",
+      "locator_and_conversion": "Production four-loop cusp eq:QCDcusp"
+    },
+    {
+      "archive": "li_zhu.tar",
+      "url": "https://arxiv.org/src/1604.01404v4",
+      "sha256": "a16ab4e905644627d614f7d66c79f033eb95f9da383251d4640a65dcbb4d5168",
+      "locator_and_conversion": "Canonical rapidity coefficients source label eq:8 (printed (9)); D=-gamma_r"
+    },
+    {
+      "archive": "beta4.tar",
+      "url": "https://arxiv.org/src/hep-ph/9701390v1",
+      "sha256": "2d18d077361cad410db273cc8b326b2ed1023a6827dd4be4bc0015123d0cda89",
+      "locator_and_conversion": "SU(3) beta coefficients; source derivative ln(mu^2), multiply by 2 for ln(mu)"
+    },
+    {
+      "extracted_file": "beta4/source.tex",
+      "sha256": "1985dd36bd2c44b1cb7927f0aaac30ff8883f8f102cfa53f2312587055f73143"
+    },
+    {
+      "extracted_file": "collins_rogers_1705.07167v3/TMD-v-fit-v3.tex",
+      "sha256": "81e4d74ec9a11791e341199de5e8696de0d7b5c77e3dd46f495cde4c82ffed81"
+    },
+    {
+      "extracted_file": "hkm_cusp/HKM.tex",
+      "sha256": "a833017e6ab450be104ab21f763389b90f2cb20d678eb37badebad506e9e3579"
+    },
+    {
+      "extracted_file": "hkm_cusp/Plots/Dia_RAAA.tex",
+      "sha256": "6181dc4f688b402df5f94e68b723682453d10aca3b9912b99d8c7dc796fc42e2"
+    },
+    {
+      "extracted_file": "hkm_cusp/Plots/Dia_dRdA.tex",
+      "sha256": "494e5787860c73928420e54e3bb07ee44b2133714f205ae33efb18741aa1246f"
+    },
+    {
+      "extracted_file": "hkm_cusp/Plots/Dia_fdRdF.tex",
+      "sha256": "880830d7810c2d7d1b0b881418ceea8b85b601d5f3b52cd1246aea7b1905823b"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_F0_HPL.txt",
+      "sha256": "1f427a54a66551b6b911b04fafaa2513326da90d973634739fc7d79f94ebd4c6"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_F1_HPL.txt",
+      "sha256": "de8163a0d26cac931b6b7c6ef8ffe323ddd38220d68c40bfeb2614c3b6952e81"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_F2_HPL.txt",
+      "sha256": "060222d43fac5bd4f80b20bfa69371bf41968a53aff8afcddb9e741ff9744d9a"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_F3_NP1_HPL.txt",
+      "sha256": "1fa46789a1dafcd2f7930e74d9245ebde60873c060a09fab05313c77fdb32b02"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_F3_NP2_HPL.txt",
+      "sha256": "aea6ff582ebf4e720723249bd4a09b07bf16e1643beb4cf39bb10e91b4c350e5"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_F3_P_HPL.txt",
+      "sha256": "6080a2b5007119eb936d2567e3a898083f2f1fe1a38d3cbab77527d0dc06ab2a"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_GammaC.txt",
+      "sha256": "7f8d7522b392697c5d72d48c32e212bd3fdddc4b5ac7e9cc8edb28c1245ab879"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_GammaC_N4sYM.txt",
+      "sha256": "db03a4abda334cd85b925ff51fd6dfcbc4294ac7650b02d9c6596fce2f7bb639"
+    },
+    {
+      "extracted_file": "hkm_cusp/anc/HKM_readme.txt",
+      "sha256": "ca9d94951229cf5d3d45ec0594b5dd211bbae09372a25821dc062cc1c06fe5da"
+    },
+    {
+      "extracted_file": "li_zhu/bootstrap.tex",
+      "sha256": "c4978670e106171f8fa2a2ad2c0f4de0201acb1e40dc7e12fa77916814798f1d"
+    },
+    {
+      "extracted_file": "mps_cusp/ff4lcusp-arXiv.tex",
+      "sha256": "a3f201531d2e27adfe3207bf9a3a8f6b36c18d856dcb5eaca53749cfebb5889c"
+    }
+  ],
+  "radial_solver_origin": {
+    "file": "rational_radial.py from user-supplied kt_method_v1p6_verification.zip",
+    "original_sha256": "993efaf8488555355fc72ca38042f15361e25366dad9f7a363b9c6fd0e3ee006",
+    "change": "Add capped-target fit with explicit zero and infinity endpoints, without a forced vanishing 1/s tail"
+  }
+}
