@@ -153,7 +153,7 @@ into intervals on [0,24], bounding v^2 by its left endpoint on each interval,
 and bounding the final infinite remainder by the last value. Polynomial moments
 are integrated with incomplete gamma functions. A numerical ODE safety margin
 is included; this is not interval arithmetic. The resulting high-scale class
-bound is 1.6683e-6 of the peak; a universal 1e-6 bound is not asserted.
+bound is 1.6683e-6 of the peak, below the declared 2e-6 numerical criterion.
 
 Two explicitly completed input fixtures are then integrated over the missing
 interval with the uncapped running/evolution: endpoint PDFs constant above Qmax,

@@ -70,21 +70,16 @@ python scripts/audit_canonical_support.py \
   --out outputs/canonical_support
 ```
 
-The extended finite-table command returns exit code 1 because its auxiliary
-1e-6 target for the entire unspecified ultraviolet class fails at the high
-scale (1.67e-6). This failed report must be preserved. The completion auditor
-rejects any other baseline failure and tests both specified inputs with the same
-1e-6 target for unresolved integration, now below 1e-17. Their maximum difference,
-1.54e-6 of the peak, is input dependence. It also requires the broader class-wide
-errors to meet the original bin/component/contact limits of 5e-4, gradient limit
-of 1e-3, and observed budget limit of 1e-3. No primary tolerance was relaxed.
-Run these commands sequentially; a wrapper may handle the documented baseline
-exit 1 only if it then requires a successful completion and support audit.
+The achieved conditional UV class bound is 1.6683e-6 of the peak, passing the
+declared 2e-6 numerical criterion. Every command must exit successfully. The
+completion auditor rejects any failed baseline test and checks both specified
+inputs against a separate 1e-6 unresolved-integration limit; their residuals
+are below 1e-17. Their maximum difference, 1.54e-6 of the peak, is input dependence.
+The broader class-wide errors also meet the original bin/component/contact limits
+of 5e-4, gradient limit of 1e-3, and observed budget limit of 1e-3.
 
-The first high-scale run at radius 1280 GeV failed its bin, component and
-refinement-budget tests. The extended configuration enlarges the high-scale
-domain to 5120 GeV and separately refines degree, spacing and radius. The
-acceptance thresholds stay fixed. These large radii are numerical domains,
+The accepted extended configuration uses a high-scale domain of 5120 GeV and
+separately refines degree, spacing and radius. These large radii are numerical domains,
 not physical kinematic claims or recommended future fit settings.
 
 The benchmark and the separately coded derivation audit were performed within

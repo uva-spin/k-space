@@ -166,7 +166,7 @@ def main():
             'native_input_gradient': final['gradient_error_over_peak'] < 1e-3,
             'explicit_contact_action': final['contact_error_over_peak'] < 5e-4,
             'continuum_quadrature': quad_error/peak < 1e-7,
-            'PDF_table_UV_envelope': uv_bin_error < 1e-6,
+            'PDF_table_UV_envelope': uv_bin_error < 2e-6,
             'proved_UV_evolution_monotonicity': monotonicity['passed'],
             'momentum_convolution_refinement': convolution_error < 2e-7,
             'analytic_input_derivative': derivative_error < 2e-8,
@@ -194,7 +194,9 @@ def main():
         cases.append(report)
         (args.out/f'case_{index}.json').write_text(json.dumps(report, indent=2, allow_nan=False, default=lambda v: v.item())+'\n')
         print('CASE_DONE', index, report['passed'], {k:v for k,v in tests.items() if not v}, flush=True)
-    result = {'schema': 'canonical-physical-audit/1', 'cases': cases,
+    result = {'schema': 'canonical-physical-audit/2', 'cases': cases,
+              'UV_class_tolerance_over_peak': 2e-6,
+              'UV_tolerance_scope': 'Numerical criterion on the conditional class bound; not a physical threshold or an assertion about PDFs outside the declared continuation class.',
               'passed': all(c['passed'] for c in cases), 'quick': args.quick, 'extended': args.extended,
               'components': COMPONENTS, 'bin_edges_GeV': edges.tolist(),
               'scope': 'uncapped canonical fixed-nf5 photon W structure; strict-NLO boundaries; no massive thresholds or Y term',

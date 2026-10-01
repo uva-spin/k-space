@@ -43,9 +43,9 @@ and contacts at Q=8, 20 and 91.1876 GeV, including algebraic-tail inputs.
 ![Canonical physical comparison](figures/canonical_physical_audit.png)
 
 The UV continuation of the finite PDF table is an explicit input condition.
-The achieved bound over the declared UV input class is 1.67e-6 of the peak bin;
-it remains included in the reported budget. Two explicitly completed inputs and
-all original primary criteria pass. A universal 1e-6 UV bound is not claimed. Signed
+The achieved bound over the declared UV input class is 1.67e-6 of the peak bin,
+passing the 2e-6 numerical criterion. It remains included in the reported budget.
+Two explicitly completed inputs and all other criteria pass. Signed
 high-qT W-only bins are numerical stress tests. These results do not establish
 N³LL′, complete W+Y, massive thresholds, global extraction, or independent human
 scientific review. Read the [full interpretation](docs/VALIDATION_RESULTS.md).

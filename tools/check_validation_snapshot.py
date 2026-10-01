@@ -22,12 +22,16 @@ suite = load('scientific_suites.json')
 assert suite['full_required_run'] and suite['all_suites_passed']
 assert suite['suites_passed'] == suite['suites_total'] == 14
 completed = load('canonical_physical_completed.json')
+finite = load('canonical_physical_finite_table.json')
+assert finite['passed'] and all(c['passed'] and all(c['tests'].values()) for c in finite['cases'])
+assert finite['UV_class_tolerance_over_peak'] == completed['UV_class_tolerance_over_peak'] == 2e-6
 assert completed['passed'] and len(completed['cases']) == 3
 for case in completed['cases']:
     assert all(case['tests'].values())
     limits = {'bin':5e-4, 'component':5e-4, 'gradient':1e-3, 'contact':5e-4}
     assert all(case['class_wide_error_bounds_over_peak'][key] < limit for key, limit in limits.items())
     assert case['observed_budget'] < 1e-3
+    assert case['UV_class_envelope_over_peak'] < completed['UV_class_tolerance_over_peak']
     assert len(case['UV_completion_models']) == 2
     assert all(m['passed'] and all(m['tests'].values()) for m in case['UV_completion_models'])
 for name in ['canonical_continuum.json', 'support_audit.json', 'primary_cusp_audit.json']:

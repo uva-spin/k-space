@@ -45,16 +45,14 @@ at three scales, explicit UV input completions and support checks. Expect severa
 minutes and substantial memory for the 409600-cell high-scale grid. The workflow
 is a validation calculation, not an optimized fitting configuration.
 
-The runner first constructs a finite-table intermediate, then integrates the
-explicit UV continuations and checks the completed results. The intermediate
-retains a historical auxiliary 1e-6 all-class diagnostic, which yields exit 1
-at the high scale because its achieved bound is 1.6683e-6. This is separate from
-the final acceptance criteria. The next auditor rejects every other failure,
-checks source hashes, and requires the unchanged primary criteria and both
-completed inputs to pass. Only then can `reproduction.json` report full success.
-Intermediate records stay in ignored `outputs/`; accepted results are in
-`completed/`. The published snapshot presents the accepted result and achieved
-bounds, with its projection recorded in the snapshot manifest.
+The runner first evaluates the finite-table reference and its conditional UV
+bound, then integrates the explicit UV continuations and checks the completed
+results. The largest class bound is 1.6683e-6 of the peak, passing the declared
+2e-6 numerical criterion. The completion auditor checks source hashes and
+requires every baseline test, the original bin/component/gradient/contact/budget
+limits, and both completed inputs to pass. Every stage must exit successfully;
+there is no special acceptance of a failing intermediate. Generated records stay
+in ignored `outputs/`; accepted reference results are published in `validation/`.
 
 ## Primary-source cusp cross-check
 

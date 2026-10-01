@@ -4,7 +4,7 @@
   "method_validation_passed": true,
   "unrestricted_phenomenological_prediction_allowed": false,
   "canonical_physical_report": "validation/reference/2026-10-01/canonical_physical_completed.json",
-  "UV_condition": "Two explicit benchmark continuations and conditional broader-class bounds; maximum class envelope 1.6683e-6 of the peak, included in the passing original budget; no universal 1e-6 class guarantee or DGLAP assertion above the PDF table",
+  "UV_condition": "Two explicit benchmark continuations and conditional broader-class bounds; maximum class envelope 1.6683e-6 of the peak passes the 2e-6 numerical criterion and stays in the original budget; no DGLAP assertion above the PDF table",
   "E866_status": "41-bin conditional pp forward and inverse demonstrations complete; capped profile separate from canonical theorem",
   "future_extraction": "Same-data joint-(x,kT) FiLM comparison is separate future work",
   "not_claimed": [

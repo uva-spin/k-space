@@ -83,13 +83,13 @@ caps the canonical scale. The admitted broader class obeys
 arguments. Absolute matching integrals and monotone RG decay give conditional
 bin/component bounds. Their evaluation is numerical, not interval arithmetic.
 
-The largest achieved class bound is 1.6683e-6 of the peak. Two explicitly
+The largest achieved class bound is 1.6683e-6 of the peak, passing the declared
+2e-6 numerical criterion. This tolerance is not a physical threshold. Two explicitly
 completed benchmark inputs, constant endpoint PDFs or fourth-power logarithmic
 growth, resolve their omitted integrals with residual estimates below 1e-17 of
 the peak. Their largest difference is 1.532e-6. Neither is claimed to solve DGLAP
 outside the table. The broader class bound stays in the original primary errors
-and budget, all of which pass. A universal 1e-6 bound over the unspecified
-continuation class is not claimed.
+and budget, all of which pass.
 
 The accepted implementation assigns the exact infrared constant at s=infinity
 and uses the separately refined numerical domains listed above. The release

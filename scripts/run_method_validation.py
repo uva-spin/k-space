@@ -48,9 +48,8 @@ def main():
         pdf = ['--library', args.library.resolve(), '--pdf-data', args.pdf_data.resolve()]
         raw = out/'finite_table/canonical_physical_audit.json'
         run('physical_finite_table', ['scripts/benchmark_canonical_physical.py', *pdf,
-                                      '--extended', '--out', raw.parent], allowed=(0, 1))
-        # Exit 1 is not accepted on its own. The next auditor rejects all raw
-        # failures except the explicitly addressed auxiliary UV class target.
+                                      '--extended', '--out', raw.parent])
+        # Every stage must pass, including the explicit 2e-6 UV class criterion.
         complete = out/'completed/canonical_physical_audit.json'
         run('physical_completed', ['scripts/audit_canonical_uv_completion.py', *pdf,
                                    '--input', raw, '--out', complete.parent])

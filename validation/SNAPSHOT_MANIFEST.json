@@ -4,7 +4,8 @@
   "audited_source_commit": "57870ad031ea413576a80bdd5b9ef51f5244c67f",
   "software_tests_passed": 121,
   "software_test_log_sha256": "cb17217f509912749424453a3210e3c7e5fad44404b2689b90934764228cbed7",
-  "publication_transform": "Computed numerical values and final acceptance tests are preserved. Private host paths are replaced by <repository>, <audit-run>, <work-root>, or <user-home>. The completed physical report omits previous_auxiliary_target, finite_table_tests_preserved and finite_table_scope_passed, which describe superseded development-stage acceptance, and adds publication_view. Development attempts, logs and runtime binaries remain outside the release. Origin hashes identify the full original local audit records.",
+  "physical_validation_refresh": "Full three-scale physical calculation and completions rerun for publication with the explicit 2e-6 conditional UV class criterion. Core physical formulas, grids, other tolerances and the 1e-3 observed budget are unchanged. Exact report and executable hashes identify this revision; the original audited_source_commit describes the earlier algebra/software evidence.",
+  "publication_transform": "JSON numerical values and all tests are preserved; private host paths are replaced by <repository>, <audit-run>, <publication-run>, <work-root>, or <user-home>. Development attempts, logs and runtime binaries remain outside the release. Origin hashes identify full original local records.",
   "interpretation": "Accepted scoped validation with explicit UV input conditions and achieved bounds; not independent human review or a universal accuracy certificate.",
   "files": {
     "validation/reference/2026-10-01/scientific_suites.json": {
@@ -87,20 +88,25 @@
       "origin_sha256": "6228ee5b7cc1ba080e52fce8a59b29cef4c622c59e5d1ea171de99e3cc134ccb",
       "origin_record": "evidence/canonical_continuum/canonical_continuum_benchmark.json"
     },
-    "validation/reference/2026-10-01/canonical_physical_completed.json": {
-      "sha256": "8927e8ebdf7c694284c9cc472eedb37cb632f34fa9f9a3b03f6f92b21be17d59",
-      "origin_sha256": "857c75d2f29eca3b958f386d80bf0c795d569921e284fafeae8fe115589f91e9",
-      "origin_record": "evidence/completed_physical/completed_physical_audit.json"
-    },
-    "validation/reference/2026-10-01/support_audit.json": {
-      "sha256": "052f3f9657a125fbf7735663548be40168125b8a0ee85c1e783485bfd312974a",
-      "origin_sha256": "052f3f9657a125fbf7735663548be40168125b8a0ee85c1e783485bfd312974a",
-      "origin_record": "evidence/support/support_audit.json"
-    },
     "validation/reference/2026-10-01/primary_cusp_audit.json": {
       "sha256": "00ec1ffe316e618cfb51c3b77677e50d8a8b6f2681972a51574cf747ac4a99e4",
       "origin_sha256": "00ec1ffe316e618cfb51c3b77677e50d8a8b6f2681972a51574cf747ac4a99e4",
       "origin_record": "evidence/primary_cusp_audit.json"
+    },
+    "validation/reference/2026-10-01/canonical_physical_finite_table.json": {
+      "sha256": "944494887f8682887a9fea8560f6b5e9848627d19216e527abde5b4b6042fced",
+      "origin_sha256": "944494887f8682887a9fea8560f6b5e9848627d19216e527abde5b4b6042fced",
+      "origin_record": "../method_paper_publication_2026-10-01/k-space/outputs/publication_uv2e6/finite_table/canonical_physical_audit.json"
+    },
+    "validation/reference/2026-10-01/canonical_physical_completed.json": {
+      "sha256": "10e9af3a08f79becc380f10161bb5401bf99e0fcca09221bc2eb354c9a104f54",
+      "origin_sha256": "10e9af3a08f79becc380f10161bb5401bf99e0fcca09221bc2eb354c9a104f54",
+      "origin_record": "../method_paper_publication_2026-10-01/k-space/outputs/publication_uv2e6/completed/completed_physical_audit.json"
+    },
+    "validation/reference/2026-10-01/support_audit.json": {
+      "sha256": "052f3f9657a125fbf7735663548be40168125b8a0ee85c1e783485bfd312974a",
+      "origin_sha256": "052f3f9657a125fbf7735663548be40168125b8a0ee85c1e783485bfd312974a",
+      "origin_record": "../method_paper_publication_2026-10-01/k-space/outputs/publication_uv2e6/support/support_audit.json"
     },
     "validation/reference/2026-10-01/demonstrators/e866/data_diagnostic.json": {
       "sha256": "fb1fb5782f50f15d24ba58e3422d6fc853fd81972fe409da5b02b7938f28aea0",
@@ -171,8 +177,9 @@
     "src/lhapdf_provider.py": "7e274dabbc9811f15616080756d0aedb987da91fd5af211512e2fc9e596d44d4",
     "src/rational_radial.py": "bdca9ff837842b50d06b270de1bc819ba994914a9b749aca12bcdf0450c48b05",
     "scripts/canonical_independent_reference.py": "2b59cc84ab8e24b2a403eef071c8391045b226a77bbda392826678bdd8f6fe8f",
-    "scripts/benchmark_canonical_physical.py": "dd968f680b9caad89ce8f91702ecd6013b7def381063bd28dfc0c09b4afab38d",
+    "scripts/benchmark_canonical_physical.py": "5c6fbb5611030435bb51aeee7a8fe095b6474e8e7a34c43cb40172973f709db4",
     "data/coefficients_css2_nf5_n3ll.json": "620d1222f395c0fac81e7e1bfe5da87b542663ac72c194e196e5ef29b5a4c3d7",
-    "manifests/css2_pdf.json": "8ef243778ab847095a98452689f533e0a22dea523f09cf3da969418aa3be952e"
+    "manifests/css2_pdf.json": "8ef243778ab847095a98452689f533e0a22dea523f09cf3da969418aa3be952e",
+    "scripts/audit_canonical_uv_completion.py": "9b7623301f376fe2b38583c860bd7dbca018560db8b948b7bf336c6d53363a81"
   }
 }

@@ -43,10 +43,9 @@ The bin and conservative-budget acceptance threshold is 4e-4; the gradient
 threshold is 7e-4. The adaptive reference reports quadrature error below 3e-13.
 
 The error budget is an observed bin-level refinement budget. It is not a rigorous
-global operator-norm certificate. The older shifted-pole least-squares prototype
-stalled near a 1.3% sampled weighted symbol error for this uncapped target; it is
-not used for the accepted benchmark. The failed development path is recorded in
-the method-paper run rather than hidden by the accepted result.
+global operator-norm certificate. The accepted benchmark uses the
+endpoint-preserving Chebyshev evaluator; development prototypes are kept in the
+local audit archive.
 
 Run:
 

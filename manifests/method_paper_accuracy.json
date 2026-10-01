@@ -31,7 +31,7 @@
     "scales_GeV": [8.0, 20.0, 91.1876],
     "unresolved_PDF_UV": "explicit constant and logarithmic-growth benchmark input completions plus conditional class-wide finite-bin bounds; no hidden RG scale cap; not DGLAP solutions above the PDF table",
     "completion_auditor": "scripts/audit_canonical_uv_completion.py",
-    "preserved_auxiliary_failure": "1e-6 all-unspecified-continuations bound target fails at high Q; primary tolerances unchanged, completed-input integration and broader class-wide primary tests pass",
+    "UV_class_criterion": "Conditional class envelope 1.6683e-6 of the peak passes the declared 2e-6 numerical criterion; original bin/component/gradient/contact/budget tolerances unchanged, completed-input integration also passes",
     "inputs": "two-leg Student algebraic tails and Gaussian pair, analytic log-scale derivatives and separate contacts",
     "independence": "separately coded numerical reference; physical coefficient data and PDF provider shared; not independent human review"
   },

@@ -1,4 +1,6 @@
 {
+  "UV_class_tolerance_over_peak": 2e-06,
+  "UV_tolerance_scope": "Numerical criterion on the conditional class bound; not a physical threshold or an assertion about PDFs outside the declared continuation class.",
   "quick": false,
   "extended": true,
   "components": [
@@ -26,7 +28,7 @@
   "scope": "uncapped canonical fixed-nf5 photon W structure; strict-NLO boundaries; no massive thresholds or Y term",
   "UV_assumption": "beyond PDF Qmax each PDF is bounded by its absolute endpoint value times (1+ln(mu/Qmax))^4; explicit conditional bin bound, no production extrapolation",
   "reference_independence": "separate endpoint RK45 RG, log-xi matching integration and flavor assembly, Bessel-K product input, adaptive continuum quadrature; only source coefficients and PDF provider shared",
-  "elapsed_seconds": 465.21309424999345,
+  "elapsed_seconds": 508.4386357080075,
   "source_sha256": {
     "src/canonical_physical.py": "740de3ca6d5cf479aeded5e2d5e3d15980c34915a1d8302e40142d4925b6e21c",
     "src/resummed_operator.py": "f1359ad36b754ce590b90e45ee9d2de1ff282a0cbd95492d3049db2c0b08d668",
@@ -35,11 +37,11 @@
     "src/lhapdf_provider.py": "7e274dabbc9811f15616080756d0aedb987da91fd5af211512e2fc9e596d44d4",
     "src/rational_radial.py": "bdca9ff837842b50d06b270de1bc819ba994914a9b749aca12bcdf0450c48b05",
     "scripts/canonical_independent_reference.py": "2b59cc84ab8e24b2a403eef071c8391045b226a77bbda392826678bdd8f6fe8f",
-    "scripts/benchmark_canonical_physical.py": "dd968f680b9caad89ce8f91702ecd6013b7def381063bd28dfc0c09b4afab38d",
+    "scripts/benchmark_canonical_physical.py": "5c6fbb5611030435bb51aeee7a8fe095b6474e8e7a34c43cb40172973f709db4",
     "data/coefficients_css2_nf5_n3ll.json": "620d1222f395c0fac81e7e1bfe5da87b542663ac72c194e196e5ef29b5a4c3d7",
     "manifests/css2_pdf.json": "8ef243778ab847095a98452689f533e0a22dea523f09cf3da969418aa3be952e"
   },
-  "schema": "canonical-completed-input-audit/1",
+  "schema": "canonical-completed-input-audit/2",
   "cases": [
     {
       "case": 0,
@@ -1858,7 +1860,25 @@
         "box": 0.00018126798849034794
       },
       "observed_budget": 0.0002623009152917742,
-      "elapsed_seconds": 76.65270795799734,
+      "elapsed_seconds": 88.06070729199564,
+      "finite_table_tests_preserved": {
+        "independent_complete_symbol": true,
+        "independent_adaptive_longitudinal_reference": true,
+        "production_longitudinal_cache_refinement": true,
+        "independent_direct_RG": true,
+        "native_bins": true,
+        "each_strict_NLO_component": true,
+        "native_input_gradient": true,
+        "explicit_contact_action": true,
+        "continuum_quadrature": true,
+        "PDF_table_UV_envelope": true,
+        "proved_UV_evolution_monotonicity": true,
+        "momentum_convolution_refinement": true,
+        "analytic_input_derivative": true,
+        "observed_error_budget": true,
+        "full_refinement_study": true
+      },
+      "finite_table_scope_passed": true,
       "tests": {
         "independent_complete_symbol": true,
         "independent_adaptive_longitudinal_reference": true,
@@ -1869,6 +1889,7 @@
         "native_input_gradient": true,
         "explicit_contact_action": true,
         "continuum_quadrature": true,
+        "PDF_table_UV_envelope": true,
         "proved_UV_evolution_monotonicity": true,
         "momentum_convolution_refinement": true,
         "analytic_input_derivative": true,
@@ -5018,7 +5039,25 @@
         "box": 0.0002768338821169261
       },
       "observed_budget": 0.0003460455751468019,
-      "elapsed_seconds": 82.02948179100349,
+      "elapsed_seconds": 72.60438854200765,
+      "finite_table_tests_preserved": {
+        "independent_complete_symbol": true,
+        "independent_adaptive_longitudinal_reference": true,
+        "production_longitudinal_cache_refinement": true,
+        "independent_direct_RG": true,
+        "native_bins": true,
+        "each_strict_NLO_component": true,
+        "native_input_gradient": true,
+        "explicit_contact_action": true,
+        "continuum_quadrature": true,
+        "PDF_table_UV_envelope": true,
+        "proved_UV_evolution_monotonicity": true,
+        "momentum_convolution_refinement": true,
+        "analytic_input_derivative": true,
+        "observed_error_budget": true,
+        "full_refinement_study": true
+      },
+      "finite_table_scope_passed": true,
       "tests": {
         "independent_complete_symbol": true,
         "independent_adaptive_longitudinal_reference": true,
@@ -5029,6 +5068,7 @@
         "native_input_gradient": true,
         "explicit_contact_action": true,
         "continuum_quadrature": true,
+        "PDF_table_UV_envelope": true,
         "proved_UV_evolution_monotonicity": true,
         "momentum_convolution_refinement": true,
         "analytic_input_derivative": true,
@@ -8178,7 +8218,25 @@
         "box": 9.678795969939995e-05
       },
       "observed_budget": 0.00018496216391041825,
-      "elapsed_seconds": 306.479590582996,
+      "elapsed_seconds": 347.7076698329911,
+      "finite_table_tests_preserved": {
+        "independent_complete_symbol": true,
+        "independent_adaptive_longitudinal_reference": true,
+        "production_longitudinal_cache_refinement": true,
+        "independent_direct_RG": true,
+        "native_bins": true,
+        "each_strict_NLO_component": true,
+        "native_input_gradient": true,
+        "explicit_contact_action": true,
+        "continuum_quadrature": true,
+        "PDF_table_UV_envelope": true,
+        "proved_UV_evolution_monotonicity": true,
+        "momentum_convolution_refinement": true,
+        "analytic_input_derivative": true,
+        "observed_error_budget": true,
+        "full_refinement_study": true
+      },
+      "finite_table_scope_passed": true,
       "tests": {
         "independent_complete_symbol": true,
         "independent_adaptive_longitudinal_reference": true,
@@ -8189,6 +8247,7 @@
         "native_input_gradient": true,
         "explicit_contact_action": true,
         "continuum_quadrature": true,
+        "PDF_table_UV_envelope": true,
         "proved_UV_evolution_monotonicity": true,
         "momentum_convolution_refinement": true,
         "analytic_input_derivative": true,
@@ -9523,11 +9582,11 @@
     }
   ],
   "passed": true,
-  "finite_table_report_sha256": "c540d320a362b6022bb635f622a5fec51865618a24b63b77da69a5a7ce571735",
+  "finite_table_report_sha256": "944494887f8682887a9fea8560f6b5e9848627d19216e527abde5b4b6042fced",
   "input_completion_scope": "Benchmark-only longitudinal continuations, powers 0 and 4; not claims of NNLO DGLAP or physical PDF knowledge above Qmax. Production spectral nodes query only tabulated PDFs.",
+  "UV_acceptance_scope": "The conditional all-class envelope must be below 2e-6 of the peak and stays in the original 1e-3 observed budget. Explicit completed-input integration is separately checked below 1e-6. These are numerical accuracy criteria, not physical thresholds.",
   "audit_source_sha256": {
-    "scripts/audit_canonical_uv_completion.py": "49ec710f546a028a215f3b88582333d4fbeea102712a90c0787e4d99545d4551",
+    "scripts/audit_canonical_uv_completion.py": "9b7623301f376fe2b38583c860bd7dbca018560db8b948b7bf336c6d53363a81",
     "scripts/canonical_independent_reference.py": "2b59cc84ab8e24b2a403eef071c8391045b226a77bbda392826678bdd8f6fe8f"
-  },
-  "publication_view": "Accepted completed-input result. Development-stage status fields are omitted; all numerical values, final tests, UV class bounds and refinement records are unchanged. The full original record is identified by origin_sha256 in SNAPSHOT_MANIFEST.json."
+  }
 }
