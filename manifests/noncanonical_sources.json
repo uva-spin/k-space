@@ -1,0 +1,91 @@
+{
+  "schema": "noncanonical-prescription-sources/1",
+  "base_commit": "ac4c5fa779ed6e5f2a0daa85d87c7fea7e6ddf2b",
+  "branch": "codex/css2-noncanonical-prescription",
+  "records": [
+    {
+      "path_from_repository": "../sources/E605_table17.json",
+      "url": "https://www.hepdata.net/download/table/ins302822/Table%2017/1/json",
+      "sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "doi": "10.17182/hepdata.22831.v1/t17",
+      "use": "Primary qT points, mass windows, invariant units, error labels"
+    },
+    {
+      "path_from_repository": "../sources/E605_table18.json",
+      "url": "https://www.hepdata.net/download/table/ins302822/Table%2018/1/json",
+      "sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "doi": "10.17182/hepdata.22831.v1/t18",
+      "use": "Primary qT points, mass windows, invariant units, error labels"
+    },
+    {
+      "path_from_repository": "../sources/E605_table19.json",
+      "url": "https://www.hepdata.net/download/table/ins302822/Table%2019/1/json",
+      "sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "doi": "10.17182/hepdata.22831.v1/t19",
+      "use": "Primary qT points, mass windows, invariant units, error labels"
+    },
+    {
+      "path_from_repository": "../sources/E605_table20.json",
+      "url": "https://www.hepdata.net/download/table/ins302822/Table%2020/1/json",
+      "sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "doi": "10.17182/hepdata.22831.v1/t20",
+      "use": "Primary qT points, mass windows, invariant units, error labels"
+    },
+    {
+      "path_from_repository": "../sources/E605_table21.json",
+      "url": "https://www.hepdata.net/download/table/ins302822/Table%2021/1/json",
+      "sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "doi": "10.17182/hepdata.22831.v1/t21",
+      "use": "Primary qT points, mass windows, invariant units, error labels"
+    },
+    {
+      "path_from_repository": "../sources/hepdata_ins302822.json",
+      "url": "https://www.hepdata.net/record/ins302822?format=json",
+      "sha256": "8fca6d3f08df560cfbdde60280f921b8e471d925b914079ff0242895ad333ef1",
+      "use": "Record 22831 version 1 metadata"
+    },
+    {
+      "path_from_repository": "../sources/heavy_quarks_1703.09702v2.tar",
+      "url": "https://arxiv.org/src/1703.09702v2",
+      "sha256": "5ecda92a21ea4ed147fd0d22f240fde63cbdb1d658c3495b7863084b3d84e27f",
+      "use": "Primary massive-quark factorization; sections 2.2-2.4 and 4; not imported as a complete N3LL massive payload"
+    },
+    {
+      "path_from_repository": "../sources/DYmb.tex",
+      "url": "https://arxiv.org/src/1703.09702v2",
+      "sha256": "71659c1ac7525742096158a0a9a4649a6f9d6e8ca3b5bd8cf394c6374ce2c07b",
+      "use": "Extracted paper source; collinear/soft mass-mode and rapidity matching requirements"
+    },
+    {
+      "path_from_repository": "../../m1_resolution_2026-09-30/sources/collins_rogers_1705.07167v3/TMD-v-fit-v3.tex",
+      "sha256": "81e4d74ec9a11791e341199de5e8696de0d7b5c77e3dd46f495cde4c82ffed81",
+      "use": "CSS2 eq:fact.CSS2, general-scale evolution and matching conventions"
+    },
+    {
+      "path_from_repository": "../../m1_2026-09-30/sources/b-space/v22/src/small_b_profile.py",
+      "sha256": "ae196ae27505598642cbc641a0ae3b15118773da44b5633e26a626894deec2e4",
+      "use": "Power-16 coordinate, source repository commit 961c6537395f8c9398132635a3ddc31e022f7ab2"
+    },
+    {
+      "path_from_repository": "../../m1_2026-09-30/candidate_row_manifest.csv",
+      "sha256": "5b2c7d9bba2721cac0c0cf0817bad19ac682a407d80375dd448cfb22949a0b33",
+      "use": "Previously selected 54 E605 continuum row IDs"
+    },
+    {
+      "path_from_repository": "../../m1_2026-09-30/sources/b-space/Data/E605.csv",
+      "sha256": "a5f8dbfb8b304c3a9d8e08a84d7e5536a15e00dc2de4297a47d57f9955360d55",
+      "use": "Legacy row mapping only; primary invariant values supersede derived CS rescaling"
+    }
+  ],
+  "inherited_source_manifest": "manifests/css2_sources.json",
+  "inherited_source_root_from_repository": "../../m1_resolution_2026-09-30/sources",
+  "inherited_runtime_from_repository": "../../m1_resolution_2026-09-30/runtime/lhapdf",
+  "new_bridge_from_repository": "../runtime/libkt_lhapdf.dylib",
+  "new_bridge_sha256": "69b29b9b9257e782b52a9eff25b443547bfa726b5c62c160cee55b1615a18fcb",
+  "unused_downloads": {
+    "E605_table10.json": "Different observable, not used",
+    "E605_table16.json": "Different observable, not used",
+    "hepdata_submission_redirect_metadata.json": "Submission download URL redirected to record JSON, not a data archive",
+    "rivet_E605.html": "Generic page, no measurement evidence used"
+  }
+}

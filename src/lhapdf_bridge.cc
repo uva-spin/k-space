@@ -24,3 +24,12 @@ int kt_pdf_eval(void* p, int pid, int n, const double* x, const double* q,
   } catch (const std::exception& e) { std::snprintf(err,cap,"%s",e.what()); return 1; }
 }
 }
+extern "C" int kt_pdf_alpha(void* p, double q, double* out, char* err, int cap) {
+  try { auto* pdf=static_cast<LHAPDF::PDF*>(p);
+    if (!pdf || !std::isfinite(q) || q<=0 || !pdf->inRangeQ(q))
+      throw std::runtime_error("alpha_s anchor outside PDF domain");
+    *out=pdf->alphasQ(q);
+    if (!std::isfinite(*out) || *out<=0) throw std::runtime_error("Invalid alpha_s anchor");
+    return 0;
+  } catch (const std::exception& e) { std::snprintf(err,cap,"%s",e.what()); return 1; }
+}

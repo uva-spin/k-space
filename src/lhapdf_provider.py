@@ -23,6 +23,15 @@ class LHAPDFProvider:
         if status: raise ValueError(err.value.decode())
         result=out.reshape(xx.shape)
         return float(result) if result.ndim==0 else result
+    def alpha(self,mu):
+        if not self.handle: raise RuntimeError('PDF provider is closed')
+        if not hasattr(self.lib,'kt_pdf_alpha'): raise RuntimeError('Bridge lacks explicit alpha_s anchor access')
+        self.lib.kt_pdf_alpha.argtypes=[c.c_void_p,c.c_double,c.POINTER(c.c_double),c.c_char_p,c.c_int]
+        self.lib.kt_pdf_alpha.restype=c.c_int
+        out=c.c_double();err=c.create_string_buffer(4096)
+        status=self.lib.kt_pdf_alpha(self.handle,float(mu),c.byref(out),err,len(err))
+        if status: raise ValueError(err.value.decode())
+        return out.value
     def close(self):
         if self.handle: self.lib.kt_pdf_close(self.handle);self.handle=None
     def __del__(self):

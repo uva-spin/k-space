@@ -1,0 +1,1591 @@
+{
+  "schema": "E605-primary-point-contract/1",
+  "record_url": "https://www.hepdata.net/record/ins302822?version=1",
+  "source_record_sha256": "8fca6d3f08df560cfbdde60280f921b8e471d925b914079ff0242895ad333ef1",
+  "scope_manifest_sha256": "5b2c7d9bba2721cac0c0cf0817bad19ac682a407d80375dd448cfb22949a0b33",
+  "legacy_csv_sha256": "a5f8dbfb8b304c3a9d8e08a84d7e5536a15e00dc2de4297a47d57f9955360d55",
+  "observable": "Mass-window integral of E d3sigma/d3p, differential at tabulated qt and fixed xF=-0.1",
+  "units": "pb/GeV^2/nucleon",
+  "target": "copper",
+  "target_proton_fraction": null,
+  "data_errors": "Unlabeled absolute quoted error retained; 15% normalization and 5% point-to-point systematic labels retained separately. No covariance invented.",
+  "legacy_y_bounds": "Verified to be leading-power fixed-xF kinematics at the two MASS endpoints, not independent measured rapidity-bin edges",
+  "source_edges_missing": "qT and xF are tabulated point values, not published finite-bin edges",
+  "production_prediction_allowed": false,
+  "blocking_items": [
+    "Low-scale threshold prescription",
+    "Explicit target/isospin/nuclear model",
+    "NP-CS and boundary input",
+    "Confirm mass-window observable treatment against original paper"
+  ],
+  "rows": [
+    {
+      "source_id": "hepdata:22831:v1:t17:point0",
+      "repository_legacy_id": "E605:0",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t17",
+      "source_table_sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "qt_GeV": 0.1,
+      "Qlow_GeV": 7.0,
+      "Qhigh_GeV": 8.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.785,
+      "quoted_absolute_error": 0.115,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.635284813,
+      "legacy_CS": 1.235666246,
+      "CS_rescaling_residual": -3.2303493213703405e-11,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t17:point1",
+      "repository_legacy_id": "E605:1",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t17",
+      "source_table_sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "qt_GeV": 0.3,
+      "Qlow_GeV": 7.0,
+      "Qhigh_GeV": 8.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.973,
+      "quoted_absolute_error": 0.0861,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.211761604,
+      "legacy_CS": 4.594789519,
+      "CS_rescaling_residual": 6.67813004895379e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t17:point2",
+      "repository_legacy_id": "E605:2",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t17",
+      "source_table_sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "qt_GeV": 0.5,
+      "Qlow_GeV": 7.0,
+      "Qhigh_GeV": 8.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.825,
+      "quoted_absolute_error": 0.0616,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.127056963,
+      "legacy_CS": 6.493150656,
+      "CS_rescaling_residual": -2.0878964335224737e-08,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t17:point3",
+      "repository_legacy_id": "E605:3",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t17",
+      "source_table_sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "qt_GeV": 0.7,
+      "Qlow_GeV": 7.0,
+      "Qhigh_GeV": 8.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.805,
+      "quoted_absolute_error": 0.057,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.090754973,
+      "legacy_CS": 8.870037321,
+      "CS_rescaling_residual": 2.6705453848308025e-08,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t17:point4",
+      "repository_legacy_id": "E605:4",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t17",
+      "source_table_sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "qt_GeV": 0.9,
+      "Qlow_GeV": 7.0,
+      "Qhigh_GeV": 8.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.569,
+      "quoted_absolute_error": 0.0422,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.070587201,
+      "legacy_CS": 8.060951396,
+      "CS_rescaling_residual": 5.042440065494702e-08,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t17:point5",
+      "repository_legacy_id": "E605:5",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t17",
+      "source_table_sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "qt_GeV": 1.1,
+      "Qlow_GeV": 7.0,
+      "Qhigh_GeV": 8.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.537,
+      "quoted_absolute_error": 0.0447,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.057753165,
+      "legacy_CS": 9.29819174,
+      "CS_rescaling_residual": -3.050667629622694e-08,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t17:point6",
+      "repository_legacy_id": "E605:6",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t17",
+      "source_table_sha256": "57bf169ee93594d16fa87d2b4a5e6e0836a9b146e8d1c1af2094970248f19a70",
+      "qt_GeV": 1.3,
+      "Qlow_GeV": 7.0,
+      "Qhigh_GeV": 8.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.388,
+      "quoted_absolute_error": 0.039,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.048868063,
+      "legacy_CS": 7.939745918,
+      "CS_rescaling_residual": -7.622190434375398e-08,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point0",
+      "repository_legacy_id": "E605:11",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 0.1,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.333,
+      "quoted_absolute_error": 0.0246,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.714972412,
+      "legacy_CS": 0.465752237,
+      "CS_rescaling_residual": -3.9482028757475973e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point1",
+      "repository_legacy_id": "E605:12",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 0.3,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.439,
+      "quoted_absolute_error": 0.0201,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.238324137,
+      "legacy_CS": 1.842029117,
+      "CS_rescaling_residual": 1.519371739533426e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point2",
+      "repository_legacy_id": "E605:13",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 0.5,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.368,
+      "quoted_absolute_error": 0.0139,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.142994482,
+      "legacy_CS": 2.573525873,
+      "CS_rescaling_residual": 6.131475771553596e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point3",
+      "repository_legacy_id": "E605:14",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 0.7,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.37,
+      "quoted_absolute_error": 0.0136,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.102138916,
+      "legacy_CS": 3.622517398,
+      "CS_rescaling_residual": -2.1819355211505354e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point4",
+      "repository_legacy_id": "E605:15",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 0.9,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.259,
+      "quoted_absolute_error": 0.00988,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.079441379,
+      "legacy_CS": 3.260265658,
+      "CS_rescaling_residual": 2.7962459014929664e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point5",
+      "repository_legacy_id": "E605:16",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 1.1,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.224,
+      "quoted_absolute_error": 0.00933,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.064997492,
+      "legacy_CS": 3.446286821,
+      "CS_rescaling_residual": -1.1947069999962423e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point6",
+      "repository_legacy_id": "E605:17",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 1.3,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.18,
+      "quoted_absolute_error": 0.00895,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.054997878,
+      "legacy_CS": 3.272853556,
+      "CS_rescaling_residual": -1.0632303926172426e-08,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point7",
+      "repository_legacy_id": "E605:18",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 1.5,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.131,
+      "quoted_absolute_error": 0.00802,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.047664827,
+      "legacy_CS": 2.748357794,
+      "CS_rescaling_residual": 2.548815247749303e-08,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t18:point8",
+      "repository_legacy_id": "E605:19",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t18",
+      "source_table_sha256": "e6ff89d5693925aed240702843334d87e23dd6e8c43f0385828ff32eea2c3dcc",
+      "qt_GeV": 1.7,
+      "Qlow_GeV": 8.0,
+      "Qhigh_GeV": 9.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0875,
+      "quoted_absolute_error": 0.00678,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.042057201,
+      "legacy_CS": 2.080499857,
+      "CS_rescaling_residual": -1.584319075931262e-08,
+      "selected_small_qt_core": false
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point0",
+      "repository_legacy_id": "E605:25",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 0.1,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0701,
+      "quoted_absolute_error": 0.0084,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.915983356,
+      "legacy_CS": 0.076529775,
+      "CS_rescaling_residual": -1.5112162909947102e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point1",
+      "repository_legacy_id": "E605:26",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 0.3,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0784,
+      "quoted_absolute_error": 0.00554,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.305327785,
+      "legacy_CS": 0.256773225,
+      "CS_rescaling_residual": -1.1972911551083598e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point2",
+      "repository_legacy_id": "E605:27",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 0.5,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0712,
+      "quoted_absolute_error": 0.00412,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.183196671,
+      "legacy_CS": 0.38865335,
+      "CS_rescaling_residual": 5.840834482739865e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point3",
+      "repository_legacy_id": "E605:28",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 0.7,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0624,
+      "quoted_absolute_error": 0.00331,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.130854765,
+      "legacy_CS": 0.47686456,
+      "CS_rescaling_residual": 4.919316065610246e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point4",
+      "repository_legacy_id": "E605:29",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 0.9,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0503,
+      "quoted_absolute_error": 0.00265,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.101775928,
+      "legacy_CS": 0.494222954,
+      "CS_rescaling_residual": 2.139491028785301e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point5",
+      "repository_legacy_id": "E605:30",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 1.1,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.039,
+      "quoted_absolute_error": 0.00207,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.083271214,
+      "legacy_CS": 0.468349121,
+      "CS_rescaling_residual": 1.423026085856094e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point6",
+      "repository_legacy_id": "E605:31",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 1.3,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0312,
+      "quoted_absolute_error": 0.00176,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.070460258,
+      "legacy_CS": 0.442802806,
+      "CS_rescaling_residual": 6.544973452093927e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point7",
+      "repository_legacy_id": "E605:32",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 1.5,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0234,
+      "quoted_absolute_error": 0.0015,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.061065557,
+      "legacy_CS": 0.383194736,
+      "CS_rescaling_residual": 1.0958794982585118e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point8",
+      "repository_legacy_id": "E605:33",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 1.7,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0147,
+      "quoted_absolute_error": 0.00103,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.053881374,
+      "legacy_CS": 0.272821551,
+      "CS_rescaling_residual": -4.5824877226152694e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point9",
+      "repository_legacy_id": "E605:34",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 1.9,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0131,
+      "quoted_absolute_error": 0.00106,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.04820965,
+      "legacy_CS": 0.271729828,
+      "CS_rescaling_residual": 2.023657075245211e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t19:point10",
+      "repository_legacy_id": "E605:35",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t19",
+      "source_table_sha256": "09a7ed934c95393da871ad84e90fbab3b54eabda84cc9209d7a8a38e0a5c034e",
+      "qt_GeV": 2.1,
+      "Qlow_GeV": 10.5,
+      "Qhigh_GeV": 11.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00705,
+      "quoted_absolute_error": 0.000719,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.043618255,
+      "legacy_CS": 0.161629574,
+      "CS_rescaling_residual": 5.898133648152282e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point0",
+      "repository_legacy_id": "E605:41",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 0.1,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0508,
+      "quoted_absolute_error": 0.00642,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 1.037342286,
+      "legacy_CS": 0.0489713,
+      "CS_rescaling_residual": -2.799382670115591e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point1",
+      "repository_legacy_id": "E605:42",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 0.3,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0679,
+      "quoted_absolute_error": 0.00479,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.345780762,
+      "legacy_CS": 0.1963672,
+      "CS_rescaling_residual": -1.3825637856790252e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point2",
+      "repository_legacy_id": "E605:43",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 0.5,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0646,
+      "quoted_absolute_error": 0.00387,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.207468457,
+      "legacy_CS": 0.311372634,
+      "CS_rescaling_residual": 3.4701308493367833e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point3",
+      "repository_legacy_id": "E605:44",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 0.7,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0492,
+      "quoted_absolute_error": 0.00263,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.148191755,
+      "legacy_CS": 0.332002276,
+      "CS_rescaling_residual": 3.749575649969472e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point4",
+      "repository_legacy_id": "E605:45",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 0.9,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0417,
+      "quoted_absolute_error": 0.00219,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.115260254,
+      "legacy_CS": 0.361789937,
+      "CS_rescaling_residual": -2.885990335599331e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point5",
+      "repository_legacy_id": "E605:46",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 1.1,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0323,
+      "quoted_absolute_error": 0.00176,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.094303844,
+      "legacy_CS": 0.342509898,
+      "CS_rescaling_residual": 1.1189460469296364e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point6",
+      "repository_legacy_id": "E605:47",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 1.3,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0247,
+      "quoted_absolute_error": 0.00146,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.07979556,
+      "legacy_CS": 0.30954103,
+      "CS_rescaling_residual": 2.107550856056406e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point7",
+      "repository_legacy_id": "E605:48",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 1.5,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0194,
+      "quoted_absolute_error": 0.00119,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.069156152,
+      "legacy_CS": 0.280524571,
+      "CS_rescaling_residual": 1.8536197576857205e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point8",
+      "repository_legacy_id": "E605:49",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 1.7,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0137,
+      "quoted_absolute_error": 0.000976,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.061020134,
+      "legacy_CS": 0.224516057,
+      "CS_rescaling_residual": 1.91262056192798e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point9",
+      "repository_legacy_id": "E605:50",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 1.9,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00866,
+      "quoted_absolute_error": 0.000731,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.054596962,
+      "legacy_CS": 0.158616883,
+      "CS_rescaling_residual": 1.214180284092592e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point10",
+      "repository_legacy_id": "E605:51",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 2.1,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00679,
+      "quoted_absolute_error": 0.000636,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.049397252,
+      "legacy_CS": 0.13745704,
+      "CS_rescaling_residual": -8.918326077633765e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t20:point11",
+      "repository_legacy_id": "E605:52",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t20",
+      "source_table_sha256": "796f4aafbef46f13109ab8252a05264f55063710202c288b24346232d27a75d8",
+      "qt_GeV": 2.3,
+      "Qlow_GeV": 11.5,
+      "Qhigh_GeV": 13.5,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0044,
+      "quoted_absolute_error": 0.00055,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.045101839,
+      "legacy_CS": 0.097556999,
+      "CS_rescaling_residual": -1.3795703746044552e-09,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point0",
+      "repository_legacy_id": "E605:59",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 0.1,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.024,
+      "quoted_absolute_error": 0.00546,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 1.301349661,
+      "legacy_CS": 0.018442392,
+      "CS_rescaling_residual": -4.4356188513838823e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point1",
+      "repository_legacy_id": "E605:60",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 0.3,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0206,
+      "quoted_absolute_error": 0.0029,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.43378322,
+      "legacy_CS": 0.047489158,
+      "CS_rescaling_residual": 2.9432037362830954e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point2",
+      "repository_legacy_id": "E605:61",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 0.5,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0188,
+      "quoted_absolute_error": 0.00213,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.260269932,
+      "legacy_CS": 0.0722327,
+      "CS_rescaling_residual": 3.182219349140425e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point3",
+      "repository_legacy_id": "E605:62",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 0.7,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0171,
+      "quoted_absolute_error": 0.00172,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.185907094,
+      "legacy_CS": 0.091981428,
+      "CS_rescaling_residual": 9.977978165931489e-11,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point4",
+      "repository_legacy_id": "E605:63",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 0.9,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00973,
+      "quoted_absolute_error": 0.00116,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.144594407,
+      "legacy_CS": 0.067291676,
+      "CS_rescaling_residual": 8.813527685447298e-11,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point5",
+      "repository_legacy_id": "E605:64",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 1.1,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0107,
+      "quoted_absolute_error": 0.00109,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.118304515,
+      "legacy_CS": 0.090444562,
+      "CS_rescaling_residual": -3.5330377512465816e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point6",
+      "repository_legacy_id": "E605:65",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 1.3,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00791,
+      "quoted_absolute_error": 0.000879,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.10010382,
+      "legacy_CS": 0.079017963,
+      "CS_rescaling_residual": 5.502421435155114e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point7",
+      "repository_legacy_id": "E605:66",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 1.5,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00605,
+      "quoted_absolute_error": 0.000697,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.086756644,
+      "legacy_CS": 0.069735293,
+      "CS_rescaling_residual": 1.2636851287606277e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point8",
+      "repository_legacy_id": "E605:67",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 1.7,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0035,
+      "quoted_absolute_error": 0.000509,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.07654998,
+      "legacy_CS": 0.045721762,
+      "CS_rescaling_residual": 4.3547026401524747e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point9",
+      "repository_legacy_id": "E605:68",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 1.9,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00194,
+      "quoted_absolute_error": 0.000359,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.068492087,
+      "legacy_CS": 0.02832444,
+      "CS_rescaling_residual": -1.271136564062747e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point10",
+      "repository_legacy_id": "E605:69",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 2.1,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.002,
+      "quoted_absolute_error": 0.000366,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.061969031,
+      "legacy_CS": 0.032274185,
+      "CS_rescaling_residual": 4.71772183818775e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point11",
+      "repository_legacy_id": "E605:70",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 2.3,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00136,
+      "quoted_absolute_error": 0.000294,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.05658042,
+      "legacy_CS": 0.024036584,
+      "CS_rescaling_residual": -3.196384858183965e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point12",
+      "repository_legacy_id": "E605:71",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 2.5,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.00136,
+      "quoted_absolute_error": 0.000288,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.052053986,
+      "legacy_CS": 0.026126721,
+      "CS_rescaling_residual": 5.92463644116803e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point13",
+      "repository_legacy_id": "E605:72",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 2.7,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.0006,
+      "quoted_absolute_error": 0.000191,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.048198136,
+      "legacy_CS": 0.012448614,
+      "CS_rescaling_residual": 1.9537054092577666e-10,
+      "selected_small_qt_core": true
+    },
+    {
+      "source_id": "hepdata:22831:v1:t21:point14",
+      "repository_legacy_id": "E605:73",
+      "source_table_doi": "10.17182/hepdata.22831.v1/t21",
+      "source_table_sha256": "96890553fbb03e88b672598a4553051e50c3a109ef5a8baa3efdddf3c5310296",
+      "qt_GeV": 2.9,
+      "Qlow_GeV": 13.5,
+      "Qhigh_GeV": 18.0,
+      "xf": -0.1,
+      "sqrts_GeV": 38.8,
+      "invariant_pb_GeV_minus2_per_nucleon": 0.000435,
+      "quoted_absolute_error": 0.000166,
+      "quoted_systematics": [
+        {
+          "label": "sys,Normalisation error",
+          "symerror": "15.0%"
+        },
+        {
+          "label": "sys,Point-to-point systematic error",
+          "symerror": "5.0%"
+        }
+      ],
+      "qt_bin_edges": null,
+      "xf_bin_edges": null,
+      "legacy_prefactor": 0.044874126,
+      "legacy_CS": 0.009693782,
+      "CS_rescaling_residual": 1.13995935954736e-10,
+      "selected_small_qt_core": false
+    }
+  ],
+  "matched_rows": 54,
+  "small_qt_core_rows": 52
+}

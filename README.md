@@ -440,3 +440,7 @@ The [resolution prescription](docs/CSS2_RESOLUTION.md) adds sourced N3LL
 evolution, corrected general-scale NLO matching, strict insertion assembly,
 and an independently checked physical-PDF point. Its scope is a fixed
 proton--proton diagnostic; experimental reference reproduction remains separate.
+
+The [noncanonical prescription](docs/NONCANONICAL_PRESCRIPTION.md) adds
+three-loop CS-boundary transport, fixed-flavor domain guards and an E605
+primary-point measurement adapter. Threshold-crossing production remains gated.
