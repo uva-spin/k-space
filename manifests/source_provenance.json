@@ -113,8 +113,8 @@
       "source": "unexpanded15",
       "source_member": "src/resummed_operator.py",
       "source_sha256": "10369948544c37c9e5d52fdd07bf5df3c9ac8f2ca5dc590f94b00fdbbe049450",
-      "prepared_sha256": "10369948544c37c9e5d52fdd07bf5df3c9ac8f2ca5dc590f94b00fdbbe049450",
-      "adaptation": "byte-identical"
+      "prepared_sha256": "3b118b877b0ee6e86ed36ac24c6ed60567cdfdbb1081c226364c816220fc3476",
+      "adaptation": "Retains imported canonical RG and Bernstein evaluator; adds explicit physical-accuracy metadata validation and a Chebyshev-Lobatto/Clenshaw resolvent evaluator"
     },
     {
       "target": "data/coefficients_demo.json",
@@ -137,6 +137,7 @@
   "adaptations": [
     "validate_v1p4.py: replace manuscript hash dependency with this provenance ledger; remove generated LaTeX macros; clarify finite-test scope field.",
     "validate_unexpanded.py: change data path; replace external manuscript provenance dependency with this ledger.",
+    "resummed_operator.py: retain the imported canonical construction and add physical-input metadata plus the endpoint-preserving Chebyshev-Lobatto/Clenshaw evaluator used by the publication continuum benchmark.",
     "All other imported scientific Python files and the coefficient fixture are byte-identical to the identified source archive."
   ]
 }

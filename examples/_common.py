@@ -35,7 +35,7 @@ def build_rg(args: argparse.Namespace) -> CanonicalRG:
         raise ValueError('Require mu0>0, a0>0, mu>=mu0, and zeta>0')
     coefficients = Coefficients.load(args.coefficients)
     if coefficients.physical_n3llprime_payload:
-        raise ValueError('These examples use the documented demonstration input; metadata alone cannot authorize a physical N3LL-prime result')
+        raise ValueError('This operator example does not certify a physical N3LL-prime boundary payload')
     return CanonicalRG(coefficients, mu0=args.mu0, a0=args.a0)
 
 
@@ -53,6 +53,14 @@ def output_directory(path: Path) -> Path:
 
 
 def provenance(args: argparse.Namespace) -> dict:
+    coefficients = Coefficients.load(args.coefficients)
+    source_manifest = None
+    if coefficients.source_manifest:
+        candidate = ROOT/coefficients.source_manifest
+        source_manifest = {
+            'path': coefficients.source_manifest,
+            'sha256': hashlib.sha256(candidate.read_bytes()).hexdigest() if candidate.is_file() else None,
+        }
     return {
         'coefficients_filename': args.coefficients.name,
         'coefficients_sha256': hashlib.sha256(args.coefficients.read_bytes()).hexdigest(),
@@ -60,8 +68,17 @@ def provenance(args: argparse.Namespace) -> dict:
         'python': platform.python_version(),
         'dependencies': {name: importlib.metadata.version(name) for name in ('numpy', 'scipy')},
         'scales': {'mu_GeV': args.mu, 'zeta_GeV2': args.zeta, 'mu0_GeV': args.mu0, 'a0': args.a0},
+        'coefficient_metadata': {
+            'description': coefficients.description,
+            'scheme': coefficients.scheme,
+            'evolution_accuracy': coefficients.evolution_accuracy,
+            'hard_and_ope_order': coefficients.hard_and_ope_order,
+            'nf': coefficients.nf,
+            'source_manifest': source_manifest,
+        },
         'scope': {
-            'coefficient_input': 'declared demonstration input; see docs/COEFFICIENTS.md',
+            'coefficient_input': coefficients.description,
+            'physical_N3LL_evolution_input': coefficients.evolution_accuracy == 'N3LL',
             'physical_N3LLprime_prediction_validated': False,
             'continuum_grid_error_certified': False,
             'data_fit_performed': False,

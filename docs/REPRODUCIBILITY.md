@@ -22,8 +22,8 @@ manuscript source, external TMD table, API key, or PDF is needed.
 ## Runnable example clients
 
 See [EXAMPLES.md](EXAMPLES.md) for two executable clients and [API.md](API.md)
-for argument domains and units. These clients call the preserved operator module.
-Their outputs are under `outputs/examples/` and do not change the 12-suite registry.
+for argument domains and units. These clients call the shared operator module.
+Their outputs are under `outputs/examples/` and do not change the 13-suite registry.
 Software tests of example arguments, output shapes, and source consistency are
 reported by pytest, separately from the scientific suites.
 
@@ -55,6 +55,9 @@ outputs/latest/
     numeric_scope.json
     resolvent_grid_results.csv
     console.log
+  physical_canonical/
+    physical_canonical_validation.json
+    console.log
   ...
 ```
 
@@ -72,7 +75,9 @@ settings, execution time, input hashes, and Git commit/dirty state when availabl
 
 `manifests/source_provenance.json` identifies the recovered source archives and
 maps each imported scientific file to its original archive member and SHA256.
-The operator and earlier component validators are byte-identical imports.
+The earlier component validators remain byte-identical imports. The operator
+retains its imported canonical construction and adds accuracy metadata plus the
+Chebyshev-Lobatto/Clenshaw resolvent evaluator used by the continuum benchmark.
 The structural and unexpanded validator ports replace manuscript hash references
 with the source ledger and remove manuscript output; their scientific test bodies
 are retained. These adaptations are explicitly recorded.

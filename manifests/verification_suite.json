@@ -136,6 +136,17 @@
       "invocation": "out",
       "category": "unexpanded",
       "description": "spectral-canonical RG, log-degree fixtures and lower-order QCD same-grid demo"
+    },
+    {
+      "id": "physical_canonical",
+      "script": "validators/validate_physical_canonical.py",
+      "output": "physical_canonical_validation.json",
+      "pass_key": [
+        "passed"
+      ],
+      "invocation": "out",
+      "category": "physical_evolution",
+      "description": "sourced nf=5 N3LL canonical evolution and non-Gaussian same-grid action"
     }
   ],
   "required_suite_ids": [
@@ -150,6 +161,7 @@
     "mock_import",
     "structural",
     "resolvent_demo",
-    "unexpanded"
+    "unexpanded",
+    "physical_canonical"
   ]
 }

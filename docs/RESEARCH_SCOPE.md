@@ -9,10 +9,10 @@ arguments state the input domain, infrared completion, endpoint composition,
 logarithmic-degree counting, and a convergent momentum-resolvent evaluator.
 
 The numerical package makes the accompanying structural checks reproducible.
-It uses fixed-order symbolic identities, rational formal fixtures, lower-order
-physical QCD inputs, and finite-grid operator comparisons, each labeled at the
-point of use. A model-agnostic nonperturbative interface accommodates admitted
-localized inputs; no neural architecture is selected by this package.
+It uses fixed-order symbolic identities, rational formal fixtures, a lower-order
+demonstration, sourced physical N³LL evolution coefficients, and finite-grid
+operator comparisons, each labeled at the point of use. A model-agnostic
+nonperturbative interface accommodates admitted localized inputs.
 
 ## Conditions carried by the analytic construction
 
@@ -33,8 +33,8 @@ finite coefficient-degree tests provide regression evidence for its recurrence.
 |---|---|
 | Scientific/component tests | Fresh per-suite logs and structured outputs |
 | Lower-order unexpanded demonstration | Explicit QCD fixture and endpoint/grid checks |
-| Physical three-loop coefficient validation | Separate future payload/import comparison |
-| Physical N³LL′ spectrum | Requires complete inputs and independent observable benchmarks |
+| Physical N³LL evolution | Sourced 4/4/3/3-loop input, independent formula comparison, RG and operator checks |
+| Physical N³LL′ spectrum | Requires three-loop hard/matching boundaries and independent observable benchmarks |
 | Continuum/grid error certificate | Requires box/spacing control beyond same-grid tests |
 | Full-spectrum prediction | Requires process-specific W+Y and power-correction treatment |
 | Statistical TMD extraction | Requires data, model/closure, and uncertainty analyses |

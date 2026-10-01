@@ -20,6 +20,7 @@ requires updating that registry and rerunning the suite.
 | `structural` | [validate_v1p4.py](../validators/validate_v1p4.py) | Contacts, canonical disk shifts, ordered matrix recurrence, counterexamples | Audited structural calculations |
 | `resolvent_demo` | [resolvent_operator_demo.py](../validators/resolvent_operator_demo.py) | Bernstein operator bound against matrix exponential | Analytic non-QCD test multiplier, same grid |
 | `unexpanded` | [validate_unexpanded.py](../validators/validate_unexpanded.py) | RG-integral identities, log-degree fixtures, contact-aware resolvent | Lower-order QCD and explicitly scoped finite-grid tests |
+| `physical_canonical` | [validate_physical_canonical.py](../validators/validate_physical_canonical.py) | Sourced nf=5 4/4/3/3-loop coefficients, RG equations, independent quadrature, non-Gaussian action | N³LL evolution with strict NLO boundaries; no N³LL′ spectrum |
 
 All scripts are in `validators/`. Their outputs are in separate subdirectories of
 `outputs/latest/`, rather than one shared directory with ambiguous historical files.
@@ -32,12 +33,13 @@ All scripts are in `validators/`. Their outputs are in separate subdirectories o
 | Contact-preserving weak profiles | `structural` | Pure delta, contact-plus-density first bins, weak actions, additivity |
 | Canonical disk shifts through degree six | `structural` | Independent triangular projection and generator expansion |
 | Ordered flavor-matrix recurrence | `structural` | Noncommuting rational matrix fixtures, not finite physical N³LO tables |
-| RG-completed unexpanded CS kernel | `unexpanded` | Lower-order physical coefficient vector and retained-system identities |
+| RG-completed unexpanded CS kernel | `unexpanded`, `physical_canonical` | Retained-system identities plus the sourced physical N³LL evolution vector |
 | Endpoint domain and bounded canonical leg | Analytic argument in `FORMALISM.md`; sampled diagnostics in `unexpanded` | Samples supplement the written domain argument |
 | Logarithmic-degree argument | `unexpanded` formal fixtures through ninth order | Finite checks of the all-order recurrence, not induction by test count |
 | Resolvent convergence | `resolvent_demo`, `unexpanded` | Operator approximation on the same specified momentum grid |
 | Exact contact retention | `structural`, `unexpanded` | Contact coefficients are not inferred by integrating only a regular density |
-| Physical three-loop prediction | Separate coefficient/observable program | Not exercised by a synthetic manifest or lower-order example |
+| Physical N³LL evolution input | `physical_canonical`, `tests/test_css2_resolution.py` | 4/4/3/3-loop evolution only; boundaries are strict NLO |
+| Physical N³LL′ spectrum | Separate boundary/observable program | Not claimed by the evolution-input tests |
 
 ## Run counts
 

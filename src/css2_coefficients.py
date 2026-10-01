@@ -57,5 +57,10 @@ def qcd_coefficients(nf=5):
          +CF*CA*nf*(-824*z2/81-904*z3/27+20*z4/3+62626/729)
          +CF*nf**2*(-32*z3/9-1856/729)
          +CF**2*nf*(-304*z3/9-16*z4+1711/27))
-    return Coefficients(tuple(beta),tuple(cusp),tuple(gamma),(0.,-gr1,-gr2),
-                        f'Physical massless SU(3), fixed nf={nf}; N3LL evolution, strict NLO boundaries',False)
+    return Coefficients(
+        tuple(beta), tuple(cusp), tuple(gamma), (0., -gr1, -gr2),
+        description=f'Physical massless SU(3), fixed nf={nf}; N3LL evolution, strict NLO boundaries',
+        physical_n3llprime_payload=False,
+        scheme='CSS2 D=-K; a=alpha_s/(4*pi); derivatives ln(mu)',
+        evolution_accuracy='N3LL', hard_and_ope_order='strict NLO', nf=nf,
+        source_manifest='manifests/css2_sources.json')

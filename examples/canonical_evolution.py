@@ -50,7 +50,8 @@ def main(argv=None) -> int:
         write_json(out/'canonical_evolution.json', report)
     except (ValueError, OSError, RuntimeError) as err:
         parser.error(str(err))
-    print('Canonical evolution symbol — lower-order demonstration')
+    label = rg.c.evolution_accuracy or 'lower-order demonstration'
+    print(f'Canonical evolution symbol — {label}; boundaries: {rg.c.hard_and_ope_order or "demonstration only"}')
     print('s [GeV^-2]    v(s; mu, zeta)')
     for row in rows: print(f"{row['s_GeV_minus2']:11.5g}    {row['canonical_leg']:.12g}")
     print(f'Wrote: {out}/canonical_evolution.csv and .json')

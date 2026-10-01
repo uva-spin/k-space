@@ -16,9 +16,9 @@ TMD extractions and for researchers checking the perturbative operator that an
 extraction uses.
 
 The scientific implementation, test inputs, and usage documentation are kept
-together. The numerical examples are **lower-order, fixed-flavor QCD demonstrations**;
-the analytic high-accuracy construction and the milestones for a physical N³LL′
-prediction are identified separately below.
+together. The package includes both a lower-order demonstration and sourced,
+fixed-flavor **N³LL evolution** coefficients. Hard and OPE boundaries remain
+strict NLO, so the package does not claim an N³LL′ spectrum.
 
 ### Read the repository in three passes
 
@@ -108,7 +108,7 @@ The complete scientific/component run should end with:
 
 ```text
 all_suites_passed: True
-suites: 12/12
+suites: 13/13
 ```
 
 The full reports are generated at:
@@ -118,7 +118,7 @@ outputs/latest/run_all_checks_report.txt
 outputs/latest/run_all_checks_summary.json
 ```
 
-The 12-suite count includes different kinds of checks; it is not a sum of
+The 13-suite count includes different kinds of checks; it is not a sum of
 independent physics results. Detailed counts and residuals are obtained from the
 fresh per-suite reports. A selected-suite run records `full_required_run: false`.
 
@@ -133,6 +133,9 @@ python run_all_checks.py --suite structural --output-dir outputs/structural
 
 # Unexpanded RG, logarithmic-degree fixtures, and the lower-order grid example.
 python run_all_checks.py --suite unexpanded --output-dir outputs/unexpanded
+
+# Physical nf=5 N³LL evolution in the canonical operator.
+python run_all_checks.py --suite physical_canonical --output-dir outputs/physical_canonical
 
 # Original fixed-order transverse / longitudinal / convolution checks.
 python run_all_checks.py --suite one_loop --suite toy_x --suite generator \
@@ -154,6 +157,10 @@ Full parameter and output descriptions are in [EXAMPLES.md](docs/EXAMPLES.md).
 ```bash
 python examples/canonical_evolution.py --mu 20 --zeta 400 \
   --s 0 0.01 0.1 1
+
+# Exercise the sourced physical N³LL evolution input; boundaries stay strict NLO.
+python examples/canonical_evolution.py \
+  --coefficients data/coefficients_css2_nf5_n3ll.json --mu 20 --zeta 400
 ```
 
 This evaluates the dimensionless canonical leg at a final virtuality scale of
@@ -299,6 +306,9 @@ The package distinguishes those assumptions, numerical checks of examples, and
 finite-grid error estimates in [FORMALISM.md](docs/FORMALISM.md) and
 [RESEARCH_SCOPE.md](docs/RESEARCH_SCOPE.md).
 
+The publication-oriented non-Gaussian transform comparison is documented in
+[CANONICAL_CONTINUUM_BENCHMARK.md](docs/CANONICAL_CONTINUUM_BENCHMARK.md).
+
 ## Verification map
 
 Every ID below is registered in
@@ -320,6 +330,7 @@ the actual calculations.
 | `structural` | [Structural verification](validators/validate_v1p4.py) | 102 contact, boundary, ordered-matrix, weak/bin, and counterexample checks |
 | `resolvent_demo` | [Analytic multiplier demo](validators/resolvent_operator_demo.py) | 8 checks for a bounded test multiplier on a finite grid |
 | `unexpanded` | [Unexpanded construction](validators/validate_unexpanded.py) | 95 symbolic, formal-fixture, lower-order QCD, and same-grid checks |
+| `physical_canonical` | [Physical canonical evolution](validators/validate_physical_canonical.py) | Sourced 4/4/3/3-loop evolution, RG identities, and non-Gaussian same-grid action |
 
 Some original component reports expose aggregate metrics rather than an individual
 record list. The runner preserves that distinction instead of inventing a record
@@ -334,19 +345,21 @@ scalar, fixed-flavor, asymptotically free, infrared-completed assumptions.
 The documentation separates the all-order logarithmic argument from finite
 coefficient-degree regression tests.
 
-| Ingredient | N³LL′ target convention | Included numerical demonstration |
+| Ingredient | N³LL evolution convention | Included physical evolution input |
 |---|---|---|
-| QCD beta function | Four-loop running | β₀ and β₁ |
-| Cusp anomalous dimension | Four loops | Γ₀ and Γ₁ |
-| TMD noncusp anomalous dimension | Three loops | γ₀ |
-| Canonical CS boundary | Through third order | d₁=0 and d₂ |
-| Hard and finite TMD matching functions | Through third order | Separate fixed-order/schema tests; not a complete physical three-loop payload |
+| QCD beta function | Four-loop running | β₀ through β₃ |
+| Cusp anomalous dimension | Four loops | Γ₀ through Γ₃ |
+| TMD noncusp anomalous dimension | Three loops | γ₀ through γ₂ |
+| Canonical CS boundary | Through third order | d₁ through d₃, with d₁=0 |
+| Hard and finite TMD matching functions | Strict NLO in current physical assembly | NLO hard and OPE insertions |
 | Collinear evolution | P⁽⁰⁾, P⁽¹⁾, P⁽²⁾ | Toy and formal-matrix checks in the verification suites |
 | Process spectrum | Matched measurement-level prediction | Singular-expansion prototype and operator examples |
 
 [`data/coefficients_demo.json`](data/coefficients_demo.json) specifies the numerical
 massless quark example with n<sub>f</sub>=5, μ₀=2 GeV, and a(μ₀)=0.02.
-Its coefficient provenance and normalization are documented in
+[`data/coefficients_css2_nf5_n3ll.json`](data/coefficients_css2_nf5_n3ll.json)
+supplies the sourced physical N³LL evolution vector used by `physical_canonical`.
+Their coefficient provenance and normalization are documented in
 [COEFFICIENTS.md](docs/COEFFICIENTS.md). The formal rational fixtures used for
 logarithmic counting and flavor ordering are identified separately at their use sites.
 
@@ -383,6 +396,8 @@ validators/                     Scientific/component verification suites
 tests/                          Runner, policy, and example software tests
 manifests/                      Suite registry, source lineage, input inventories
 data/coefficients_demo.json      Declared lower-order coefficient input
+data/coefficients_css2_nf5_n3ll.json
+                                Physical nf=5 N³LL evolution; strict NLO boundaries
 Data_DY_test/                   Preserved CSV tables (not used by verification)
 docs/                           Formalism, API, examples, evidence, and scope
 scripts/stage_public_coefficients.sh

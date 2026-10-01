@@ -1,0 +1,38 @@
+{
+  "schema": "k-space-method-paper-accuracy/1",
+  "central_accuracy_statement": "N3LL evolution with strict NLO hard and OPE boundaries",
+  "parent_factorization": "Collins/CSS2 leading-power singular TMD factorization; imported, not reproved",
+  "canonical_branch": {
+    "class": "uncapped spectral-canonical operator with endpoint-independent infrared completion",
+    "evolution_accuracy": "N3LL",
+    "coefficient_orders": {
+      "beta": 4,
+      "cusp": 4,
+      "noncusp": 3,
+      "canonical_CS_boundary": 3
+    },
+    "coefficient_input": "data/coefficients_css2_nf5_n3ll.json",
+    "implementation": "src/resummed_operator.py:CanonicalRG",
+    "executable_evidence": "validators/validate_physical_canonical.py",
+    "theorem_scope": "formal retained-tower statement on the admitted weak-coupling and operator domains"
+  },
+  "physical_boundary": {
+    "hard": "strict NLO",
+    "OPE_matching": "strict NLO",
+    "assembly": "linear Born, hard, qq, and qg insertions; no incomplete products",
+    "implementation": "src/css2_matching.py:strict_nlo"
+  },
+  "capped_noncanonical_branch": {
+    "class": "process-level profile diagnostics with finite nonzero spectral endpoints",
+    "inherits_canonical_zero_endpoint": false,
+    "inherits_canonical_N3LL_tower_theorem": false,
+    "role_in_paper": "bounded physical demonstrator only, with separate assumptions and validation"
+  },
+  "not_claimed": [
+    "physical N3LL-prime spectrum",
+    "complete W+Y prediction",
+    "massive-quark complete evolution",
+    "new proof of TMD factorization",
+    "global TMD extraction"
+  ]
+}

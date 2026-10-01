@@ -40,6 +40,18 @@ def test_canonical_example_matches_operator(output_dir):
     assert samples[0]['D_c'] is None and samples[0]['mu_c_GeV'] is None
     assert report['scope']['physical_N3LLprime_prediction_validated'] is False
 
+
+def test_canonical_example_exercises_physical_n3ll_evolution_input(output_dir):
+    coefficient=ROOT/'data/coefficients_css2_nf5_n3ll.json'
+    proc=run_example('canonical_evolution.py','--coefficients',coefficient,'--out',output_dir)
+    assert proc.returncode==0,proc.stdout+proc.stderr
+    report=json.loads((output_dir/'canonical_evolution.json').read_text())
+    assert report['coefficient_metadata']['evolution_accuracy']=='N3LL'
+    assert report['coefficient_metadata']['hard_and_ope_order']=='strict NLO'
+    assert report['scope']['physical_N3LL_evolution_input'] is True
+    assert report['scope']['physical_N3LLprime_prediction_validated'] is False
+    assert 'N3LL; boundaries: strict NLO' in proc.stdout
+
 @pytest.mark.parametrize('arguments',[['--s','-1'],['--s','nan'],['--mu','1'],['--zeta','0'],['--a0','0'],['--mu','inf']])
 def test_canonical_rejects_bad_arguments(arguments,output_dir):
     assert run_example('canonical_evolution.py',*arguments,'--out',output_dir).returncode!=0

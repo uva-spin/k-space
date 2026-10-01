@@ -2,8 +2,8 @@
 
 No Fourier/Hankel transform is used here. Spectral scalar nodes are used to
 construct polynomials of the momentum Laplacian; input arrays stay in momentum
-space. The shipped numerical coefficient set is deliberately LOWER ORDER, not
-a physical N3LL-prime coefficient payload. See coefficients_demo.json.
+space. Both a lower-order demonstration input and a sourced physical N3LL
+evolution input are shipped. Neither is a physical N3LL-prime boundary payload.
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 import numpy as np
 from scipy.integrate import solve_ivp
+from scipy.fft import dct
 from scipy.sparse import csc_matrix, eye
 from scipy.sparse.linalg import splu
 
@@ -24,6 +25,11 @@ class Coefficients:
     d: tuple[float, ...]  # d1, d2, d3; d1 must be zero in this implementation.
     description: str
     physical_n3llprime_payload: bool = False
+    scheme: str | None = None
+    evolution_accuracy: str | None = None
+    hard_and_ope_order: str | None = None
+    nf: int | None = None
+    source_manifest: str | None = None
 
     @classmethod
     def load(cls, path: str | Path) -> "Coefficients":
@@ -31,13 +37,23 @@ class Coefficients:
         obj = cls(*(tuple(float(v) for v in data[k]) for k in
                     ("beta", "cusp", "noncusp", "d")),
                   description=data["description"],
-                  physical_n3llprime_payload=bool(data.get("physical_n3llprime_payload", False)))
+                  physical_n3llprime_payload=bool(data.get("physical_n3llprime_payload", False)),
+                  scheme=data.get("scheme"),
+                  evolution_accuracy=data.get("evolution_accuracy"),
+                  hard_and_ope_order=data.get("hard_and_ope_order"),
+                  nf=data.get("nf"),
+                  source_manifest=data.get("source_manifest"))
         for name, vals, limit in (("beta", obj.beta, 4), ("cusp", obj.cusp, 4),
                                  ("noncusp", obj.noncusp, 3), ("d", obj.d, 3)):
             if not 1 <= len(vals) <= limit or not np.isfinite(vals).all():
                 raise ValueError(f"Invalid {name} coefficients")
         if obj.beta[0] <= 0 or obj.cusp[0] <= 0 or obj.d[0] != 0:
             raise ValueError("Requires beta0>0, Gamma0>0, and canonical d1=0")
+        if obj.evolution_accuracy == "N3LL" and tuple(map(len,
+                (obj.beta, obj.cusp, obj.noncusp, obj.d))) != (4, 4, 3, 3):
+            raise ValueError("N3LL evolution metadata requires 4/4/3/3 coefficients")
+        if obj.nf is not None and (isinstance(obj.nf, bool) or obj.nf not in (3, 4, 5, 6)):
+            raise ValueError("Unsupported fixed-flavor metadata")
         return obj
 
     @staticmethod
@@ -150,6 +166,27 @@ class CanonicalRG:
         h[sel] = (self.v(s, mu, zeta)-minf)/r[sel]
         return minf, h
 
+    def chebyshev_coefficients(self, degree: int, tau: float,
+                               mu: float, zeta: float):
+        """Lobatto interpolant of v(tau*(1-r)/r), r in [0,1].
+
+        The endpoints r=0 (s=infinity) and r=1 (s=0) are inserted
+        analytically, so the constant/contact and zero endpoints are retained.
+        """
+        if degree < 1 or tau <= 0:
+            raise ValueError("degree>=1 and tau>0 are required")
+        x = np.cos(np.pi*np.arange(degree+1)/degree)
+        r = (x+1)/2
+        values = np.empty_like(r)
+        values[0] = 0.0
+        values[-1] = float(self.v(np.array([2*self.s0]), mu, zeta)[0])
+        interior = np.arange(1, degree)
+        s = tau*(1-r[interior])/r[interior]
+        values[interior] = self.v(s, mu, zeta)
+        coefficients = dct(values, type=1)/degree
+        coefficients[[0, -1]] *= 0.5
+        return coefficients
+
 
 def bernstein_scalar(nodes: np.ndarray, r: np.ndarray) -> np.ndarray:
     """Stable de Casteljau evaluation, used for scalar error diagnostics."""
@@ -177,3 +214,28 @@ def apply_resolvent_polynomial(T, f, tau: float, minf: float, h_nodes):
     for size in range(len(h_nodes)-1, 0, -1):
         v = v[:,:size] + R(v[:,1:size+1]-v[:,:size])
     return minf*f + R(v[:,0])
+
+
+def apply_chebyshev_resolvent(T, f, tau: float, coefficients):
+    """Apply a Chebyshev polynomial of R=tau*(tau+T)^(-1).
+
+    Clenshaw recurrence keeps only three input-shaped arrays and uses sparse
+    elliptic solves. ``coefficients`` follow NumPy's Chebyshev convention for
+    x=2R-I. No eigensolver or transform is used in this application path.
+    """
+    T = csc_matrix(T)
+    f = np.asarray(f, dtype=float)
+    coefficients = np.asarray(coefficients, dtype=float)
+    if T.shape[0] != T.shape[1] or T.shape[0] != f.shape[0] or tau <= 0:
+        raise ValueError("Inconsistent grid operator/input, or invalid tau")
+    if coefficients.ndim != 1 or len(coefficients) < 2 or not np.isfinite(coefficients).all():
+        raise ValueError("At least two finite Chebyshev coefficients are required")
+    solve = splu(T+tau*eye(T.shape[0], format="csc"))
+    def X(value):
+        return 2*tau*solve.solve(value)-value
+    b1 = np.zeros_like(f)
+    b2 = np.zeros_like(f)
+    for coefficient in coefficients[:0:-1]:
+        b0 = 2*X(b1)-b2+coefficient*f
+        b2, b1 = b1, b0
+    return X(b1)-b2+coefficients[0]*f

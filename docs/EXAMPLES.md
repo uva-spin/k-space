@@ -20,10 +20,16 @@ The examples require finite parameters in the implementation's domain and use
 its declared fixed-flavor completion. They do not activate a physical N³LL′
 claim if a JSON flag is changed. See [COEFFICIENTS.md](COEFFICIENTS.md).
 
+To exercise the sourced physical evolution coefficients, pass
+`--coefficients data/coefficients_css2_nf5_n3ll.json`. The generated JSON then
+records `evolution_accuracy: N3LL`, `hard_and_ope_order: strict NLO`, the source
+manifest hash, and `physical_N3LLprime_prediction_validated: false`.
+
 ### Canonical-symbol table
 
 ```bash
 python examples/canonical_evolution.py --mu 20 --zeta 400 --s 0 0.01 0.1 1
+python examples/canonical_evolution.py --coefficients data/coefficients_css2_nf5_n3ll.json
 python examples/canonical_evolution.py --help
 ```
 
@@ -98,6 +104,5 @@ be in a child of this checkout's `outputs/` directory and must not use symlinks.
 Examples never recursively delete directories. A repeat run replaces their named
 CSV/JSON outputs; use a different `--out` to keep a second parameter choice.
 
-This example layer was added around the supplied, unchanged operator module.
-It supplies convenient execution and interpretation, not additional high-order
-QCD coefficient input or new factorization claims.
+This example layer supplies convenient execution and interpretation. It does not
+turn the N³LL evolution input into an N³LL′ boundary or process-spectrum claim.

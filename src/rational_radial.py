@@ -7,6 +7,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 from scipy.linalg import null_space, lstsq, solve_banded
+from scipy.sparse import diags
 
 @dataclass
 class RationalSymbol:
@@ -77,6 +78,9 @@ class RadialGrid:
         self.diagonal=stiffness/self.weights
         self.off=-conduct/np.sqrt(self.weights[:-1]*self.weights[1:])
         self.edges=edges
+    def matrix(self):
+        """Return the symmetric weighted finite-volume radial Laplacian."""
+        return diags((self.off,self.diagonal,self.off),(-1,0,1),format='csc')
     def solve(self,shift,rhs):
         band=np.zeros((3,self.cells));band[1]=self.diagonal+shift
         band[0,1:]=self.off;band[2,:-1]=self.off
