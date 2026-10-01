@@ -1,0 +1,44 @@
+{
+  "native_pair_kernel_relative": 2.0931450373376962e-05,
+  "separate_component_over_total": 1.8915677029374387e-05,
+  "thresholds": {
+    "native_pair_kernel_relative": 0.0003,
+    "separate_component_over_total": 0.0003
+  },
+  "passed": true,
+  "elapsed_seconds": 64.45823574999667,
+  "settings": {
+    "method": "native elliptic solves and direct kT Gaussian convolution",
+    "variances": [
+      0.08,
+      0.2,
+      0.5,
+      1.25,
+      3.125,
+      7.8125
+    ],
+    "g": 0.15790301183804753,
+    "Q0": 5.0,
+    "nQ": 4,
+    "nx": 8,
+    "nmu": 64,
+    "order": 160,
+    "degree": 64,
+    "radius": 640.0,
+    "spacing": 0.00625,
+    "measurement": "reported_mean"
+  },
+  "script_sha256": "e9eead5c8b407afa97d400d8dfcba9407e3e749dfe6a0a5044aee0ac49ac0f1a",
+  "source_sha256": {
+    "src/e866_forward.py": "d9b071196b15ce1265a11a50f49e3046d837c3c4097a0c3073e63024340bc87c",
+    "src/dy_measurement.py": "0021c6a5bcfacca344c736f32b65af752b71c867e17bc41bc4d46a840e52e63c",
+    "src/rational_radial.py": "ecf8127f7a2151f980808aabfb80a7b9c14cd2ba4cd9e2dd99a29b02535a722a",
+    "src/css2_noncanonical.py": "3187d77b7640cc7c272f29a786f56a6ea6e4d7fd655bc6d3c3d0931e4bef938a",
+    "src/native_mixture.py": "2391fa38945971b9d835d747b1ec45ea01035ce8521fde41a7cabd7ce9940072",
+    "src/css2_reference.py": "f637f649a9c0dda1b88b5bb956037f8f8fa0a60bcf0c7d34b892a73d23c485e1",
+    "src/resummed_operator.py": "4858bc83bf1fe45fa96394d92e70f092915a1ba437bab06e1220b6c14f9f2b66",
+    "src/css2_coefficients.py": "0b37cc7d655b09e76b89902aeeba49a518f86505036f45da1342dd8911310257",
+    "src/css2_matching.py": "d934dac7a8089af5dd7b3c3f017af20a76dcd516d138b53108ba4ac24e92f86f",
+    "src/lhapdf_provider.py": "7e274dabbc9811f15616080756d0aedb987da91fd5af211512e2fc9e596d44d4"
+  }
+}

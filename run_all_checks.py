@@ -229,13 +229,17 @@ def main(argv=None) -> int:
     code = [ROOT/'run_all_checks.py']
     for name in ['validators','src','tools','manifests','data']:
         code += [p for p in (ROOT/name).rglob('*') if p.is_file() and p.suffix in ['.py','.json']]
-    coefficient_path = ROOT/'data/coefficients_demo.json'
-    coefficient_input = json.loads(coefficient_path.read_text()) if coefficient_path.exists() else None
-    if coefficient_input is not None:
-        coefficient_input = dict(path='data/coefficients_demo.json',
-                                 sha256=sha(coefficient_path), input=coefficient_input,
-                                 coefficient_terms={k:len(coefficient_input[k])
-                                     for k in ['beta','cusp','noncusp','d']})
+    def coefficient_record(relative_path):
+        path = ROOT/relative_path
+        data = json.loads(path.read_text()) if path.exists() else None
+        if data is None:
+            return None
+        return dict(path=relative_path, sha256=sha(path), input=data,
+                    coefficient_terms={k:len(data[k]) for k in ['beta','cusp','noncusp','d']})
+    coefficient_input = coefficient_record('data/coefficients_demo.json')
+    physical_evolution_input = coefficient_record('data/coefficients_css2_nf5_n3ll.json')
+    physical_evolution_exercised = any(
+        row['id'] == 'physical_canonical' and row['passed'] for row in results)
     summary = dict(schema='k-space-verification-run/1', run_id=run_id, started_utc=started,
                    finished_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
                    all_suites_passed=all(r['passed'] for r in results),
@@ -247,11 +251,14 @@ def main(argv=None) -> int:
                    optional_suites_skipped=0,
                    results=results, git=git_state(),
                    coefficient_input=coefficient_input,
+                   physical_evolution_input=physical_evolution_input,
                    environment={'python':sys.version,'platform':platform.platform(),
                        'packages':{n:importlib.metadata.version(n) for n in ['numpy','scipy','sympy','mpmath']},
                        'threads':{k:env[k] for k in ['OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS']}},
                    input_sha256={str(p.relative_to(ROOT)):sha(p) for p in sorted(set(code))},
-                   scientific_scope={'numerical_inputs':'declared lower-order QCD demonstration and labeled formal fixtures',
+                   scientific_scope={'numerical_inputs':'declared lower-order demonstration, sourced physical N3LL evolution input, and labeled formal fixtures',
+                       'physical_N3LL_evolution_input_exercised':physical_evolution_exercised,
+                       'hard_and_ope_boundaries':'strict NLO',
                        'physical_three_loop_payload_validated':False,
                        'physical_N3LLprime_prediction_validated':False,
                        'continuum_grid_error_certified':False,
@@ -264,7 +271,9 @@ def main(argv=None) -> int:
     for r in results:
         count=f" ({r['check_passed']}/{r['check_total']} records)" if r['check_total'] is not None else ' (aggregate report)'
         lines.append(f"{'PASS' if r['passed'] else 'FAIL'} {r['id']}{count}: {r['report']}")
-    lines += ['', 'physical_N3LLprime_prediction_validated: False', 'continuum_grid_error_certified: False',
+    lines += ['', f'physical_N3LL_evolution_input_exercised: {physical_evolution_exercised}',
+              'hard_and_ope_boundaries: strict NLO',
+              'physical_N3LLprime_prediction_validated: False', 'continuum_grid_error_certified: False',
               'Source hashes, environment, and categories: run_all_checks_summary.json']
     (out/'run_all_checks_report.txt').write_text('\n'.join(lines)+'\n')
     print('\n'.join(lines))

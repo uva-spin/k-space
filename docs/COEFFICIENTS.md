@@ -1,8 +1,11 @@
 # Coefficients and input scope
 
-`data/coefficients_demo.json` is the numerical input to the unexpanded demonstration.
-It records massless fixed-flavor QCD with n_f=5 and a=alpha_s/(4π), using the CSS2
-D=-K and d/d ln(mu) convention.
+The package contains two declared numerical inputs. Both use massless fixed-flavor
+QCD with a=alpha_s/(4π), the CSS2 D=-K convention, and derivatives with respect
+to ln(mu).
+
+`data/coefficients_demo.json` is the lower-order input to the original
+unexpanded demonstration.
 
 | Vector | Supplied coefficients |
 |---|---|
@@ -16,13 +19,23 @@ integration interval is t=ln(nu/mu0) in [0,1200], with DOP853, rtol=2×10⁻¹²
 and atol=2×10⁻¹⁴. Values outside the solved interval require a separately extended
 solve rather than extrapolation.
 
-The `Coefficients` container accepts up to four beta and cusp entries and three
-noncusp/CS-boundary entries. **Array length and the
-`physical_n3llprime_payload` metadata field do not validate a physics payload.**
-The shipped field is false; no operator routine converts it into a certificate.
+`data/coefficients_css2_nf5_n3ll.json` supplies the physical nf=5 evolution
+vectors at 4/4/3/3 loops: beta and quark cusp through four loops, and TMD
+noncusp and canonical CS boundary through three loops. Its source versions,
+hashes, equation locators, and convention changes are pinned in
+`manifests/css2_sources.json`. The `physical_canonical` suite compares the JSON
+against the independent formula implementation in `src/css2_coefficients.py`
+and exercises it in the canonical operator.
 
-An instantiated N³LL′ prediction additionally needs convention-checked physical
-coefficients at the required orders, three-loop hard and TMD matching boundaries,
+The `Coefficients` container accepts up to four beta and cusp entries and three
+noncusp/CS-boundary entries. N3LL metadata requires exactly 4/4/3/3 entries.
+**Array length and metadata alone do not validate a physics payload.** Source
+qualification, convention checks, independent coefficient comparisons, and RG
+tests provide the evidence for the evolution input.
+
+The current physical input supports N³LL evolution with strict NLO hard and OPE
+boundaries. An instantiated N³LL′ prediction additionally needs three-loop hard
+and TMD matching boundaries,
 matching-log collinear evolution, and process/observable validation. The
 `mock_import` suite validates a record schema with explicitly synthetic values;
 those values are never fed into the numerical QCD demo.

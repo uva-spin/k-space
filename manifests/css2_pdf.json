@@ -1,0 +1,32 @@
+{
+  "schema": "css2-pinned-pdf/1",
+  "LHAPDF_version": "6.5.6",
+  "set": "NNPDF40_nnlo_as_01180",
+  "member": 0,
+  "data_version": 1,
+  "pdf_order": "NNLO",
+  "PDF_flavor_scheme": "variable (5 above bottom threshold 4.92 GeV)",
+  "diagnostic_scale_interval_GeV": [
+    5,
+    20
+  ],
+  "evolution_coupling": "Independent four-loop fixed nf=5, alpha_s(91.1876)=0.1180024; not LHAPDF tabulated three-loop alpha_s",
+  "storage": "External sibling ../downloads and ../runtime",
+  "files": [
+    {
+      "name": "LHAPDF-6.5.6.tar.gz",
+      "url": "https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.6.tar.gz",
+      "sha256": "6b8b7e38dc26a977a24f5a321215b7054c14a4469d04134d70cb93a860eeeea7"
+    },
+    {
+      "name": "NNPDF40_nnlo_as_01180.info",
+      "url": "https://lhapdfsets.web.cern.ch/current/NNPDF40_nnlo_as_01180/NNPDF40_nnlo_as_01180.info",
+      "sha256": "8d2109e8991f28195d7dc7e5118803fef4a8c8c6f3be889d8674147ae4565b06"
+    },
+    {
+      "name": "NNPDF40_nnlo_as_01180_0000.dat",
+      "url": "https://lhapdfsets.web.cern.ch/current/NNPDF40_nnlo_as_01180/NNPDF40_nnlo_as_01180_0000.dat",
+      "sha256": "a9b9ba0eae0e9fd279ca7609b2c17f1750005b4801c2f076bd250da623092023"
+    }
+  ]
+}

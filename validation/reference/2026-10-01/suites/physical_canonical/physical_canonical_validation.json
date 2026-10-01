@@ -1,0 +1,229 @@
+{
+  "schema": "k-space-physical-canonical-validation/1",
+  "passed": true,
+  "tests": [
+    {
+      "name": "N3LL coefficient orders are 4/4/3/3",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": "(4, 4, 3, 3)"
+    },
+    {
+      "name": "accuracy metadata is N3LL evolution",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": ""
+    },
+    {
+      "name": "boundary metadata is strict NLO",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": ""
+    },
+    {
+      "name": "payload does not claim N3LL-prime",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": ""
+    },
+    {
+      "name": "fixed-flavor metadata is nf=5",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": ""
+    },
+    {
+      "name": "JSON and formula implementation agree: beta",
+      "passed": true,
+      "residual": 0.0,
+      "tolerance": 2e-12,
+      "detail": ""
+    },
+    {
+      "name": "JSON and formula implementation agree: cusp",
+      "passed": true,
+      "residual": 0.0,
+      "tolerance": 2e-12,
+      "detail": ""
+    },
+    {
+      "name": "JSON and formula implementation agree: noncusp",
+      "passed": true,
+      "residual": 0.0,
+      "tolerance": 2e-12,
+      "detail": ""
+    },
+    {
+      "name": "JSON and formula implementation agree: d",
+      "passed": true,
+      "residual": 0.0,
+      "tolerance": 2e-12,
+      "detail": ""
+    },
+    {
+      "name": "source manifest is present and populated",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": "5 archive records"
+    },
+    {
+      "name": "source records carry URL, digest, and locator",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": ""
+    },
+    {
+      "name": "two-scale evolution composes",
+      "passed": true,
+      "residual": 1.1102230246251565e-16,
+      "tolerance": 3e-11,
+      "detail": ""
+    },
+    {
+      "name": "independent quadrature agrees with closed RG integrals",
+      "passed": true,
+      "residual": 1.2705392293810291e-12,
+      "tolerance": 2e-10,
+      "detail": ""
+    },
+    {
+      "name": "virtuality endpoint equation",
+      "passed": true,
+      "residual": 1.4501087830520731e-11,
+      "tolerance": 3e-08,
+      "detail": ""
+    },
+    {
+      "name": "rapidity endpoint equation",
+      "passed": true,
+      "residual": 5.884681630874411e-12,
+      "tolerance": 3e-08,
+      "detail": ""
+    },
+    {
+      "name": "non-Gaussian recurrence oracle N=16",
+      "passed": true,
+      "residual": 1.7147549934655758e-14,
+      "tolerance": 3e-10,
+      "detail": ""
+    },
+    {
+      "name": "non-Gaussian finite-matrix bound N=16",
+      "passed": true,
+      "residual": 0.016399818967541193,
+      "tolerance": 0.094751739379724,
+      "detail": ""
+    },
+    {
+      "name": "non-Gaussian recurrence oracle N=64",
+      "passed": true,
+      "residual": 1.716741647950159e-14,
+      "tolerance": 3e-10,
+      "detail": ""
+    },
+    {
+      "name": "non-Gaussian finite-matrix bound N=64",
+      "passed": true,
+      "residual": 0.002279456389432243,
+      "tolerance": 0.009977782469565908,
+      "detail": ""
+    },
+    {
+      "name": "non-Gaussian recurrence oracle N=256",
+      "passed": true,
+      "residual": 1.717861254879476e-14,
+      "tolerance": 3e-10,
+      "detail": ""
+    },
+    {
+      "name": "non-Gaussian finite-matrix bound N=256",
+      "passed": true,
+      "residual": 0.0009316965322519407,
+      "tolerance": 0.004096359579760042,
+      "detail": ""
+    },
+    {
+      "name": "non-Gaussian degree refinement improves",
+      "passed": true,
+      "residual": null,
+      "tolerance": null,
+      "detail": "0.016399818967541193 -> 0.0009316965322519407"
+    },
+    {
+      "name": "Chebyshev resolvent agrees with matrix-polynomial oracle",
+      "passed": true,
+      "residual": 1.7125572657329202e-14,
+      "tolerance": 3e-10,
+      "detail": ""
+    },
+    {
+      "name": "Chebyshev interpolant preserves both spectral endpoints",
+      "passed": true,
+      "residual": 7.105427357601002e-15,
+      "tolerance": 2e-13,
+      "detail": ""
+    },
+    {
+      "name": "physical coefficient input changes the numerical symbol",
+      "passed": true,
+      "residual": 0.007095208322575708,
+      "tolerance": ">1e-6",
+      "detail": ""
+    }
+  ],
+  "coefficient_orders": {
+    "beta": 4,
+    "cusp": 4,
+    "noncusp": 3,
+    "d": 3
+  },
+  "coefficient_metadata": {
+    "description": "Physical massless SU(3), fixed nf=5; N3LL evolution, strict NLO boundaries",
+    "scheme": "CSS2 D=-K; a=alpha_s/(4*pi); derivatives ln(mu)",
+    "evolution_accuracy": "N3LL",
+    "hard_and_ope_order": "strict NLO",
+    "nf": 5
+  },
+  "degree_refinement": [
+    {
+      "degree": 16,
+      "same_grid_L2_error": 0.016399818967541193,
+      "finite_matrix_bound": 0.094751739079724,
+      "recurrence_oracle_residual": 1.7147549934655758e-14
+    },
+    {
+      "degree": 64,
+      "same_grid_L2_error": 0.002279456389432243,
+      "finite_matrix_bound": 0.009977782169565907,
+      "recurrence_oracle_residual": 1.716741647950159e-14
+    },
+    {
+      "degree": 256,
+      "same_grid_L2_error": 0.0009316965322519407,
+      "finite_matrix_bound": 0.004096359279760042,
+      "recurrence_oracle_residual": 1.717861254879476e-14
+    }
+  ],
+  "chebyshev_degree": 128,
+  "input": "positive radial algebraic tail (1+k_T^2)^-3 on a finite Dirichlet grid",
+  "sha256": {
+    "coefficient_input": "620d1222f395c0fac81e7e1bfe5da87b542663ac72c194e196e5ef29b5a4c3d7",
+    "source_manifest": "a088e1a9d3941887185f28531e5b6857e026a762e437687607490d6da601356b",
+    "operator": "f1359ad36b754ce590b90e45ee9d2de1ff282a0cbd95492d3049db2c0b08d668",
+    "coefficient_formula": "de08b3e135dca36f8f84e56a978b7b6d45aa8f081da44bc8e0fa7a856d1459cf"
+  },
+  "scope": {
+    "physical_N3LL_evolution_input_exercised": true,
+    "hard_and_ope_boundaries": "strict NLO",
+    "physical_N3LLprime_prediction_validated": false,
+    "continuum_grid_error_certified": false,
+    "data_fit_performed": false
+  }
+}

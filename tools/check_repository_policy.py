@@ -33,9 +33,10 @@ def source_issue(rel: Path) -> str | None:
     return None
 
 def prohibited_artifact(rel: Path) -> bool:
-    # PDF plots have a scientific role; manuscript PDFs do not. This directory
-    # exception does not permit TeX sources, build products or nested archives.
-    if rel.suffix.lower() == '.pdf' and rel.parts[0] == 'figures':
+    # Scientific PDF plots may be published in figures/ or regenerated in
+    # ignored outputs/. The tracked-inventory check still rejects every output
+    # artifact. This does not permit tracked manuscripts or TeX build products.
+    if rel.suffix.lower() == '.pdf' and rel.parts[0] in {'figures', 'outputs'}:
         return False
     return any(rel.name.lower().endswith(ext) for ext in BANNED)
 

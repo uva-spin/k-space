@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "max_L": 7,
+  "table_max_index": 3,
+  "FT_Ln_polynomials": {
+    "L0": "-X",
+    "L1": "-X**2/2",
+    "L2": "-X**3/3 - 4*zeta_3/3",
+    "L3": "X*(-X**3 - 16*zeta_3)/4",
+    "L4": "-X**5/5 - 8*X**2*zeta_3 - 48*zeta_5/5",
+    "L5": "-X**6/6 - 40*X**3*zeta_3/3 - 48*X*zeta_5 - 80*zeta_3**2/3",
+    "L6": "-X**7/7 - 20*X**4*zeta_3 - 144*X**2*zeta_5 - 160*X*zeta_3**2 - 1440*zeta_7/7",
+    "L7": "-X**8/8 - 28*X**5*zeta_3 - 336*X**3*zeta_5 - 560*X**2*zeta_3**2 - 1440*X*zeta_7 - 1344*zeta_3*zeta_5"
+  },
+  "convolution_table": [
+    {
+      "left": "L0 x L0",
+      "right": "(-2)*L1",
+      "residual": "0"
+    },
+    {
+      "left": "L0 x L1",
+      "right": "(-2*zeta_3)*delta - (3/2)*L2",
+      "residual": "0"
+    },
+    {
+      "left": "L0 x L2",
+      "right": "(4*zeta_3)*L0 - (4/3)*L3",
+      "residual": "0"
+    },
+    {
+      "left": "L0 x L3",
+      "right": "(-12*zeta_5)*delta + (12*zeta_3)*L1 - (5/4)*L4",
+      "residual": "0"
+    },
+    {
+      "left": "L1 x L1",
+      "right": "(4*zeta_3)*L0 - (1)*L3",
+      "residual": "0"
+    },
+    {
+      "left": "L1 x L2",
+      "right": "(-8*zeta_5)*delta + (12*zeta_3)*L1 - (5/6)*L4",
+      "residual": "0"
+    },
+    {
+      "left": "L1 x L3",
+      "right": "(12*zeta_3**2)*delta + (36*zeta_5)*L0 + (24*zeta_3)*L2 - (3/4)*L5",
+      "residual": "0"
+    },
+    {
+      "left": "L2 x L2",
+      "right": "(16*zeta_3**2)*delta + (32*zeta_5)*L0 + (24*zeta_3)*L2 - (2/3)*L5",
+      "residual": "0"
+    },
+    {
+      "left": "L2 x L3",
+      "right": "(-120*zeta_7)*delta - (72*zeta_3**2)*L0 + (168*zeta_5)*L1 + (40*zeta_3)*L3 - (7/12)*L6",
+      "residual": "0"
+    },
+    {
+      "left": "L3 x L3",
+      "right": "(576*zeta_3*zeta_5)*delta + (720*zeta_7)*L0 - (432*zeta_3**2)*L1 + (504*zeta_5)*L2 + (60*zeta_3)*L4 - (1/2)*L7",
+      "residual": "0"
+    }
+  ],
+  "frak_rule_failures": [],
+  "conventional_table_max_residual_nonzero": false,
+  "exponential_residual": "0",
+  "notes": [
+    "X denotes L_b.",
+    "delta denotes delta^{(2)}(k).",
+    "L_n denotes the conventional 2D plus distribution with ln^n(mu^2/k_T^2).",
+    "The frak basis obeys frakL_m otimes_T frakL_n = frakL_{m+n+1} exactly."
+  ]
+}

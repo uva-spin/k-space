@@ -1,0 +1,47 @@
+{
+  "schema": "E866-source-provenance/1",
+  "base_commit": "197334342035a11fbc7d46f49a8d4e3b05cfa9f1",
+  "new_primary_sources": [
+    {
+      "path_from_repository": "../sources/webb_0301031v1.tar",
+      "sha256": "d5a3ac55a781a66f4971affed1a774b7ac08dd5929b2caf42e949b051d241ffd"
+    },
+    {
+      "path_from_repository": "../sources/webb/results_spanner.tex",
+      "sha256": "4820dd9b98a04c1d25433b3844a7fffd308d7c812e0de34b9cabc72cf99fba3d"
+    },
+    {
+      "path_from_repository": "../sources/webb/analysis.tex",
+      "sha256": "f90af8b9a1066f2a856724f0a8b5ec8be6a4d281834ea4e2fb48a9ae19ed637b"
+    },
+    {
+      "path_from_repository": "../sources/webb/introduction.tex",
+      "sha256": "46375bdfcdb96441979d76059b6a4434014a1ffda4f991419f8f284a46a7354d"
+    },
+    {
+      "path_from_repository": "../sources/hepdata_ins613362.json",
+      "sha256": "2a0edb783ecb674b31dd75a85095e227140d325e428449ca17cb9e8c9d5f5359"
+    },
+    {
+      "path_from_repository": "../sources/bacchetta_1901.06916.tar",
+      "sha256": "3de0dcffbc146112b0f7012bd6bd575fe5eb119fd8f4861f213cdbac098c30a2"
+    },
+    {
+      "path_from_repository": "../sources/bacchetta/DYpaper_9.tex",
+      "sha256": "dfd2166eae65cc9148ae0f7aea658df71d778c8263144a9a82e647fc234fd2e6"
+    }
+  ],
+  "primary_urls": {
+    "Webb": "https://arxiv.org/src/hep-ex/0301031v1",
+    "HEPData": "https://www.hepdata.net/record/ins613362?format=json",
+    "Bacchetta": "https://arxiv.org/src/1901.06916"
+  },
+  "note": "Bacchetta source is used as independent observable-context evidence; a commented-out footnote is not treated as a published finding. Source archive bytes are pinned even where a retrieval URL omitted a version.",
+  "coefficient_sources_from_repository": "../../m1_resolution_2026-09-30/sources",
+  "pdf_library_from_repository": "../../m1_resolution_2026-09-30/runtime/lhapdf",
+  "bridge_from_repository": "../../m2_prescription_2026-09-30/runtime/libkt_lhapdf.dylib",
+  "bridge_sha256": "69b29b9b9257e782b52a9eff25b443547bfa726b5c62c160cee55b1615a18fcb",
+  "pdf_manifest_sha256": "8ef243778ab847095a98452689f533e0a22dea523f09cf3da969418aa3be952e",
+  "data_manifest_sha256": "3bde7d6e60ffc5aa4944666b86c1dc78ea6d24891355973f67ce61af11c2aa9a",
+  "inherited_manifests": "css2_sources.json and noncanonical_sources.json describe their original run directories; use the explicit sibling paths above in this run."
+}

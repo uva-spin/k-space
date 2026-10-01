@@ -1,0 +1,196 @@
+{
+  "schema": "canonical-derivation-audit/1",
+  "passed": true,
+  "tests": [
+    {
+      "name": "running coefficient polynomial degrees",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "first omitted beta stays below retained towers",
+      "passed": true,
+      "detail": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "negative control detects missing required beta loop",
+      "passed": true,
+      "detail": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "name": "first omitted cusp stays below retained towers",
+      "passed": true,
+      "detail": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "negative control detects missing required cusp loop",
+      "passed": true,
+      "detail": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "name": "first omitted noncusp stays below retained towers",
+      "passed": true,
+      "detail": [
+        null,
+        null,
+        null,
+        null,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "negative control detects missing required noncusp loop",
+      "passed": true,
+      "detail": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "name": "first omitted CS_boundary stays below retained towers",
+      "passed": true,
+      "detail": [
+        null,
+        null,
+        null,
+        null,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "negative control detects missing required CS_boundary loop",
+      "passed": true,
+      "detail": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "name": "LL all-order closed form through order eight",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "one-loop OPE plus PDF virtuality equation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "one-loop OPE rapidity equation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "hard plus two TMD virtuality cancellation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "six-term assembly equals strict linear expansion",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "negative control rejects naive products",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contact error normalization",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "highest_exact_order": 8,
+  "omitted_tower_witnesses": {
+    "beta": [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "-88*L**3/3 + 33*L**2",
+      "-176*L**4 + 88*L**3 + 44*L**2",
+      "-10912*L**5/15 - 374*L**4 + 968*L**3/3 + 33*L**2"
+    ],
+    "cusp": [
+      "0",
+      "0",
+      "0",
+      "0",
+      "-11*L**2",
+      "-220*L**3/3",
+      "-330*L**4 - 440*L**3/3",
+      "-1232*L**5 - 1430*L**4 - 220*L**3"
+    ],
+    "noncusp": [
+      "0",
+      "0",
+      "0",
+      "11*L",
+      "44*L**2",
+      "440*L**3/3 + 88*L**2",
+      "440*L**4 + 1936*L**3/3 + 132*L**2",
+      "1232*L**5 + 9416*L**4/3 + 1760*L**3 + 176*L**2"
+    ],
+    "CS_boundary": [
+      "0",
+      "0",
+      "0",
+      "-11*L",
+      "-88*L**2",
+      "-440*L**3 - 176*L**2",
+      "-1760*L**4 - 1936*L**3 - 264*L**2",
+      "-6160*L**5 - 37664*L**4/3 - 5280*L**3 - 352*L**2"
+    ]
+  },
+  "proof_status": "Finite exact witnesses plus negative controls; all-order and domain arguments are in DERIVATION_AUDIT.md",
+  "script_sha256": "f6bbf5430b85cde5efa781f22cee46560258ed704a0edf7319d19184bdddab81"
+}

@@ -9,6 +9,11 @@ transverse structure in momentum space.**
 [Run an example](#two-runnable-examples) · [Choose a verification suite](#verification-map) ·
 [Technical formalism](docs/FORMALISM.md) · [API](docs/API.md)
 
+**Methods-paper validation:** [Results and limitations](docs/VALIDATION_RESULTS.md) ·
+[Reproduce all checks](docs/REPRODUCE_METHOD_PAPER.md) ·
+[Frozen numerical evidence](validation/README.md) ·
+[Canonical derivation](docs/CANONICAL_DERIVATION.md)
+
 `k-space` brings together distributional transverse-momentum calculus,
 perturbative matching checks, unexpanded renormalization-group evolution, and a
 momentum-space numerical evaluator. It is intended for phenomenologists developing
@@ -16,9 +21,38 @@ TMD extractions and for researchers checking the perturbative operator that an
 extraction uses.
 
 The scientific implementation, test inputs, and usage documentation are kept
-together. The numerical examples are **lower-order, fixed-flavor QCD demonstrations**;
-the analytic high-accuracy construction and the milestones for a physical N³LL′
-prediction are identified separately below.
+together. The package includes both a lower-order demonstration and sourced,
+fixed-flavor **N³LL evolution** coefficients. Hard and OPE boundaries remain
+strict NLO, so the package does not claim an N³LL′ spectrum.
+
+## Validated method and computational evidence
+
+The 1 October 2026 audit combines the **same uncapped spectral-canonical
+prescription** with physical PDFs, both legs and all six strict-NLO components.
+A separately coded continuum reference checks bins, analytic input derivatives
+and contacts at Q=8, 20 and 91.1876 GeV, including algebraic-tail inputs.
+
+| Check | Audited result |
+|---|---|
+| Software tests | 121 passing at the audited source commit |
+| Required scientific/component suites | 14/14 passing; overlapping evidence categories |
+| Physical bin error, including the declared UV input bound | Below 4.27e-5 of the peak reference bin |
+| Largest observed physical refinement budget | Below 3.47e-4, against the original 1e-3 limit |
+| Provenance | Source/PDF hashes, accepted numerical records, separate components and refinement data |
+
+![Canonical physical comparison](figures/canonical_physical_audit.png)
+
+The UV continuation of the finite PDF table is an explicit input condition.
+The achieved bound over the declared UV input class is 1.67e-6 of the peak bin,
+passing the 2e-6 numerical criterion. It remains included in the reported budget.
+Two explicitly completed inputs and all other criteria pass. Signed
+high-qT W-only bins are numerical stress tests. These results do not establish
+N³LL′, complete W+Y, massive thresholds, global extraction, or independent human
+scientific review. Read the [full interpretation](docs/VALIDATION_RESULTS.md).
+
+The current publication is the methods paper. A same-data joint-(x,kT) FiLM
+comparison with the bT extraction is a separate future project. The existing
+E866 mixture fit is a conditional demonstration.
 
 ### Read the repository in three passes
 
@@ -75,19 +109,20 @@ CSS2 conventions + perturbative inputs
       statistical extraction and closure tests
 ```
 
-The code currently implements the operator and verification layers, with runnable
-numerical examples. The last process-level and statistical layers require their
-own physical input and validation. The scalar construction is not specialized to
+The code implements the operator and verification layers, same-prescription
+physical benchmarks, and a separately qualified E866/neural demonstrator. A full
+phenomenological extraction requires its own physical input and validation.
+The scalar construction is not specialized to
 fixed-target kinematics; extensions to other tensor structures, thresholds, and
 measurements carry explicit additional conditions.
 
 ## Quick start
 
 Use **Python 3.13** for the documented environment. The package declares
-Python ≥3.11; the supplied release was exercised with Python 3.13.5 and the pinned
+Python ≥3.11; the method audit was exercised with Python 3.13.15 and the pinned
 dependencies in `requirements.txt`. CI uses Python 3.13.
 
-From the extracted `k-space/` directory, or from a clone after publication:
+From a clone of this repository:
 
 ```bash
 python3 -m venv .venv
@@ -95,6 +130,7 @@ source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
 
 python tools/check_repository_policy.py --check-prepared-hashes
+python tools/check_validation_snapshot.py
 python -m pytest -q
 python run_all_checks.py --clean
 ```
@@ -108,7 +144,7 @@ The complete scientific/component run should end with:
 
 ```text
 all_suites_passed: True
-suites: 12/12
+suites: 14/14
 ```
 
 The full reports are generated at:
@@ -118,7 +154,7 @@ outputs/latest/run_all_checks_report.txt
 outputs/latest/run_all_checks_summary.json
 ```
 
-The 12-suite count includes different kinds of checks; it is not a sum of
+The 14-suite count includes different kinds of checks; it is not a sum of
 independent physics results. Detailed counts and residuals are obtained from the
 fresh per-suite reports. A selected-suite run records `full_required_run: false`.
 
@@ -133,6 +169,9 @@ python run_all_checks.py --suite structural --output-dir outputs/structural
 
 # Unexpanded RG, logarithmic-degree fixtures, and the lower-order grid example.
 python run_all_checks.py --suite unexpanded --output-dir outputs/unexpanded
+
+# Physical nf=5 N³LL evolution in the canonical operator.
+python run_all_checks.py --suite physical_canonical --output-dir outputs/physical_canonical
 
 # Original fixed-order transverse / longitudinal / convolution checks.
 python run_all_checks.py --suite one_loop --suite toy_x --suite generator \
@@ -154,6 +193,10 @@ Full parameter and output descriptions are in [EXAMPLES.md](docs/EXAMPLES.md).
 ```bash
 python examples/canonical_evolution.py --mu 20 --zeta 400 \
   --s 0 0.01 0.1 1
+
+# Exercise the sourced physical N³LL evolution input; boundaries stay strict NLO.
+python examples/canonical_evolution.py \
+  --coefficients data/coefficients_css2_nf5_n3ll.json --mu 20 --zeta 400
 ```
 
 This evaluates the dimensionless canonical leg at a final virtuality scale of
@@ -299,6 +342,9 @@ The package distinguishes those assumptions, numerical checks of examples, and
 finite-grid error estimates in [FORMALISM.md](docs/FORMALISM.md) and
 [RESEARCH_SCOPE.md](docs/RESEARCH_SCOPE.md).
 
+The publication-oriented non-Gaussian transform comparison is documented in
+[CANONICAL_CONTINUUM_BENCHMARK.md](docs/CANONICAL_CONTINUUM_BENCHMARK.md).
+
 ## Verification map
 
 Every ID below is registered in
@@ -320,6 +366,8 @@ the actual calculations.
 | `structural` | [Structural verification](validators/validate_v1p4.py) | 102 contact, boundary, ordered-matrix, weak/bin, and counterexample checks |
 | `resolvent_demo` | [Analytic multiplier demo](validators/resolvent_operator_demo.py) | 8 checks for a bounded test multiplier on a finite grid |
 | `unexpanded` | [Unexpanded construction](validators/validate_unexpanded.py) | 95 symbolic, formal-fixture, lower-order QCD, and same-grid checks |
+| `physical_canonical` | [Physical canonical evolution](validators/validate_physical_canonical.py) | Sourced 4/4/3/3-loop evolution, RG identities, and non-Gaussian same-grid action |
+| `canonical_derivation` | [Canonical derivation audit](validators/audit_canonical_derivation.py) | Exact logarithmic-degree and matching identities with deliberate failure controls |
 
 Some original component reports expose aggregate metrics rather than an individual
 record list. The runner preserves that distinction instead of inventing a record
@@ -334,19 +382,21 @@ scalar, fixed-flavor, asymptotically free, infrared-completed assumptions.
 The documentation separates the all-order logarithmic argument from finite
 coefficient-degree regression tests.
 
-| Ingredient | N³LL′ target convention | Included numerical demonstration |
+| Ingredient | N³LL evolution convention | Included physical evolution input |
 |---|---|---|
-| QCD beta function | Four-loop running | β₀ and β₁ |
-| Cusp anomalous dimension | Four loops | Γ₀ and Γ₁ |
-| TMD noncusp anomalous dimension | Three loops | γ₀ |
-| Canonical CS boundary | Through third order | d₁=0 and d₂ |
-| Hard and finite TMD matching functions | Through third order | Separate fixed-order/schema tests; not a complete physical three-loop payload |
+| QCD beta function | Four-loop running | β₀ through β₃ |
+| Cusp anomalous dimension | Four loops | Γ₀ through Γ₃ |
+| TMD noncusp anomalous dimension | Three loops | γ₀ through γ₂ |
+| Canonical CS boundary | Through third order | d₁ through d₃, with d₁=0 |
+| Hard and finite TMD matching functions | Strict NLO in current physical assembly | NLO hard and OPE insertions |
 | Collinear evolution | P⁽⁰⁾, P⁽¹⁾, P⁽²⁾ | Toy and formal-matrix checks in the verification suites |
 | Process spectrum | Matched measurement-level prediction | Singular-expansion prototype and operator examples |
 
 [`data/coefficients_demo.json`](data/coefficients_demo.json) specifies the numerical
 massless quark example with n<sub>f</sub>=5, μ₀=2 GeV, and a(μ₀)=0.02.
-Its coefficient provenance and normalization are documented in
+[`data/coefficients_css2_nf5_n3ll.json`](data/coefficients_css2_nf5_n3ll.json)
+supplies the sourced physical N³LL evolution vector used by `physical_canonical`.
+Their coefficient provenance and normalization are documented in
 [COEFFICIENTS.md](docs/COEFFICIENTS.md). The formal rational fixtures used for
 logarithmic counting and flavor ordering are identified separately at their use sites.
 
@@ -383,6 +433,8 @@ validators/                     Scientific/component verification suites
 tests/                          Runner, policy, and example software tests
 manifests/                      Suite registry, source lineage, input inventories
 data/coefficients_demo.json      Declared lower-order coefficient input
+data/coefficients_css2_nf5_n3ll.json
+                                Physical nf=5 N³LL evolution; strict NLO boundaries
 Data_DY_test/                   Preserved CSV tables (not used by verification)
 docs/                           Formalism, API, examples, evidence, and scope
 scripts/stage_public_coefficients.sh
@@ -433,3 +485,23 @@ should record its new hash rather than retain a byte-identity claim.
 
 The software license is [MIT](LICENSE). Third-party data and downloaded coefficient
 sources retain their own licensing and attribution requirements.
+
+## Corrected CSS2 diagnostic branch
+
+The [resolution prescription](docs/CSS2_RESOLUTION.md) adds sourced N3LL
+evolution, corrected general-scale NLO matching, strict insertion assembly,
+and an independently checked physical-PDF point. Its scope is a fixed
+proton--proton diagnostic; experimental reference reproduction remains separate.
+
+The [noncanonical prescription](docs/NONCANONICAL_PRESCRIPTION.md) adds
+three-loop CS-boundary transport, fixed-flavor domain guards and an E605
+primary-point measurement adapter. Threshold-crossing production remains gated.
+
+The [E866 proton-only baseline](docs/E866_PP_BASELINE.md) adds explicit mass/xF
+and transverse-bin integration, a high-scale massless matching prescription,
+and a shared Gaussian boundary with a nonperturbative CS term. Its documented
+measurement and identifiability limits remain part of the calculation's scope.
+
+The [native-kT DNN pilot](docs/NATIVE_DNN_PILOT.md) learns x-dependent mixture
+boundaries through the native elliptic operator, with explicit measured-bin
+weights, analytic neural gradients and independent non-Gaussian closure.

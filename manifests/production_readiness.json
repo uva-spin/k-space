@@ -1,0 +1,19 @@
+{
+  "schema": "production-readiness/2",
+  "scope": "Native-kT methods paper; N3LL evolution with strict-NLO hard/OPE boundaries",
+  "method_validation_passed": true,
+  "unrestricted_phenomenological_prediction_allowed": false,
+  "canonical_physical_report": "validation/reference/2026-10-01/canonical_physical_completed.json",
+  "UV_condition": "Two explicit benchmark continuations and conditional broader-class bounds; maximum class envelope 1.6683e-6 of the peak passes the 2e-6 numerical criterion and stays in the original budget; no DGLAP assertion above the PDF table",
+  "E866_status": "41-bin conditional pp forward and inverse demonstrations complete; capped profile separate from canonical theorem",
+  "future_extraction": "Same-data joint-(x,kT) FiLM comparison is separate future work",
+  "not_claimed": [
+    "N3LL-prime spectrum",
+    "full W+Y",
+    "massive thresholds",
+    "Z production in photon benchmarks",
+    "global extraction",
+    "independent human scientific review"
+  ],
+  "historical_E605_Cu_contract": "manifests/e605_diagnostic_readiness.json"
+}

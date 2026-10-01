@@ -1,0 +1,300 @@
+{
+  "schema": "k-space-canonical-continuum-benchmark/1",
+  "passed": true,
+  "scope": "Physical nf=5 N3LL canonical evolution acting on a non-Gaussian input; strict-NLO boundaries are not used in this operator-only benchmark",
+  "input": {
+    "family": "normalized Student radial density",
+    "scale_GeV": 1.2,
+    "power": 3,
+    "analytic_hankel_transform": true,
+    "analytic_scale_derivative": true
+  },
+  "endpoint": {
+    "symbol_zero": 0.0,
+    "symbol_infinity": 0.8266842492360781,
+    "contact_retained_analytically_in_reference": true
+  },
+  "bin_edges_GeV": [
+    0.0,
+    0.5,
+    1.0,
+    2.0,
+    3.0,
+    4.0,
+    6.0,
+    8.0
+  ],
+  "reference_bins": [
+    0.22821951099253546,
+    0.3173942681167821,
+    0.2496924457016988,
+    0.0722015634198229,
+    0.046668066998391454,
+    0.07978603896960518,
+    0.053972833340740066
+  ],
+  "reference_gradient_bins": [
+    -0.2960350617115142,
+    -0.09763302661124416,
+    0.25046492167457746,
+    0.0954603006656114,
+    0.026479256523722187,
+    0.010974304917287753,
+    0.0024321565550019415
+  ],
+  "reference_quadrature_errors": [
+    2.002782655577853e-13,
+    4.747998637632908e-14
+  ],
+  "refinements": [
+    {
+      "degree": 256,
+      "radius_GeV": 1280.0,
+      "spacing_GeV": 0.0125,
+      "bins": [
+        0.2282334118306628,
+        0.3173997575796942,
+        0.24968875259561346,
+        0.07220046707007927,
+        0.046667313053402874,
+        0.0797836978745684,
+        0.05396849626204536
+      ],
+      "gradient_bins": [
+        -0.2960707307289734,
+        -0.09762820938527177,
+        0.2504713911688258,
+        0.09545829701966617,
+        0.02647812362062061,
+        0.010971799088001296,
+        0.002430171611934935
+      ],
+      "max_bin_error_over_peak": 4.3796752253389e-05,
+      "max_gradient_error_over_peak": 0.00011238078642944211,
+      "polynomial_basis": "Chebyshev-Lobatto in r=tau/(tau+s)"
+    },
+    {
+      "degree": 512,
+      "radius_GeV": 1280.0,
+      "spacing_GeV": 0.0125,
+      "bins": [
+        0.22823345002935264,
+        0.3173998721900976,
+        0.24968921179519118,
+        0.072201219609277,
+        0.04666842605796018,
+        0.07978671368380925,
+        0.0539726825940943
+      ],
+      "gradient_bins": [
+        -0.2960707307344564,
+        -0.09762820957430883,
+        0.2504713851712232,
+        0.09545838858629377,
+        0.026477836020012652,
+        0.01097189555833551,
+        0.0024304615824291063
+      ],
+      "max_bin_error_over_peak": 4.391710316599055e-05,
+      "max_gradient_error_over_peak": 0.00011238080370449554,
+      "polynomial_basis": "Chebyshev-Lobatto in r=tau/(tau+s)"
+    },
+    {
+      "degree": 1024,
+      "radius_GeV": 1280.0,
+      "spacing_GeV": 0.0125,
+      "bins": [
+        0.22823380966294998,
+        0.31740093332985975,
+        0.24969319585801744,
+        0.07220697834494183,
+        0.04667479184456583,
+        0.07979591480538045,
+        0.053970047123862996
+      ],
+      "gradient_bins": [
+        -0.2960707562661517,
+        -0.09762828488706952,
+        0.2504711027101257,
+        0.09545798188873766,
+        0.02647739046264116,
+        0.010971263042076906,
+        0.0024307894471155404
+      ],
+      "max_bin_error_over_peak": 4.505018474140912e-05,
+      "max_gradient_error_over_peak": 0.00011246124528104002,
+      "polynomial_basis": "Chebyshev-Lobatto in r=tau/(tau+s)"
+    },
+    {
+      "degree": 1024,
+      "radius_GeV": 1280.0,
+      "spacing_GeV": 0.05,
+      "bins": [
+        0.22844332294487296,
+        0.3174853514261498,
+        0.24964631517173,
+        0.07220458306650894,
+        0.046684029280894546,
+        0.07981701054021025,
+        0.05398287185031986
+      ],
+      "gradient_bins": [
+        -0.29660685922850144,
+        -0.09755560943252024,
+        0.25056799386909234,
+        0.09542927405472497,
+        0.026456077071744685,
+        0.010935021864673926,
+        0.0024067326122303072
+      ],
+      "max_bin_error_over_peak": 0.000705154361058453,
+      "max_gradient_error_over_peak": 0.0018015369980683726,
+      "polynomial_basis": "Chebyshev-Lobatto in r=tau/(tau+s)"
+    },
+    {
+      "degree": 1024,
+      "radius_GeV": 1280.0,
+      "spacing_GeV": 0.025,
+      "bins": [
+        0.2282756688214306,
+        0.31741782544616065,
+        0.24968382352165427,
+        0.07220649767546454,
+        0.04667663788519515,
+        0.07980013114423866,
+        0.053972610159487226
+      ],
+      "gradient_bins": [
+        -0.29617781665540144,
+        -0.09761381293742938,
+        0.2504904896596747,
+        0.09545224463151501,
+        0.026473132436288092,
+        0.01096402436903773,
+        0.002425984479952924
+      ],
+      "max_bin_error_over_peak": 0.00017693397309394813,
+      "max_gradient_error_over_peak": 0.0004497716506798668,
+      "polynomial_basis": "Chebyshev-Lobatto in r=tau/(tau+s)"
+    },
+    {
+      "degree": 1024,
+      "radius_GeV": 320.0,
+      "spacing_GeV": 0.0125,
+      "bins": [
+        0.2282336214494619,
+        0.3174001448762461,
+        0.24968759031743015,
+        0.07219409205753934,
+        0.046659365558673054,
+        0.07978377532562286,
+        0.05394966929083483
+      ],
+      "gradient_bins": [
+        -0.2960709788971986,
+        -0.09762880298441247,
+        0.25047073405127857,
+        0.09546029044283753,
+        0.026480496607644566,
+        0.010966486685590325,
+        0.0024320229129452422
+      ],
+      "max_bin_error_over_peak": 7.298194149087723e-05,
+      "max_gradient_error_over_peak": 0.00011316267901579693,
+      "polynomial_basis": "Chebyshev-Lobatto in r=tau/(tau+s)"
+    },
+    {
+      "degree": 1024,
+      "radius_GeV": 640.0,
+      "spacing_GeV": 0.0125,
+      "bins": [
+        0.22823336271150277,
+        0.31739965667113856,
+        0.24968897389220146,
+        0.07220254062303431,
+        0.04667241638412013,
+        0.07979966130071083,
+        0.05397692760540657
+      ],
+      "gradient_bins": [
+        -0.2960706747031484,
+        -0.09762805508676863,
+        0.2504718188539498,
+        0.09545859454067283,
+        0.026477443233596624,
+        0.010969777519629562,
+        0.002430296774062918
+      ],
+      "max_bin_error_over_peak": 4.364199470109812e-05,
+      "max_gradient_error_over_peak": 0.00011220426835521304,
+      "polynomial_basis": "Chebyshev-Lobatto in r=tau/(tau+s)"
+    }
+  ],
+  "changes": {
+    "degree_512_to_1024": 2.8989564385619084e-05,
+    "spacing_0p025_to_0p0125": 0.00013188378835253902,
+    "radius_640_to_1280": 2.1678027093561174e-05
+  },
+  "observed_bin_error_budget_over_peak": 0.0002276015645731284,
+  "tests": [
+    {
+      "name": "reference quadrature",
+      "passed": true,
+      "value": 2.002782655577853e-13,
+      "threshold": 2e-10
+    },
+    {
+      "name": "native bins versus continuum Hankel reference",
+      "passed": true,
+      "value": 4.505018474140912e-05,
+      "threshold": 0.0004
+    },
+    {
+      "name": "native analytic input gradient versus continuum reference",
+      "passed": true,
+      "value": 0.00011246124528104002,
+      "threshold": 0.0007
+    },
+    {
+      "name": "degree refinement",
+      "passed": true,
+      "value": 2.8989564385619084e-05,
+      "threshold": 5e-05
+    },
+    {
+      "name": "spacing refinement",
+      "passed": true,
+      "value": 0.00013188378835253902,
+      "threshold": 0.0002
+    },
+    {
+      "name": "box refinement",
+      "passed": true,
+      "value": 2.1678027093561174e-05,
+      "threshold": 5e-05
+    },
+    {
+      "name": "conservative observed bin error budget",
+      "passed": true,
+      "value": 0.0002276015645731284,
+      "threshold": 0.0004
+    },
+    {
+      "name": "input derivative finite difference",
+      "passed": true,
+      "value": 4.0828473935050624e-10,
+      "threshold": 2e-09
+    }
+  ],
+  "sha256": {
+    "script": "bfe34e194e95b827cccbd87fa6c997fc0a401410acad36808c49b42c6266a6f1",
+    "operator": "f1359ad36b754ce590b90e45ee9d2de1ff282a0cbd95492d3049db2c0b08d668",
+    "radial_evaluator": "bdca9ff837842b50d06b270de1bc819ba994914a9b749aca12bcdf0450c48b05",
+    "coefficients": "620d1222f395c0fac81e7e1bfe5da87b542663ac72c194e196e5ef29b5a4c3d7"
+  },
+  "limitations": {
+    "physical_N3LLprime_prediction_validated": false,
+    "full_process_cross_section": false,
+    "rigorous_global_rational_supremum_certified": false
+  }
+}

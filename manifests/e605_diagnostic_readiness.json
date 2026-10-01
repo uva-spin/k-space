@@ -1,0 +1,48 @@
+{
+  "schema": "production-readiness/1",
+  "production_prediction_allowed": false,
+  "validated_components": [
+    "Three-loop noncanonical CS boundary and fixed-anchor two-scale transport",
+    "Consistent power-16 coordinate in strict-NLO matching and resummed evolution",
+    "Fixed-nf=4 and nf=5 native-versus-independent-ODE/Bessel diagnostics",
+    "54 unique E605 row matches to official HEPData version 1",
+    "Invariant-observable prefactor, units and fixed-xF mass-integration adapter analytic fixture"
+  ],
+  "experimental_W_only_baseline_complete": false,
+  "full_M2_complete": false,
+  "remaining_requirements": [
+    {
+      "id": "massive_threshold",
+      "status": "not_implemented",
+      "detail": "Define applicable charm/bottom hierarchy for the selected Q and qT; obtain scheme-consistent massive beam/soft or mass-mode and rapidity matching. Piecewise massless nf running alone is insufficient."
+    },
+    {
+      "id": "target",
+      "status": "not_defined",
+      "detail": "Declare per-nucleon copper proton/neutron mixture and nuclear model."
+    },
+    {
+      "id": "nonperturbative",
+      "status": "not_defined",
+      "detail": "Declare NP CS kernel and boundary distribution. Zero NP CS and Gaussian mixture remain diagnostic inputs."
+    },
+    {
+      "id": "measurement_acceptance",
+      "status": "requires_primary_paper_confirmation",
+      "detail": "Confirm original mass-window and acceptance/correction interpretation; no qT/xF edges supplied by HEPData."
+    },
+    {
+      "id": "measured_forward_map",
+      "status": "not_run",
+      "detail": "After the above contract, compare point/mass-window native and independent reference calculations on the declared small-qT core."
+    },
+    {
+      "id": "matched_remainder",
+      "status": "subsequent_extension",
+      "detail": "Construct FO minus expansion of this same W with matching scheme/order/target/observable. Follow the execution-plan W-only baseline first."
+    }
+  ],
+  "diagnostic_cut": "qT/Qlow <= 0.2",
+  "diagnostic_cut_rows": 52,
+  "historical_reference_likelihood_reproduced": false
+}

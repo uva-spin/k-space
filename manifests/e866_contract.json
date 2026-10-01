@@ -1,0 +1,69 @@
+{
+  "schema": "E866-declared-physics-contract/1",
+  "target": "proton-proton",
+  "target_proton_fraction": 1.0,
+  "scope": "new massless leading-power photon W-only baseline",
+  "reference_reproduction": false,
+  "original_repository_unchanged": true,
+  "selected_rows": 41,
+  "row_selection": "Qlow>=6.2, xfhigh<=0.35, qThigh/Qlow<=0.2; original published mass windows",
+  "nf": 5,
+  "PDF": "NNPDF40_nnlo_as_01180 member 0, published NNLO",
+  "alpha_s": {
+    "value": 0.1180024,
+    "scale_GeV": 91.1876,
+    "running_loops": 4
+  },
+  "perturbative_order": {
+    "cusp": 4,
+    "noncusp": 3,
+    "CS_boundary": 3,
+    "hard_OPE": "strict NLO",
+    "evolution": "unexpanded"
+  },
+  "profile": {
+    "matching_scale_GeV": 5.0,
+    "bmax": "b0/5 GeV^-1",
+    "b_eval": "(bstar^16+(b0/Q)^16)^(1/16)",
+    "mu_initial": "b0/b_eval",
+    "initial_zeta": "mu_initial^2",
+    "final_mu": "Q",
+    "final_zeta": "Q^2",
+    "logs_Lb": 0
+  },
+  "NP": {
+    "boundary": "same normalized Gaussian per proton leg, x and flavor independent",
+    "lambda0_validation_GeV2": 0.7,
+    "g_validation_GeV2": 0.05,
+    "Q0_GeV": 5.0,
+    "single_leg_D_NP": "g*b^2",
+    "pair_variance": "2*lambda0+8*g*ln(Q/Q0)"
+  },
+  "measurement": {
+    "invariant": "E d3sigma/d3q",
+    "units": "pb/GeV^2/nucleon",
+    "mass": "integrate dQ^2",
+    "xF": "uniform average",
+    "qT": "uniform average; annular average is separately tested",
+    "kinematics": "leading-power xA*xB=Q^2/s, xA-xB=xF",
+    "alpha_em": 0.0072973525692838015
+  },
+  "limitations": [
+    "No complete massive-quark corrections",
+    "No high-qT Y term",
+    "No general x/flavor-dependent transverse input",
+    "Energy-column inconsistency and exact finite-bin estimator unresolved",
+    "No full experimental covariance or calibrated coverage",
+    "Restricted Gaussian actual-data diagnostic is inadequate: chi2=119.045 for 39 nominal dof; normalization 1.216835"
+  ],
+  "forward_benchmark_allowed": true,
+  "conditional_pseudodata_closure_allowed": true,
+  "conditional_data_diagnostic_allowed": true,
+  "precision_absolute_extraction_ready": false,
+  "general_TMD_extraction_ready": false,
+  "data_diagnostic_status": {
+    "numerically_completed": true,
+    "adequate_data_description": false,
+    "interpretation": "Conditional diagnostic only, not an extraction. Internal table audit suggests the inconsistent energy conversion may affect normalization; no inferred correction is applied."
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "Q": 8.0,
+  "alpha_s": 0.25,
+  "a_s": 0.019894367886486918,
+  "edges": [
+    0.0,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0,
+    8.0
+  ],
+  "tests": {
+    "plus_null_max_abs": 0.0,
+    "plus_null_values": {
+      "B0(0,Q)": -0.0,
+      "B1(0,Q)": -0.0,
+      "B2(0,Q)": -0.0,
+      "B3(0,Q)": -0.0
+    },
+    "additivity_max_abs": 0.0,
+    "additivity_values": {
+      "B0(q0,q2)-B0(q0,q1)-B0(q1,q2)": 0.0,
+      "B0(q1,q3)-B0(q1,q2)-B0(q2,q3)": 0.0,
+      "B1(q0,q2)-B1(q0,q1)-B1(q1,q2)": 0.0,
+      "B1(q1,q3)-B1(q1,q2)-B1(q2,q3)": 0.0,
+      "B2(q0,q2)-B2(q0,q1)-B2(q1,q2)": 0.0,
+      "B2(q1,q3)-B2(q1,q2)-B2(q2,q3)": 0.0
+    },
+    "offzero_diag_max_abs_difference": 1.1102230246251565e-16,
+    "pass": true,
+    "tolerance": 5e-13
+  },
+  "rows": [
+    {
+      "qa": 0.0,
+      "qb": 0.25,
+      "B0": -6.931471805599453,
+      "B1": -24.02265069591007,
+      "Bdelta": 1.0,
+      "diag_singular_weight": -1.3465188081661952,
+      "ordinary_offzero_weight": null,
+      "offzero_difference": null
+    },
+    {
+      "qa": 0.25,
+      "qb": 0.5,
+      "B0": 1.3862943611198908,
+      "B1": 8.648154250527625,
+      "Bdelta": 0.0,
+      "diag_singular_weight": 0.6969620649091196,
+      "ordinary_offzero_weight": 0.6969620649091197,
+      "offzero_difference": -1.1102230246251565e-16
+    },
+    {
+      "qa": 0.5,
+      "qb": 1.0,
+      "B0": 1.3862943611198908,
+      "B1": 6.726342194854821,
+      "Bdelta": 0.0,
+      "diag_singular_weight": 0.49305147267317057,
+      "ordinary_offzero_weight": 0.4930514726731707,
+      "offzero_difference": -1.1102230246251565e-16
+    },
+    {
+      "qa": 1.0,
+      "qb": 2.0,
+      "B0": 1.3862943611198904,
+      "B1": 4.804530139182012,
+      "Bdelta": 0.0,
+      "diag_singular_weight": 0.2891408804372212,
+      "ordinary_offzero_weight": 0.28914088043722125,
+      "offzero_difference": -5.551115123125783e-17
+    },
+    {
+      "qa": 2.0,
+      "qb": 4.0,
+      "B0": 1.3862943611198906,
+      "B1": 2.882718083509208,
+      "Bdelta": 0.0,
+      "diag_singular_weight": 0.08523028820127214,
+      "ordinary_offzero_weight": 0.08523028820127217,
+      "offzero_difference": -2.7755575615628914e-17
+    },
+    {
+      "qa": 4.0,
+      "qb": 8.0,
+      "B0": 1.3862943611198906,
+      "B1": 0.9609060278364028,
+      "Bdelta": 0.0,
+      "diag_singular_weight": -0.11868030403467701,
+      "ordinary_offzero_weight": -0.118680304034677,
+      "offzero_difference": -1.3877787807814457e-17
+    }
+  ]
+}

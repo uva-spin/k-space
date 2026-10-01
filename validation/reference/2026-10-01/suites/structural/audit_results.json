@@ -1,0 +1,689 @@
+{
+  "schema": "kcss-structural-audit/1.0",
+  "tests": [
+    {
+      "name": "Fourier polynomial P0",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Fourier polynomial P1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Fourier polynomial P2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Fourier polynomial P3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Fourier polynomial P4",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Fourier polynomial P5",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical disk moment J0",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Generator/cumulant dictionary J0",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical disk moment J1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Generator/cumulant dictionary J1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical disk moment J2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Generator/cumulant dictionary J2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical disk moment J3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Generator/cumulant dictionary J3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical disk moment J4",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Generator/cumulant dictionary J4",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical disk moment J5",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Generator/cumulant dictionary J5",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical disk moment J6",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Generator/cumulant dictionary J6",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Convolution L0 L0",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Convolution L0 L1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Convolution L0 L2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Convolution L1 L1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Convolution L0 L3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Convolution L1 L2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Riesz convolution strip eta=0.31,xi=0.27",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.00738441243107603e-17",
+      "tolerance": "1.0e-12"
+    },
+    {
+      "name": "Riesz convolution strip eta=0.23,xi=0.41",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "3.55015386474487614e-15",
+      "tolerance": "1.0e-12"
+    },
+    {
+      "name": "Reject globally closed strip-generator algebra",
+      "kind": "counterexample",
+      "passed": true,
+      "detail": "eta=xi=3/4 are individually locally integrable, their b-space product is not."
+    },
+    {
+      "name": "Constant cumulative preserves delta contact",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Old origin-subtraction identity rejected on delta",
+      "kind": "counterexample",
+      "passed": true,
+      "detail": "Old disk identity predicts 0; correct answer for C(t)=1.7 is 1.7."
+    },
+    {
+      "name": "Fixed-scale weak/plus identity n=0",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-40"
+    },
+    {
+      "name": "Frozen profile with divergent origin cumulative n=0",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-39"
+    },
+    {
+      "name": "Fixed-scale weak/plus identity n=1",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.85482070474935448e-55",
+      "tolerance": "1.0e-40"
+    },
+    {
+      "name": "Frozen profile with divergent origin cumulative n=1",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.22349458774972335e-55",
+      "tolerance": "1.0e-39"
+    },
+    {
+      "name": "Fixed-scale weak/plus identity n=2",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.58565189544441534e-53",
+      "tolerance": "1.0e-40"
+    },
+    {
+      "name": "Frozen profile with divergent origin cumulative n=2",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.14192828189974179e-53",
+      "tolerance": "1.0e-39"
+    },
+    {
+      "name": "Fixed-scale weak/plus identity n=3",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.63654927029480384e-51",
+      "tolerance": "1.0e-40"
+    },
+    {
+      "name": "Frozen profile with divergent origin cumulative n=3",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.17439167162803445e-51",
+      "tolerance": "1.0e-39"
+    },
+    {
+      "name": "Running delta coefficient includes continuous derivative",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Profile chain-rule density",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical profile annihilates logarithmic cumulative",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Canonical profile retains frak-L2 contact",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Contact-complete bin n=0,[0.0,0.17]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=0,[0.17,0.53]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "5.81478547563345081e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=0,[0.53,1.21]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "8.92131470234173275e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=0,[1.21,2.8]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.01957882312476946e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=0,[2.8,5.6]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "5.09789411562384729e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=0,[5.6,9.0]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "5.09789411562384729e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin additivity n=0",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "5.09789411562384729e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=1,[0.0,0.17]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=1,[0.17,0.53]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.57716099202112775e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=1,[0.53,1.21]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "5.09789411562384729e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=1,[1.21,2.8]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.54894705781192364e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=1,[2.8,5.6]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.01957882312476946e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=1,[5.6,9.0]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "5.09789411562384729e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin additivity n=1",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "4.46065735117086638e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=2,[0.0,0.17]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.03915764624953891e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=2,[0.17,0.53]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.27447352890596182e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=2,[0.53,1.21]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.65681558757775037e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=2,[1.21,2.8]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.01957882312476946e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=2,[2.8,5.6]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.03915764624953891e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=2,[5.6,9.0]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "5.09789411562384729e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin additivity n=2",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.21871531201632599e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=3,[0.0,0.17]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.03915764624953891e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=3,[0.17,0.53]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "6.05374926230331865e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=3,[0.53,1.21]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "1.65681558757775037e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=3,[1.21,2.8]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "3.05873646937430837e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=3,[2.8,5.6]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.03915764624953891e-56",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin n=3,[5.6,9.0]",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "2.54894705781192364e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Contact-complete bin additivity n=3",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "8.74209186233933187e-57",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "Final rapidity product",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Ordered matrix mu-RG order 1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Ordered matrix CS order 1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Ordered matrix finite boundary order 1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Matching polynomial degree bound order 1",
+      "kind": "symbolic",
+      "passed": true,
+      "detail": "maximum L degree=2"
+    },
+    {
+      "name": "Ordered matrix mu-RG order 2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Ordered matrix CS order 2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Ordered matrix finite boundary order 2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Matching polynomial degree bound order 2",
+      "kind": "symbolic",
+      "passed": true,
+      "detail": "maximum L degree=4"
+    },
+    {
+      "name": "Ordered matrix mu-RG order 3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Ordered matrix CS order 3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Ordered matrix finite boundary order 3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "zero matrix"
+    },
+    {
+      "name": "Matching polynomial degree bound order 3",
+      "kind": "symbolic",
+      "passed": true,
+      "detail": "maximum L degree=6"
+    },
+    {
+      "name": "Reversed flavor ordering rejected",
+      "kind": "counterexample",
+      "passed": true,
+      "detail": "C1 P0 != P0 C1 for the stated noncommuting Mellin fixture."
+    },
+    {
+      "name": "D3 RG coefficient order 1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "D3 RG coefficient order 2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "D3 RG coefficient order 3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "D3 is not an exact four-loop-cusp RG solution",
+      "kind": "counterexample",
+      "passed": true,
+      "detail": "-2*G0*L**3*b0**3 - 5*G0*L**2*b0*b1 - 2*G0*L*b2 - 6*G1*L**2*b0**2 - 4*G1*L*b1 - 6*G2*L*b0 - 2*G3 - 12*L*b0**2*d2 - 6*b0*d3 - 4*b1*d2"
+    },
+    {
+      "name": "Integrated RG completion derivative",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Reject raw cubic exponent as regular tempered kernel",
+      "kind": "counterexample",
+      "passed": true,
+      "detail": "At b -> 0 with rho>0, radial logarithm of integrand behaves as c*u^3-2*u."
+    },
+    {
+      "name": "FO3 cannot see altered all-order logarithm",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Hidden a4 L5 term survives resummed scaling",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "All ordered two-leg product partitions order 0",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "All ordered two-leg product partitions order 1",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "All ordered two-leg product partitions order 2",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "All ordered two-leg product partitions order 3",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "Matching leaves NP unexpanded and avoids subtraction loss",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "NP heat equation",
+      "kind": "symbolic",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "name": "NP heat kernel normalized",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "NP heat kernel second moment",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-35"
+    },
+    {
+      "name": "NP heat semigroup direct momentum convolution",
+      "kind": "numerical",
+      "passed": true,
+      "residual": "0.0",
+      "tolerance": "1.0e-35"
+    }
+  ],
+  "summary": {
+    "passed": true,
+    "number_passed": 102,
+    "number_tests": 102,
+    "physical_three_loop_coefficients_tested": false,
+    "all_order_accuracy_certified_by_this_finite_test_run": false,
+    "numerical_extraction_performed": false
+  },
+  "provenance": {
+    "provenance_manifest": "source_provenance.json",
+    "provenance_manifest_sha256": "7370b5e47a96ae29e99cbceafc1f548e6c428b44def7a7477628dd33456b1af4",
+    "script_sha256": "51c59a6c767a45383739173fb233885b9e4b66c31437c1032486cee452ea245f",
+    "python": "3.13.15 (main, Sep 24 2026, 17:46:40) [Clang 22.1.3 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "sympy": "1.14.0",
+      "mpmath": "1.3.0"
+    },
+    "mpmath_decimal_digits": 55
+  },
+  "canonical_disk_moments": [
+    "1",
+    "0",
+    "0",
+    "-4*zeta(3)",
+    "0",
+    "-48*zeta(5)",
+    "160*zeta(3)**2"
+  ]
+}

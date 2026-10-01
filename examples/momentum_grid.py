@@ -82,7 +82,8 @@ def main(argv=None) -> int:
         write_json(out/'momentum_grid.json',report)
     except (ValueError, OSError, RuntimeError) as err:
         parser.error(str(err))
-    print('Momentum-space resolvent example — lower-order input, finite grid')
+    label = rg.c.evolution_accuracy or 'lower-order input'
+    print(f'Momentum-space resolvent example — {label}, finite grid')
     for row in rows:
         text=f"N={row['degree']:3d}  output L2={row['output_L2']:.8g}"
         if args.reference: text+=f"  same-grid error={row['L2_same_grid_error']:.6g}  bound={row['finite_matrix_bound']:.6g}"
