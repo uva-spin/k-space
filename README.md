@@ -444,3 +444,8 @@ proton--proton diagnostic; experimental reference reproduction remains separate.
 The [noncanonical prescription](docs/NONCANONICAL_PRESCRIPTION.md) adds
 three-loop CS-boundary transport, fixed-flavor domain guards and an E605
 primary-point measurement adapter. Threshold-crossing production remains gated.
+
+The [E866 proton-only baseline](docs/E866_PP_BASELINE.md) adds explicit mass/xF
+and transverse-bin integration, a high-scale massless matching prescription,
+and a shared Gaussian boundary with a nonperturbative CS term. Its documented
+measurement and identifiability limits remain part of the calculation's scope.
