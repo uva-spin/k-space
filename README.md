@@ -50,9 +50,9 @@ high-qT W-only bins are numerical stress tests. These results do not establish
 N³LL′, complete W+Y, massive thresholds, global extraction, or independent human
 scientific review. Read the [full interpretation](docs/VALIDATION_RESULTS.md).
 
-The current publication is the methods paper. A same-data joint-(x,kT) FiLM
-comparison with the bT extraction is a separate future project. The existing
-E866 mixture fit is a conditional demonstration.
+This release supports the methods manuscript, which is being prepared for PRD.
+A same-data joint-(x,kT) FiLM comparison with the bT extraction is a separate
+future project. The existing E866 mixture fit is a conditional demonstration.
 
 ### Read the repository in three passes
 
@@ -80,8 +80,9 @@ The program has four connected goals:
    Hankel transformations.
 2. **Preserve perturbative control.** Link matching coefficients, Collins–Soper
    evolution, virtuality evolution, flavor ordering, and logarithmic counting to
-   an explicitly declared CSS2 convention. The target high-accuracy prescription
-   is N³LL′ with the stated physical inputs and domain assumptions.
+   an explicitly declared CSS2 convention. The validated implementation provides
+   N³LL evolution with strict-NLO hard/OPE boundaries. An N³LL′ extension requires
+   additional physical boundary inputs and validation.
 3. **Separate the perturbative operator from the nonperturbative model.**
    A neural network, spline, analytic model, or other admitted input can describe
    unresolved transverse structure. The perturbative evolution and matching are
@@ -306,10 +307,11 @@ D_i^c(s;\mu)
 \Gamma_{i,[4]}\!\left(a(\nu)\right).
 ```
 
-The bracketed orders describe the high-accuracy construction. The shipped numerical
-example uses the explicitly smaller coefficient set described below. Its ODE solver
-integrates the coefficients actually supplied; an array length or metadata flag
-alone does not establish a physical accuracy label.
+The bracketed orders describe the sourced N³LL evolution input used by the
+physical benchmarks. The default introductory example uses a separately declared
+lower-order demonstration set. The ODE solver integrates the coefficients actually
+supplied; an array length or metadata flag alone does not establish a physical
+accuracy label.
 
 The completion scale is canonical at small spectral resolution and freezes to μ₀
 in the infrared. It is independent of the hadron, x, and evolution endpoint, with
@@ -331,8 +333,10 @@ A completed canonical symbol is applied through contact-preserving approximants
 \mathbb M_N=M_\infty I+R_\tau B_N[h](R_\tau).
 ```
 
-The source implements operator-valued de Casteljau recurrence and sparse solves
-with `tau*I + T`. The constant contact coefficient is retained exactly at each
+The introductory implementation uses operator-valued de Casteljau recurrence and
+sparse solves with `tau*I + T`. The continuum benchmarks use endpoint-preserving
+Chebyshev approximants, with Clenshaw evaluation or cached finite-bin moments of
+the recurrence. The constant contact coefficient is retained exactly at each
 degree. Scalar spectral nodes determine polynomial coefficients; the input and
 output arrays stay in momentum space. Independent diagonalization appears only
 in validation references, not in the application recurrence.
@@ -377,10 +381,12 @@ scope and output map.
 
 ## Perturbative accuracy and supplied inputs
 
-The analytic target is the CSS2-equivalent N³LL′ prescription under its stated
-scalar, fixed-flavor, asymptotically free, infrared-completed assumptions.
-The documentation separates the all-order logarithmic argument from finite
-coefficient-degree regression tests.
+The established logarithmic claim is CSS2 N³LL evolution in the uncapped
+spectral-canonical prescription, under the stated scalar, fixed-flavor,
+asymptotically free, infrared-completed assumptions. Physical hard/OPE boundaries
+are strict NLO. N³LL′ is a future extension requiring validated three-loop hard
+and matching boundaries with consistent collinear ingredients. The documentation
+separates the all-order logarithmic argument from finite coefficient-degree tests.
 
 | Ingredient | N³LL evolution convention | Included physical evolution input |
 |---|---|---|
@@ -389,8 +395,8 @@ coefficient-degree regression tests.
 | TMD noncusp anomalous dimension | Three loops | γ₀ through γ₂ |
 | Canonical CS boundary | Through third order | d₁ through d₃, with d₁=0 |
 | Hard and finite TMD matching functions | Strict NLO in current physical assembly | NLO hard and OPE insertions |
-| Collinear evolution | P⁽⁰⁾, P⁽¹⁾, P⁽²⁾ | Toy and formal-matrix checks in the verification suites |
-| Process spectrum | Matched measurement-level prediction | Singular-expansion prototype and operator examples |
+| Collinear input | Pinned PDF set and declared flavor/running conventions | NNPDF4.0 NNLO member 0 in physical benchmarks; separate toy/matrix recurrence checks |
+| Process assembly | Singular W term within the stated domain | Three-scale physical-PDF benchmark and conditional finite-bin E866 demonstrator; complete W+Y remains future work |
 
 [`data/coefficients_demo.json`](data/coefficients_demo.json) specifies the numerical
 massless quark example with n<sub>f</sub>=5, μ₀=2 GeV, and a(μ₀)=0.02.
@@ -473,7 +479,10 @@ establish whether those coefficients can support a prediction.
 ## Citation, development, and license
 
 Use [`CITATION.cff`](CITATION.cff) and record the **exact commit and input hashes**
-used for a scientific run. The [reference guide](docs/REFERENCES.md) identifies the
+used for a scientific run. The PRD review manuscript cites the immutable scientific
+revision [`04cf2ff882067c047216fb09e1f4df04ff78acc0`](https://github.com/uva-spin/k-space/tree/04cf2ff882067c047216fb09e1f4df04ff78acc0),
+which contains the accepted numerical snapshot and executable validation. Later
+documentation changes do not change that cited computational record. The [reference guide](docs/REFERENCES.md) identifies the
 parent factorization, distribution-space, rapidity-evolution, and matching sources.
 A versioned archive DOI can be added when an actual release is archived.
 
