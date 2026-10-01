@@ -108,7 +108,7 @@ The complete scientific/component run should end with:
 
 ```text
 all_suites_passed: True
-suites: 13/13
+suites: 14/14
 ```
 
 The full reports are generated at:
@@ -118,7 +118,7 @@ outputs/latest/run_all_checks_report.txt
 outputs/latest/run_all_checks_summary.json
 ```
 
-The 13-suite count includes different kinds of checks; it is not a sum of
+The 14-suite count includes different kinds of checks; it is not a sum of
 independent physics results. Detailed counts and residuals are obtained from the
 fresh per-suite reports. A selected-suite run records `full_required_run: false`.
 
@@ -331,6 +331,7 @@ the actual calculations.
 | `resolvent_demo` | [Analytic multiplier demo](validators/resolvent_operator_demo.py) | 8 checks for a bounded test multiplier on a finite grid |
 | `unexpanded` | [Unexpanded construction](validators/validate_unexpanded.py) | 95 symbolic, formal-fixture, lower-order QCD, and same-grid checks |
 | `physical_canonical` | [Physical canonical evolution](validators/validate_physical_canonical.py) | Sourced 4/4/3/3-loop evolution, RG identities, and non-Gaussian same-grid action |
+| `canonical_derivation` | [Canonical derivation audit](validators/audit_canonical_derivation.py) | Exact logarithmic-degree and matching identities with deliberate failure controls |
 
 Some original component reports expose aggregate metrics rather than an individual
 record list. The runner preserves that distinction instead of inventing a record

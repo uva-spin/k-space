@@ -22,6 +22,19 @@
     "assembly": "linear Born, hard, qq, and qg insertions; no incomplete products",
     "implementation": "src/css2_matching.py:strict_nlo"
   },
+  "canonical_physical_audit": {
+    "implementation": "src/canonical_physical.py",
+    "reference": "scripts/canonical_independent_reference.py",
+    "runner": "scripts/benchmark_canonical_physical.py",
+    "same_uncapped_prescription": true,
+    "PDF": "NNPDF40_nnlo_as_01180 member 0, native table only",
+    "scales_GeV": [8.0, 20.0, 91.1876],
+    "unresolved_PDF_UV": "explicit constant and logarithmic-growth benchmark input completions plus conditional class-wide finite-bin bounds; no hidden RG scale cap; not DGLAP solutions above the PDF table",
+    "completion_auditor": "scripts/audit_canonical_uv_completion.py",
+    "preserved_auxiliary_failure": "1e-6 all-unspecified-continuations bound target fails at high Q; primary tolerances unchanged, completed-input integration and broader class-wide primary tests pass",
+    "inputs": "two-leg Student algebraic tails and Gaussian pair, analytic log-scale derivatives and separate contacts",
+    "independence": "separately coded numerical reference; physical coefficient data and PDF provider shared; not independent human review"
+  },
   "capped_noncanonical_branch": {
     "class": "process-level profile diagnostics with finite nonzero spectral endpoints",
     "inherits_canonical_zero_endpoint": false,

@@ -21,9 +21,15 @@ requires updating that registry and rerunning the suite.
 | `resolvent_demo` | [resolvent_operator_demo.py](../validators/resolvent_operator_demo.py) | Bernstein operator bound against matrix exponential | Analytic non-QCD test multiplier, same grid |
 | `unexpanded` | [validate_unexpanded.py](../validators/validate_unexpanded.py) | RG-integral identities, log-degree fixtures, contact-aware resolvent | Lower-order QCD and explicitly scoped finite-grid tests |
 | `physical_canonical` | [validate_physical_canonical.py](../validators/validate_physical_canonical.py) | Sourced nf=5 4/4/3/3-loop coefficients, RG equations, independent quadrature, non-Gaussian action | N³LL evolution with strict NLO boundaries; no N³LL′ spectrum |
+| `canonical_derivation` | [audit_canonical_derivation.py](../validators/audit_canonical_derivation.py) | Exact logarithmic degrees through order eight, omitted-loop controls, matching/hard identities | Finite witnesses supporting the analytic argument; not an all-order proof by testing |
 
 All scripts are in `validators/`. Their outputs are in separate subdirectories of
 `outputs/latest/`, rather than one shared directory with ambiguous historical files.
+
+The additional [canonical physical audit](CANONICAL_PHYSICAL_AUDIT.md) requires
+external, hash-verified LHAPDF data. It tests all strict-NLO components, contacts
+and input derivatives against a separately coded continuum reference at three
+scales. It is a separate executable workflow, not one of the offline suites.
 
 ## Theory-to-test connections
 

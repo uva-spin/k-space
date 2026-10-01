@@ -109,10 +109,15 @@ class CanonicalRG:
 
     def tc(self, s):
         s = np.asarray(s, dtype=float)
-        if np.any(s <= 0):
+        if np.isnan(s).any() or np.any(s <= 0):
             raise ValueError("Use analytic endpoint limits at s=0")
-        y = s/self.s0
-        return -0.5*(1-self.chi(2*y-1))*np.log(y)
+        # The exact constant infrared endpoint includes positive infinity.
+        # Avoid 0*log(infinity), which otherwise produces NaN at that endpoint.
+        out = np.zeros_like(s)
+        sel = s < self.s0
+        y = s[sel]/self.s0
+        out[sel] = -0.5*(1-self.chi(2*y-1))*np.log(y)
+        return out
 
     def endpoint(self, mu: float, zeta: float):
         if mu < self.mu0 or zeta <= 0:
@@ -137,7 +142,7 @@ class CanonicalRG:
 
     def v(self, s, mu, zeta):
         s = np.asarray(s, dtype=float)
-        if np.any(s < 0):
+        if np.isnan(s).any() or np.any(s < 0):
             raise ValueError("s must be nonnegative")
         out = np.zeros_like(s)
         sel = s > 0

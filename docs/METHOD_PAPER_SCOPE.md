@@ -25,6 +25,13 @@ They do not inherit the canonical zero endpoint or the canonical N³LL tower
 theorem. They may appear only as bounded physical demonstrations with their own
 tests and qualifications.
 
+The [canonical physical audit](CANONICAL_PHYSICAL_AUDIT.md) now provides a
+separate path that combines the actual uncapped canonical operator with physical
+PDFs and all six strict-NLO components. Its independent continuum reference,
+two-leg algebraic-tail inputs, gradients, contacts, signed bins and PDF-endpoint
+bound directly test this common prescription. That audit has its own frozen
+numerical acceptance criteria; it is not inferred from the capped demonstrator.
+
 ## Publication claims
 
 The paper may state that:
