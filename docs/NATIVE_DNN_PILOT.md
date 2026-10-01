@@ -125,8 +125,8 @@ studies; this first pilot does not provide a full global uncertainty extraction.
 
 ## Running and preserving results
 
-The local runtime and PDF resources are inherited from the completed resolution
-and prescription runs. `build_native_dnn_kernel.py` creates the native response
+Use explicit `--library`, `--pdf-data`, and `--evidence-root` options as documented
+in [the reproduction recipe](REPRODUCE_METHOD_PAPER.md). `build_native_dnn_kernel.py` creates the native response
 and independent reference tensors. `run_native_dnn.py` runs closure before data;
 `polish_dnn.py` continues saved, numerically validated experimental fits with the
 same objective and tolerances. The continuation retains the previous optimizer

@@ -129,8 +129,10 @@ primary files and failed attempts remain in the external run directory.
 versions and SHA-256 values. The inherited `css2_sources.json` describes the
 previous resolution run; its files remain under the sibling
 `m1_resolution_2026-09-30/sources`, not this run's new sources directory.
-[The readiness manifest](../manifests/production_readiness.json) distinguishes
-validated diagnostics from the still-incomplete experimental forward map.
+[The historical E605 readiness manifest](../manifests/e605_diagnostic_readiness.json)
+preserves the unresolved copper-target diagnostic contract. The later E866 pp
+demonstrator and canonical methods-paper validation are summarized in the
+[current readiness manifest](../manifests/production_readiness.json).
 
 Primary references: [Collins and Rogers](https://arxiv.org/abs/1705.07167v3),
 [Pietrulewicz et al.](https://arxiv.org/abs/1703.09702v2), and

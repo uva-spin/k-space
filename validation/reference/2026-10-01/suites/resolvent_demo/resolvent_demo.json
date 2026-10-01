@@ -1,0 +1,98 @@
+{
+  "summary": {
+    "passed": true,
+    "checks": 8,
+    "passed_count": 8,
+    "physical_QCD_test": false,
+    "continuum_grid_error_established": false
+  },
+  "tests": [
+    {
+      "name": "Bernstein operator error bound N=4",
+      "passed": true
+    },
+    {
+      "name": "Bernstein operator error bound N=8",
+      "passed": true
+    },
+    {
+      "name": "Bernstein operator error bound N=16",
+      "passed": true
+    },
+    {
+      "name": "Bernstein operator error bound N=32",
+      "passed": true
+    },
+    {
+      "name": "Bernstein operator error bound N=64",
+      "passed": true
+    },
+    {
+      "name": "same-grid errors decrease under degree refinement",
+      "passed": true
+    },
+    {
+      "name": "resolvent kernel normalization",
+      "passed": true
+    },
+    {
+      "name": "resolvent positive spectrum and contraction",
+      "passed": true
+    }
+  ],
+  "refinement": [
+    {
+      "N": 4,
+      "L2_same_grid_error": 0.02685286889916306,
+      "theorem_bound": 0.04619313584337688,
+      "passed": true
+    },
+    {
+      "N": 8,
+      "L2_same_grid_error": 0.013414079429505855,
+      "theorem_bound": 0.02309656792168844,
+      "passed": true
+    },
+    {
+      "N": 16,
+      "L2_same_grid_error": 0.006703283868005727,
+      "theorem_bound": 0.01154828396084422,
+      "passed": true
+    },
+    {
+      "N": 32,
+      "L2_same_grid_error": 0.003350617284552288,
+      "theorem_bound": 0.00577414198042211,
+      "passed": true
+    },
+    {
+      "N": 64,
+      "L2_same_grid_error": 0.0016750416240493401,
+      "theorem_bound": 0.002887070990211055,
+      "passed": true
+    }
+  ],
+  "kernel_normalization": 1.0000000000000027,
+  "quadrature_error_estimate": 2.453592884421596e-14,
+  "setup": {
+    "interior_grid": [
+      9,
+      9
+    ],
+    "half_extent": 4.0,
+    "spacing": 0.8,
+    "tau": 0.6,
+    "c": 0.7,
+    "multiplier": "m(r)=exp(c*r)",
+    "boundary": "Dirichlet finite grid",
+    "reference": "independent dense matrix exponential on same grid"
+  },
+  "provenance": {
+    "script_sha256": "d8046650fd9bd4d892f1113238d590cbb6d7c45048b5798098c7fa2a0c0b061f",
+    "python": "3.13.15",
+    "packages": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0"
+    }
+  }
+}

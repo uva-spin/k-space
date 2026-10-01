@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "conventions": {
+    "L_mu": "ln(mu_f/mu_i)",
+    "rho": "ln sqrt(zeta_f/zeta_i)",
+    "ell_i": "ln(zeta_i/mu_i^2)",
+    "X_f": "L_b(mu_f)",
+    "a_s": "alpha_s/(4*pi), held fixed for this one-loop algebraic validator"
+  },
+  "logU_mu_first_final_scale": "Gamma0*L_mu**2*a_s - Gamma0*L_mu*a_s*ell_i - Gamma0*X_f*a_s*rho + L_mu*a_s*gammaF0",
+  "logU_zeta_first_initial_scale": "-Gamma0*L_mu**2*a_s - Gamma0*L_mu*a_s*ell_f - Gamma0*X_i*a_s*rho + L_mu*a_s*gammaF0",
+  "tests": {
+    "path_residual": "0",
+    "rapidity_equation_residual": "0",
+    "mu_equation_residual": "0",
+    "semigroup_residual": "0"
+  },
+  "nlo_conventional_basis_coefficients_per_a_s": {
+    "delta": "Gamma0*L_mu**2 - Gamma0*L_mu*ell_i + L_mu*gammaF0",
+    "L0": "Gamma0*rho"
+  },
+  "sample_quark_like_values": {
+    "a_s": "1/50",
+    "Gamma0": "16/3",
+    "gammaF0": "8",
+    "L_mu": "3/10",
+    "rho": "1/5",
+    "ell_i": "7/10",
+    "X_i": "11/10",
+    "X_f": "17/10",
+    "ell_f": "1/2"
+  },
+  "sample_logU_b_space": "-0.00106666666666666667",
+  "sample_eta": "0.0213333333333333333",
+  "sample_scalar_exponent": "0.0352000000000000000",
+  "notes": [
+    "The validator checks the Green function in b space because convolution becomes multiplication.",
+    "The corresponding k-space kernel is the scalar exponential multiplying G_eta(k;mu_f).",
+    "Running-coupling and higher-logarithmic evolution require replacing fixed a_s by RG integrals; this is the next formal layer."
+  ]
+}

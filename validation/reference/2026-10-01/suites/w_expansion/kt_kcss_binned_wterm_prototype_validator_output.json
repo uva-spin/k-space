@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "passed_symbolic": true,
+  "passed_numeric": true,
+  "max_bin_delta": 0.0,
+  "canonical_distribution_coefficients": {
+    "L1": "4*CF",
+    "L0": "-6*CF + 2*PA + 2*PB",
+    "delta": "cA + cB + h"
+  },
+  "leg_profile_minus_canonical": "0",
+  "pair_profile_minus_canonical": "0",
+  "two_loop_pair_rapidity_projection_residual": "0",
+  "Q_smoke_GeV": 8.0,
+  "profile_L_values": [
+    0.0,
+    1.3862943611198906,
+    0.8266785731844679
+  ],
+  "bin_edges_GeV": [
+    0.0,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0,
+    8.0
+  ]
+}

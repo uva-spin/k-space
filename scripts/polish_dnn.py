@@ -6,8 +6,8 @@ from scipy.optimize import minimize
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from native_mixture import MixtureKernel
 from mixture_dnn import MixtureDNN,Objective,function_sensitivity
-p=argparse.ArgumentParser();p.add_argument('--input',type=Path,required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args();a.out.mkdir(parents=True,exist_ok=True)
-repo=Path(__file__).resolve().parents[1];ev=repo.parent/'evidence';old=json.loads((a.input/'data.json').read_text());assert old['stage']=='data'
+p=argparse.ArgumentParser();p.add_argument('--input',type=Path,required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--evidence-root',type=Path);a=p.parse_args();a.out.mkdir(parents=True,exist_ok=True)
+repo=Path(__file__).resolve().parents[1];ev=a.evidence_root or repo.parent/'evidence';old=json.loads((a.input/'data.json').read_text());assert old['stage']=='data'
 assert old['network_sha256']==hashlib.sha256((repo/'src/mixture_dnn.py').read_bytes()).hexdigest()
 assert all(f['quadrature_relative']<3e-4 and f['directional_gradient_refinement']<5e-4 for f in old['fits'])
 net=MixtureDNN();kernel=MixtureKernel.load(ev/'kernel_dense/native_kernel.npz');reference=MixtureKernel.load(ev/'kernel_dense/refined_reference_kernel.npz')

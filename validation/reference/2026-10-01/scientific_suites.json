@@ -1,0 +1,373 @@
+{
+  "schema": "k-space-verification-run/1",
+  "run_id": "a65cb9409377453fabd7b7ba42090a30",
+  "started_utc": "2026-10-01T16:03:58.717570+00:00",
+  "finished_utc": "2026-10-01T16:04:18.992838+00:00",
+  "all_suites_passed": true,
+  "suites_passed": 14,
+  "suites_total": 14,
+  "requested_scope": "all",
+  "full_required_run": true,
+  "required_suite_ids": [
+    "one_loop",
+    "toy_x",
+    "generator",
+    "fixed_evolution",
+    "two_loop",
+    "running_expansion",
+    "w_expansion",
+    "counting",
+    "mock_import",
+    "structural",
+    "resolvent_demo",
+    "unexpanded",
+    "physical_canonical",
+    "canonical_derivation"
+  ],
+  "unselected_suite_ids": [],
+  "optional_suites_skipped": 0,
+  "results": [
+    {
+      "id": "one_loop",
+      "category": "fixed_order_regression",
+      "passed": true,
+      "check_passed": null,
+      "check_total": null,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 0.03724766700179316,
+      "script": "validators/kt_kcss_one_loop_validator.py",
+      "script_sha256": "1d565d16ff65a943811de9aae45191ed284f25e38da350635fac5d6b9d6cac64",
+      "report": "one_loop/kt_kcss_one_loop_validator_report.json"
+    },
+    {
+      "id": "toy_x",
+      "category": "fixed_order_regression",
+      "passed": true,
+      "check_passed": null,
+      "check_total": null,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 0.8525139169942122,
+      "script": "validators/kt_kcss_toypdf_xconv_validator.py",
+      "script_sha256": "fe666ed76defb9bf98bf8739d8b5b6570c0b2a490cd2f4699d92751a536f2473",
+      "report": "toy_x/kt_kcss_toypdf_xconv_validator_output.json"
+    },
+    {
+      "id": "generator",
+      "category": "fixed_order_regression",
+      "passed": true,
+      "check_passed": null,
+      "check_total": null,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.759384625009261,
+      "script": "validators/kt_kcss_generator_convolution_validator.py",
+      "script_sha256": "882e5a0a597ab97a0b7eb0fe0e13570e34aeb5e9aac2b1466342cd0a4cd1adce",
+      "report": "generator/kt_kcss_generator_convolution_validator_output.json"
+    },
+    {
+      "id": "fixed_evolution",
+      "category": "fixed_order_regression",
+      "passed": true,
+      "check_passed": null,
+      "check_total": null,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.0790779590024613,
+      "script": "validators/kt_kcss_one_loop_evolution_validator.py",
+      "script_sha256": "e81f3729d17bc70630da5e569926cfa9d68228cd3d65ddf5bb7bb6e730b1406a",
+      "report": "fixed_evolution/kt_kcss_one_loop_evolution_validator_output.json"
+    },
+    {
+      "id": "two_loop",
+      "category": "fixed_order_regression",
+      "passed": true,
+      "check_passed": 7,
+      "check_total": 7,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.4163707499974407,
+      "script": "validators/kt_kcss_two_loop_ingredients_validator.py",
+      "script_sha256": "785ae2b036b6d5f3241c0af34d0c38b4b2a0508367cf3b5b9905bf30ea857a77",
+      "report": "two_loop/kt_kcss_two_loop_ingredients_validator_output.json"
+    },
+    {
+      "id": "running_expansion",
+      "category": "fixed_order_regression",
+      "passed": true,
+      "check_passed": 7,
+      "check_total": 7,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.8981162919953931,
+      "script": "validators/kt_kcss_running_coupling_evolution_validator.py",
+      "script_sha256": "628cf19d8dc2e4fdf71ff6f510e56a99d06d862755bdeacae7a7e61c122bd69f",
+      "report": "running_expansion/kt_kcss_running_coupling_evolution_validator_output.json"
+    },
+    {
+      "id": "w_expansion",
+      "category": "fixed_order_regression",
+      "passed": true,
+      "check_passed": null,
+      "check_total": null,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.3110465000063414,
+      "script": "validators/kt_kcss_binned_wterm_prototype_validator.py",
+      "script_sha256": "2031d43e77f21fcb17f22d21c09520465fc753e4c1cfda5c1dcfa1361188cb61",
+      "report": "w_expansion/kt_kcss_binned_wterm_prototype_validator_output.json"
+    },
+    {
+      "id": "counting",
+      "category": "bookkeeping",
+      "passed": true,
+      "check_passed": 36,
+      "check_total": 36,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 0.049443500000052154,
+      "script": "validators/kt_kcss_accuracy_ingredient_validator.py",
+      "script_sha256": "03c9603ee7b087f1c94ab90a8aaea138d37ac9e6cea30cfb173d0e755f795660",
+      "report": "counting/kt_kcss_accuracy_ingredient_validator_output.json"
+    },
+    {
+      "id": "mock_import",
+      "category": "bookkeeping",
+      "passed": true,
+      "check_passed": 21,
+      "check_total": 21,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.2292714579962194,
+      "script": "validators/kt_kcss_n3lo_matching_import_validator.py",
+      "script_sha256": "41a1be720cce7c23c19808f27b650840467b8fc7f9d8258a5d720be0110393b7",
+      "report": "mock_import/kt_kcss_n3lo_matching_import_output.json"
+    },
+    {
+      "id": "structural",
+      "category": "structural",
+      "passed": true,
+      "check_passed": 102,
+      "check_total": 102,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 4.256747166000423,
+      "script": "validators/validate_v1p4.py",
+      "script_sha256": "51c59a6c767a45383739173fb233885b9e4b66c31437c1032486cee452ea245f",
+      "report": "structural/audit_results.json"
+    },
+    {
+      "id": "resolvent_demo",
+      "category": "same_grid_demo",
+      "passed": true,
+      "check_passed": 8,
+      "check_total": 8,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 0.8293173330021091,
+      "script": "validators/resolvent_operator_demo.py",
+      "script_sha256": "d8046650fd9bd4d892f1113238d590cbb6d7c45048b5798098c7fa2a0c0b061f",
+      "report": "resolvent_demo/resolvent_demo.json"
+    },
+    {
+      "id": "unexpanded",
+      "category": "unexpanded",
+      "passed": true,
+      "check_passed": 95,
+      "check_total": 95,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 2.6206422909890534,
+      "script": "validators/validate_unexpanded.py",
+      "script_sha256": "7d9a08718a8cfaeca142f8de2776d1b375a9abecc4f6aeab8ca9480ac6ecca30",
+      "report": "unexpanded/unexpanded_validation.json"
+    },
+    {
+      "id": "physical_canonical",
+      "category": "physical_evolution",
+      "passed": true,
+      "check_passed": 25,
+      "check_total": 25,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.160850083004334,
+      "script": "validators/validate_physical_canonical.py",
+      "script_sha256": "c14771bbf3e971d4a28a9643fb579c24b87496cd346fba7147e17c7e92dda6ab",
+      "report": "physical_canonical/physical_canonical_validation.json"
+    },
+    {
+      "id": "canonical_derivation",
+      "category": "structural",
+      "passed": true,
+      "check_passed": 16,
+      "check_total": 16,
+      "returncode": 0,
+      "error": null,
+      "elapsed_seconds": 1.770408291995409,
+      "script": "validators/audit_canonical_derivation.py",
+      "script_sha256": "f6bbf5430b85cde5efa781f22cee46560258ed704a0edf7319d19184bdddab81",
+      "report": "canonical_derivation/derivation_audit.json"
+    }
+  ],
+  "git": {
+    "commit": "57870ad031ea413576a80bdd5b9ef51f5244c67f",
+    "dirty": false,
+    "branch": "codex/method-paper-tightening"
+  },
+  "coefficient_input": {
+    "path": "data/coefficients_demo.json",
+    "sha256": "8a66cca1538797a5a921b10f45c5311a8aa18cf3787d1b079c2afd12b1f5a964",
+    "input": {
+      "description": "Lower-order massless nf=5 QCD RG demonstration: beta0,1; Gamma0,1; gammaF0; d1=0,d2. NOT an N3LL-prime numerical prediction.",
+      "scheme": "CSS2 D=-K; a=alpha_s/(4*pi); derivative ln(mu)",
+      "physical_n3llprime_payload": false,
+      "beta": [
+        7.666666666666666,
+        38.66666666666667
+      ],
+      "cusp": [
+        5.333333333333333,
+        36.84359134233823
+      ],
+      "noncusp": [
+        8.0
+      ],
+      "d": [
+        0.0,
+        -42.580990437825164
+      ],
+      "sources": [
+        "Collins and Rogers, arXiv:1705.07167v3, two-loop CS and one-loop noncusp conventions; formulas retained in note Sections 12 and 15."
+      ],
+      "run_parameters": {
+        "mu0_GeV": 2.0,
+        "a0": 0.02,
+        "n_f": 5
+      },
+      "note": "The engine supports four/ four/ three/ three loop vectors. No unknown physical coefficient is filled with a mock value in this demonstration."
+    },
+    "coefficient_terms": {
+      "beta": 2,
+      "cusp": 2,
+      "noncusp": 1,
+      "d": 2
+    }
+  },
+  "physical_evolution_input": {
+    "path": "data/coefficients_css2_nf5_n3ll.json",
+    "sha256": "620d1222f395c0fac81e7e1bfe5da87b542663ac72c194e196e5ef29b5a4c3d7",
+    "input": {
+      "beta": [
+        7.666666666666666,
+        38.666666666666664,
+        180.9074074074073,
+        4826.156328790895
+      ],
+      "cusp": [
+        5.333333333333333,
+        36.84359134233823,
+        239.2080331989596,
+        141.2460845029018
+      ],
+      "noncusp": [
+        8.0,
+        -1.1419392681383584,
+        249.38756710544476
+      ],
+      "d": [
+        0.0,
+        -42.580990437825164,
+        -684.0910647572292
+      ],
+      "description": "Physical massless SU(3), fixed nf=5; N3LL evolution, strict NLO boundaries",
+      "scheme": "CSS2 D=-K; a=alpha_s/(4*pi); derivatives ln(mu)",
+      "physical_n3llprime_payload": false,
+      "evolution_accuracy": "N3LL",
+      "hard_and_ope_order": "strict NLO",
+      "nf": 5,
+      "source_manifest": "manifests/css2_sources.json"
+    },
+    "coefficient_terms": {
+      "beta": 4,
+      "cusp": 4,
+      "noncusp": 3,
+      "d": 3
+    }
+  },
+  "environment": {
+    "python": "3.13.15 (main, Sep 24 2026, 17:46:40) [Clang 22.1.3 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "sympy": "1.14.0",
+      "mpmath": "1.3.0"
+    },
+    "threads": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "input_sha256": {
+    "data/coefficients_css2_nf5_n3ll.json": "620d1222f395c0fac81e7e1bfe5da87b542663ac72c194e196e5ef29b5a4c3d7",
+    "data/coefficients_demo.json": "8a66cca1538797a5a921b10f45c5311a8aa18cf3787d1b079c2afd12b1f5a964",
+    "data/css2_cusp_independent.json": "157f5d7361a0154bc0fc2455b9ce183723dfb4fb45c9afe04b4da85a12f2ae03",
+    "manifests/css2_pdf.json": "8ef243778ab847095a98452689f533e0a22dea523f09cf3da969418aa3be952e",
+    "manifests/css2_sources.json": "a088e1a9d3941887185f28531e5b6857e026a762e437687607490d6da601356b",
+    "manifests/dy_tables.json": "13baaa646e45f04376b1cdbc6ac50736a9ec7a0039695d6d812dce6da5ad533a",
+    "manifests/e605_primary_points.json": "bb881124769066ef73d321e52f8819720367b77d3096bba02c1fcc716c4f5662",
+    "manifests/e866_contract.json": "d30f263db1f5796bc66c2177ba346e251f7dd31105311a6e8303b8b273b72e57",
+    "manifests/e866_pp_bins.json": "3bde7d6e60ffc5aa4944666b86c1dc78ea6d24891355973f67ce61af11c2aa9a",
+    "manifests/e866_sources.json": "dfc3f2ec840cebefcd4507d638655cd9a3c71a02dfc2548ab753b088c2efe48d",
+    "manifests/method_paper_accuracy.json": "2d7bb28238b492c606c45ed1955976ff5e213b619776b3ac0165b89b8577e83f",
+    "manifests/native_dnn_contract.json": "cadbbace65cd7921796027a381526ccf622c8b0cfaa239b933465937fd0decfd",
+    "manifests/noncanonical_sources.json": "770d1026d5d84481f3005fbc1368d6c76fcb201cca267d30ee18b044092c9439",
+    "manifests/production_readiness.json": "50bdeac5bbcd0d5ec492eaee081b26dec0ed28f4c2af253fc6e469c6e6e37330",
+    "manifests/repository_source.json": "9b6f78ca519103c746846f09c063ab66f414dd0eebc78385a7341018f1b0cd85",
+    "manifests/source_provenance.json": "7370b5e47a96ae29e99cbceafc1f548e6c428b44def7a7477628dd33456b1af4",
+    "manifests/verification_suite.json": "15bfdde50e73e53e43917586cd5396b796325bf9e16744987507acadd8f0e670",
+    "run_all_checks.py": "e117e7fe0405e4a2bb0239bf98b089bc931845d064919b54c30a322fb29449cf",
+    "src/canonical_physical.py": "740de3ca6d5cf479aeded5e2d5e3d15980c34915a1d8302e40142d4925b6e21c",
+    "src/css2_coefficients.py": "de08b3e135dca36f8f84e56a978b7b6d45aa8f081da44bc8e0fa7a856d1459cf",
+    "src/css2_matching.py": "d934dac7a8089af5dd7b3c3f017af20a76dcd516d138b53108ba4ac24e92f86f",
+    "src/css2_noncanonical.py": "3187d77b7640cc7c272f29a786f56a6ea6e4d7fd655bc6d3c3d0931e4bef938a",
+    "src/css2_reference.py": "f637f649a9c0dda1b88b5bb956037f8f8fa0a60bcf0c7d34b892a73d23c485e1",
+    "src/dy_measurement.py": "0021c6a5bcfacca344c736f32b65af752b71c867e17bc41bc4d46a840e52e63c",
+    "src/e866_forward.py": "d9b071196b15ce1265a11a50f49e3046d837c3c4097a0c3073e63024340bc87c",
+    "src/lhapdf_provider.py": "7e274dabbc9811f15616080756d0aedb987da91fd5af211512e2fc9e596d44d4",
+    "src/mixture_dnn.py": "70ab61e16841a2e963cfba316e76f65dd7a821fdc3ffd5e04f350092ccc835b6",
+    "src/native_mixture.py": "2391fa38945971b9d835d747b1ec45ea01035ce8521fde41a7cabd7ce9940072",
+    "src/rational_radial.py": "bdca9ff837842b50d06b270de1bc819ba994914a9b749aca12bcdf0450c48b05",
+    "src/resummed_operator.py": "f1359ad36b754ce590b90e45ee9d2de1ff282a0cbd95492d3049db2c0b08d668",
+    "tools/check_documentation.py": "612ddc86edeefa1179d08c83639793fc973b757963c4f03c3d05b8c48c98d660",
+    "tools/check_line_breaks.py": "0e7182bb53cc840a93a2e084dc4e168aa033688e09ff78d7915c540e47940da5",
+    "tools/check_repository_policy.py": "726b15aa64be2f8b2cdbf71ab0b21cd4bf420ae40230e138643c967045680e39",
+    "tools/execute_suite.py": "ff6c98d9b6d1cf8bdfab89ff58dc990cce665de48de40d9caf8ac4491c0548fc",
+    "validators/audit_canonical_derivation.py": "f6bbf5430b85cde5efa781f22cee46560258ed704a0edf7319d19184bdddab81",
+    "validators/kt_kcss_accuracy_ingredient_validator.py": "03c9603ee7b087f1c94ab90a8aaea138d37ac9e6cea30cfb173d0e755f795660",
+    "validators/kt_kcss_binned_wterm_prototype_validator.py": "2031d43e77f21fcb17f22d21c09520465fc753e4c1cfda5c1dcfa1361188cb61",
+    "validators/kt_kcss_generator_convolution_validator.py": "882e5a0a597ab97a0b7eb0fe0e13570e34aeb5e9aac2b1466342cd0a4cd1adce",
+    "validators/kt_kcss_n3lo_matching_import_validator.py": "41a1be720cce7c23c19808f27b650840467b8fc7f9d8258a5d720be0110393b7",
+    "validators/kt_kcss_one_loop_evolution_validator.py": "e81f3729d17bc70630da5e569926cfa9d68228cd3d65ddf5bb7bb6e730b1406a",
+    "validators/kt_kcss_one_loop_validator.py": "1d565d16ff65a943811de9aae45191ed284f25e38da350635fac5d6b9d6cac64",
+    "validators/kt_kcss_running_coupling_evolution_validator.py": "628cf19d8dc2e4fdf71ff6f510e56a99d06d862755bdeacae7a7e61c122bd69f",
+    "validators/kt_kcss_toypdf_xconv_validator.py": "fe666ed76defb9bf98bf8739d8b5b6570c0b2a490cd2f4699d92751a536f2473",
+    "validators/kt_kcss_two_loop_ingredients_validator.py": "785ae2b036b6d5f3241c0af34d0c38b4b2a0508367cf3b5b9905bf30ea857a77",
+    "validators/resolvent_operator_demo.py": "d8046650fd9bd4d892f1113238d590cbb6d7c45048b5798098c7fa2a0c0b061f",
+    "validators/validate_physical_canonical.py": "c14771bbf3e971d4a28a9643fb579c24b87496cd346fba7147e17c7e92dda6ab",
+    "validators/validate_unexpanded.py": "7d9a08718a8cfaeca142f8de2776d1b375a9abecc4f6aeab8ca9480ac6ecca30",
+    "validators/validate_v1p4.py": "51c59a6c767a45383739173fb233885b9e4b66c31437c1032486cee452ea245f"
+  },
+  "scientific_scope": {
+    "numerical_inputs": "declared lower-order demonstration, sourced physical N3LL evolution input, and labeled formal fixtures",
+    "physical_N3LL_evolution_input_exercised": true,
+    "hard_and_ope_boundaries": "strict NLO",
+    "physical_three_loop_payload_validated": false,
+    "physical_N3LLprime_prediction_validated": false,
+    "continuum_grid_error_certified": false,
+    "data_extraction_performed": false,
+    "interpretation": "Checks supplement the documented analytic arguments; counts are not a theorem certificate."
+  }
+}

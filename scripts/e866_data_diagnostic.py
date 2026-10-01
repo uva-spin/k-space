@@ -11,17 +11,18 @@ from scipy.optimize import least_squares
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from e866_forward import NativeE866,GaussianCSInput
 from lhapdf_provider import LHAPDFProvider
+from _runtime_paths import add_pdf_arguments,pdf_paths
 from benchmark_e866 import Reference,errors
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);args=p.parse_args();args.out.mkdir(exist_ok=True,parents=True)
+ p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);add_pdf_arguments(p);p.add_argument('--validation',type=Path);args=p.parse_args();args.out.mkdir(exist_ok=True,parents=True)
  root=Path(__file__).resolve().parents[1];runs=root.parent.parent
  # Require the completed forward/closure validation before using data.
- validation=json.loads((root.parent/'evidence/final/e866_forward.json').read_text())
+ validation=json.loads((args.validation or root.parent/'evidence/final/e866_forward.json').read_text())
  if not validation['passed']:raise RuntimeError('Forward and closure validation must pass first')
  for name,h in validation['code_sha256'].items():
   if hashlib.sha256((root/name).read_bytes()).hexdigest()!=h:raise RuntimeError('Untested source change: '+name)
- pdf=LHAPDFProvider(runs/'m2_prescription_2026-09-30/runtime/libkt_lhapdf.dylib',runs/'m1_resolution_2026-09-30/runtime/lhapdf/share/LHAPDF')
+ pdf=LHAPDFProvider(*pdf_paths(args,root))
  manifest=json.loads((root/'manifests/e866_pp_bins.json').read_text());rows=[r for r in manifest['rows'] if r['selected_core']]
  engine=NativeE866(pdf,rows);reference=Reference(engine,n=48,nqt=24);data=np.array([r['value'] for r in rows]);sigma=np.sqrt([r['stat']**2+r['syst']**2 for r in rows]);reports=[]
  for mode in ('flat_pt','annular'):

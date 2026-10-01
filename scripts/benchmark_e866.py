@@ -9,6 +9,7 @@ from scipy.optimize import least_squares
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from e866_forward import *
 from lhapdf_provider import LHAPDFProvider
+from _runtime_paths import add_pdf_arguments,pdf_paths
 
 class Reference:
     def __init__(self,engine,n=32,nqt=16):
@@ -49,9 +50,9 @@ def errors(got,ref):
     return dict(component_over_total=float(np.max(abs(got[:,:,0]-ref[:,:,0])/norm[:,None])),total_relative=float(np.max(abs(got[:,:,0].sum(axis=1)-ref[:,:,0].sum(axis=1))/norm)),gradient_scaled=float(np.max(abs(got[:,:,1:].sum(axis=1)-ref[:,:,1:].sum(axis=1))/np.maximum(np.max(abs(ref[:,:,1:].sum(axis=1)),axis=1)[:,None],1e-14))))
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--quick',action='store_true');args=p.parse_args();args.out.mkdir(parents=True,exist_ok=True)
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);p.add_argument('--quick',action='store_true');add_pdf_arguments(p);args=p.parse_args();args.out.mkdir(parents=True,exist_ok=True)
     root=Path(__file__).resolve().parents[1];runs=root.parent.parent;start=time.monotonic()
-    data=runs/'m1_resolution_2026-09-30/runtime/lhapdf/share/LHAPDF';bridge=runs/'m2_prescription_2026-09-30/runtime/libkt_lhapdf.dylib'
+    bridge,data=pdf_paths(args,root)
     pdf=LHAPDFProvider(bridge,data)
     pin=json.loads((root/'manifests/css2_pdf.json').read_text())
     for r in pin['files']:

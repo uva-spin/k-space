@@ -9,6 +9,11 @@ transverse structure in momentum space.**
 [Run an example](#two-runnable-examples) · [Choose a verification suite](#verification-map) ·
 [Technical formalism](docs/FORMALISM.md) · [API](docs/API.md)
 
+**Methods-paper validation:** [Results and limitations](docs/VALIDATION_RESULTS.md) ·
+[Reproduce all checks](docs/REPRODUCE_METHOD_PAPER.md) ·
+[Frozen numerical evidence](validation/README.md) ·
+[Canonical derivation](docs/CANONICAL_DERIVATION.md)
+
 `k-space` brings together distributional transverse-momentum calculus,
 perturbative matching checks, unexpanded renormalization-group evolution, and a
 momentum-space numerical evaluator. It is intended for phenomenologists developing
@@ -19,6 +24,35 @@ The scientific implementation, test inputs, and usage documentation are kept
 together. The package includes both a lower-order demonstration and sourced,
 fixed-flavor **N³LL evolution** coefficients. Hard and OPE boundaries remain
 strict NLO, so the package does not claim an N³LL′ spectrum.
+
+## Validated method and computational evidence
+
+The 1 October 2026 audit combines the **same uncapped spectral-canonical
+prescription** with physical PDFs, both legs and all six strict-NLO components.
+A separately coded continuum reference checks bins, analytic input derivatives
+and contacts at Q=8, 20 and 91.1876 GeV, including algebraic-tail inputs.
+
+| Check | Audited result |
+|---|---|
+| Software tests | 121 passing at the audited source commit |
+| Required scientific/component suites | 14/14 passing; overlapping evidence categories |
+| Physical bin error, including the declared UV input bound | Below 4.27e-5 of the peak reference bin |
+| Largest observed physical refinement budget | Below 3.47e-4, against the original 1e-3 limit |
+| Provenance | Source/PDF hashes, accepted numerical records, separate components and refinement data |
+
+![Canonical physical comparison](figures/canonical_physical_audit.png)
+
+The UV continuation of the finite PDF table is an explicit input condition.
+The achieved bound over the declared UV input class is 1.67e-6 of the peak bin;
+it remains included in the reported budget. Two explicitly completed inputs and
+all original primary criteria pass. A universal 1e-6 UV bound is not claimed. Signed
+high-qT W-only bins are numerical stress tests. These results do not establish
+N³LL′, complete W+Y, massive thresholds, global extraction, or independent human
+scientific review. Read the [full interpretation](docs/VALIDATION_RESULTS.md).
+
+The current publication is the methods paper. A same-data joint-(x,kT) FiLM
+comparison with the bT extraction is a separate future project. The existing
+E866 mixture fit is a conditional demonstration.
 
 ### Read the repository in three passes
 
@@ -75,19 +109,20 @@ CSS2 conventions + perturbative inputs
       statistical extraction and closure tests
 ```
 
-The code currently implements the operator and verification layers, with runnable
-numerical examples. The last process-level and statistical layers require their
-own physical input and validation. The scalar construction is not specialized to
+The code implements the operator and verification layers, same-prescription
+physical benchmarks, and a separately qualified E866/neural demonstrator. A full
+phenomenological extraction requires its own physical input and validation.
+The scalar construction is not specialized to
 fixed-target kinematics; extensions to other tensor structures, thresholds, and
 measurements carry explicit additional conditions.
 
 ## Quick start
 
 Use **Python 3.13** for the documented environment. The package declares
-Python ≥3.11; the supplied release was exercised with Python 3.13.5 and the pinned
+Python ≥3.11; the method audit was exercised with Python 3.13.15 and the pinned
 dependencies in `requirements.txt`. CI uses Python 3.13.
 
-From the extracted `k-space/` directory, or from a clone after publication:
+From a clone of this repository:
 
 ```bash
 python3 -m venv .venv
@@ -95,6 +130,7 @@ source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
 
 python tools/check_repository_policy.py --check-prepared-hashes
+python tools/check_validation_snapshot.py
 python -m pytest -q
 python run_all_checks.py --clean
 ```

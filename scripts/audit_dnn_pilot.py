@@ -1,11 +1,12 @@
 """Post-fit native-pilot diagnostics; no refitting or interpretation as coverage."""
 from pathlib import Path
-import sys,json,hashlib
+import sys,json,hashlib,argparse
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from native_mixture import MixtureKernel,VARIANCES
 from mixture_dnn import MixtureDNN,Objective,truth_weights
-repo=Path(__file__).resolve().parents[1];ev=repo.parent/'evidence'
+p=argparse.ArgumentParser();p.add_argument('--evidence-root',type=Path);args=p.parse_args()
+repo=Path(__file__).resolve().parents[1];ev=args.evidence_root or repo.parent/'evidence'
 d=json.loads((ev/'data/data.json').read_text());c=json.loads((ev/'closure/closure.json').read_text());assert d['passed'] and c['passed']
 net=MixtureDNN();kernel=MixtureKernel.load(ev/'kernel_dense/native_kernel.npz');data=np.array(d['data']);sigma=np.array(d['sigma']);checks=[]
 for fit in d['fits']:

@@ -1,5 +1,9 @@
 # Reproducibility
 
+For the complete methods-paper results, including physical PDFs, use
+[the full reproduction recipe](REPRODUCE_METHOD_PAPER.md) and
+[the published numerical evidence](VALIDATION_RESULTS.md).
+
 ## Installation and execution
 
 Use Python 3.13 with NumPy 2.3.5, SciPy 1.17.0, SymPy 1.14.0, and mpmath 1.3.0.
@@ -23,7 +27,7 @@ manuscript source, external TMD table, API key, or PDF is needed.
 
 See [EXAMPLES.md](EXAMPLES.md) for two executable clients and [API.md](API.md)
 for argument domains and units. These clients call the shared operator module.
-Their outputs are under `outputs/examples/` and do not change the 13-suite registry.
+Their outputs are under `outputs/examples/` and do not change the 14-suite registry.
 Software tests of example arguments, output shapes, and source consistency are
 reported by pytest, separately from the scientific suites.
 
@@ -93,7 +97,9 @@ revision to preserve the original imported hashes.
 
 ## Generated reports
 
-Run reports are generated locally under `outputs/` and are excluded from Git.
+Fresh run reports are generated locally under `outputs/` and are excluded from Git.
+A curated immutable scientific snapshot is tracked under `validation/`, with
+original and published hashes and private host paths removed.
 CI uploads reports and logs as workflow artifacts even when a check fails. Read
 the structured residuals and test-specific tolerances rather than expecting
 bit-for-bit equality of platform-dependent floating-point results.

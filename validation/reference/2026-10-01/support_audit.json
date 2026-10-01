@@ -1,0 +1,232 @@
+{
+  "schema": "canonical-support-audit/1",
+  "passed": true,
+  "tests": {
+    "RG_tolerance_refinement": true,
+    "production_vs_tight_independent_RG": true,
+    "physical_negative_controls": true,
+    "annulus_normalization": true,
+    "physical_cases_all_pass": true
+  },
+  "RG_refinement": [
+    {
+      "Q": 8.0,
+      "mu_c": 5.0,
+      "refinement": 3.1575089765034647e-12,
+      "production_tight_reference": 1.2156942119645464e-13
+    },
+    {
+      "Q": 8.0,
+      "mu_c": 6.4,
+      "refinement": 2.9136762447201647e-12,
+      "production_tight_reference": 6.34561847512316e-14
+    },
+    {
+      "Q": 8.0,
+      "mu_c": 13.0,
+      "refinement": 1.4172427120762165e-11,
+      "production_tight_reference": 4.1597281175143053e-13
+    },
+    {
+      "Q": 8.0,
+      "mu_c": 35.0,
+      "refinement": 7.01069757802486e-11,
+      "production_tight_reference": 8.168465903679589e-13
+    },
+    {
+      "Q": 8.0,
+      "mu_c": 150.0,
+      "refinement": 1.9990620270249337e-10,
+      "production_tight_reference": 2.34168240353938e-12
+    },
+    {
+      "Q": 8.0,
+      "mu_c": 1900.0,
+      "refinement": 4.750486670701548e-10,
+      "production_tight_reference": 7.074341112911497e-13
+    },
+    {
+      "Q": 8.0,
+      "mu_c": 28000.0,
+      "refinement": 8.332179390890815e-10,
+      "production_tight_reference": 4.738875958310018e-12
+    },
+    {
+      "Q": 8.0,
+      "mu_c": 100000.0,
+      "refinement": 9.698446490347123e-10,
+      "production_tight_reference": 1.2474465904688259e-12
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 5.0,
+      "refinement": 1.3962463130123837e-11,
+      "production_tight_reference": 9.73610081445031e-13
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 6.4,
+      "refinement": 9.790959709654601e-12,
+      "production_tight_reference": 9.672054823717247e-13
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 13.0,
+      "refinement": 4.78915518353773e-13,
+      "production_tight_reference": 1.1909848107727328e-12
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 35.0,
+      "refinement": 7.740752483442748e-12,
+      "production_tight_reference": 1.5662610097777474e-12
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 150.0,
+      "refinement": 6.126943397077866e-11,
+      "production_tight_reference": 9.336420525585254e-13
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 1900.0,
+      "refinement": 2.4271740173276157e-10,
+      "production_tight_reference": 1.5589751711786448e-12
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 28000.0,
+      "refinement": 5.312048578787198e-10,
+      "production_tight_reference": 3.4217073618947325e-12
+    },
+    {
+      "Q": 20.0,
+      "mu_c": 100000.0,
+      "refinement": 6.839435684469208e-10,
+      "production_tight_reference": 2.0303758674344863e-12
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 5.0,
+      "refinement": 5.6220750277446996e-11,
+      "production_tight_reference": 4.902744876744691e-13
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 6.4,
+      "refinement": 5.270636704857168e-11,
+      "production_tight_reference": 3.9959702213820947e-13
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 13.0,
+      "refinement": 1.4067524922722896e-11,
+      "production_tight_reference": 2.9598545836506673e-13
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 35.0,
+      "refinement": 5.1411722101768476e-12,
+      "production_tight_reference": 6.678685382510707e-13
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 150.0,
+      "refinement": 1.4208773047030832e-12,
+      "production_tight_reference": 7.137276880619936e-13
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 1900.0,
+      "refinement": 6.824807385896747e-11,
+      "production_tight_reference": 8.949507801503387e-13
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 28000.0,
+      "refinement": 2.252149577941509e-10,
+      "production_tight_reference": 3.276490190273762e-12
+    },
+    {
+      "Q": 91.1876,
+      "mu_c": 100000.0,
+      "refinement": 3.2209368505675684e-10,
+      "production_tight_reference": 1.2931877790833823e-12
+    }
+  ],
+  "negative_controls": [
+    {
+      "case": 0,
+      "omitted_qq_leg_A_error_over_peak": 0.026636813103118703,
+      "extra_pi_error_over_peak": 2.141592653589863,
+      "both_detected": true
+    },
+    {
+      "case": 1,
+      "omitted_qq_leg_A_error_over_peak": 0.030878864992822257,
+      "extra_pi_error_over_peak": 2.14159265358996,
+      "both_detected": true
+    },
+    {
+      "case": 2,
+      "omitted_qq_leg_A_error_over_peak": 0.013520649201881087,
+      "extra_pi_error_over_peak": 2.1415926546707613,
+      "both_detected": true
+    }
+  ],
+  "physical_units": [
+    {
+      "case": 0,
+      "prefactor_identity_residual": 0.0,
+      "binned_dsigma_dQ2_dy_pb_per_GeV2": [
+        0.08483360745590998,
+        0.1625092116854848,
+        0.18352090156050158,
+        0.0352405971464562,
+        0.0013388871932041343,
+        -0.014693936316870332,
+        -0.021982051436609487,
+        -0.05451460837846358,
+        -0.10778762519907904,
+        -0.0930288975265774,
+        -0.07495785449520186
+      ]
+    },
+    {
+      "case": 1,
+      "prefactor_identity_residual": 3.2311742677852644e-27,
+      "binned_dsigma_dQ2_dy_pb_per_GeV2": [
+        0.00032757219932145207,
+        0.0008307433101173918,
+        0.0018241127179046601,
+        0.000826357130207796,
+        0.00014234726071300595,
+        -6.568762908867282e-05,
+        -0.00011039870532388808,
+        -0.00027911125763748694,
+        -0.0006155016817846617,
+        -0.0008620502694094499,
+        -0.0007166124917147331
+      ]
+    },
+    {
+      "case": 2,
+      "prefactor_identity_residual": 1.9721522630525295e-31,
+      "binned_dsigma_dQ2_dy_pb_per_GeV2": [
+        7.030494372405683e-06,
+        1.2923916116081289e-05,
+        1.3790789022189543e-05,
+        3.4676092430496046e-06,
+        1.803170598290796e-06,
+        3.871230283483343e-06,
+        4.870246951843447e-06,
+        1.168389639545675e-05,
+        2.141264824814264e-05,
+        8.815359650072174e-06,
+        6.141052715613732e-07
+      ]
+    }
+  ],
+  "units_scope": "photon-only d sigma/(dQ^2 dy), integrated over full-azimuth qT annulus; source conventions and leading-power xA xB s=Q^2",
+  "UV_gradient_bound": "A conservative log-scale-derivative tail bound is four times the reported ordinary-input UV bound for these normalized Student/Gaussian fixtures"
+}

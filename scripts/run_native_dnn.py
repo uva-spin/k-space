@@ -5,8 +5,8 @@ import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from native_mixture import MixtureKernel,VARIANCES
 from mixture_dnn import MixtureDNN,Objective,truth_weights,train,function_sensitivity
-p=argparse.ArgumentParser();p.add_argument('--stage',choices=['closure','data'],required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--seeds',default='11,29,47');p.add_argument('--maxiter',type=int,default=2500);args=p.parse_args();args.out.mkdir(parents=True,exist_ok=True)
-repo=Path(__file__).resolve().parents[1];ev=repo.parent/'evidence';start=time.monotonic()
+p=argparse.ArgumentParser();p.add_argument('--stage',choices=['closure','data'],required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--seeds',default='11,29,47');p.add_argument('--maxiter',type=int,default=2500);p.add_argument('--evidence-root',type=Path);args=p.parse_args();args.out.mkdir(parents=True,exist_ok=True)
+repo=Path(__file__).resolve().parents[1];ev=args.evidence_root or repo.parent/'evidence';start=time.monotonic()
 validation=json.loads((ev/'kernel_dense/kernel_validation.json').read_text());assert validation['passed']
 for name,h in validation['source_sha256'].items():assert hashlib.sha256((repo/name).read_bytes()).hexdigest()==h,name
 kernel=MixtureKernel.load(ev/'kernel_dense/native_kernel.npz');reference=MixtureKernel.load(ev/'kernel_dense/refined_reference_kernel.npz')

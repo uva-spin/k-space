@@ -5,4 +5,4 @@ authors:
   - name: "uva-spin"
 repository-code: "https://github.com/uva-spin/k-space"
 license: MIT
-abstract: "Reproducible distributional, RG, boundary-conversion, logarithmic-counting and momentum-resolvent checks for a CSS2 transverse-momentum formulation."
+abstract: "Native transverse-momentum CSS2 evolution with a declared N3LL evolution domain and strict-NLO hard/OPE boundaries. Includes distributional and contact algebra, sourced physical coefficients, non-Gaussian continuum and three-scale actual-PDF validation, quantified UV input bounds, and portable reproduction commands."

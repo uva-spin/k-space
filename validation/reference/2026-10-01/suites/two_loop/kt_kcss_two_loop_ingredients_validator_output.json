@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "qcd_point": {
+    "CA": 3.0,
+    "CF": 1.3333333333333333,
+    "TF": 0.5,
+    "nf": 5
+  },
+  "tests": [
+    {
+      "test": "cs_kernel_b_space_RG",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "test": "cs_kernel_frak_basis_RG",
+      "passed": true,
+      "residual": {
+        "delta": "0",
+        "F0": "0",
+        "F1": "0"
+      }
+    },
+    {
+      "test": "cs_kernel_conventional_projection",
+      "passed": true,
+      "residual": {
+        "delta": "0",
+        "L0": "0",
+        "L1": "0"
+      }
+    },
+    {
+      "test": "matching_CS_equation_scalar_projection",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "test": "matching_mu_equation_scalar_projection",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "test": "one_loop_mu_subcheck",
+      "passed": true,
+      "residual": "0"
+    },
+    {
+      "test": "one_loop_CS_subcheck",
+      "passed": true,
+      "residual": "0"
+    }
+  ],
+  "constants_exact": {
+    "CA": "3",
+    "CF": "4/3",
+    "TF": "1/2",
+    "nf": "5",
+    "beta0": "23/3",
+    "Gamma0q": "16/3",
+    "Gamma1q": "2416/27 - 16*pi**2/3",
+    "gammaF0q": "8",
+    "gammaF1q": "-368*zeta(3)/3 + 28*pi**2/9 + 9364/81",
+    "d2zetaq": "3728/81 - 56*zeta(3)",
+    "d2zetag": "932/9 - 126*zeta(3)",
+    "d2boundaryq": "7456/81 - 112*zeta(3)",
+    "d2boundaryg": "1864/9 - 252*zeta(3)"
+  },
+  "constants_numeric": {
+    "CA": 3.0,
+    "CF": 1.3333333333333333,
+    "TF": 0.5,
+    "beta0": 7.666666666666667,
+    "Gamma0q": 5.333333333333333,
+    "Gamma1q": 36.843591342338236,
+    "gammaF0q": 8.0,
+    "gammaF1q": -1.1419392681384006,
+    "d2zetaq": -21.29049521891259,
+    "d2zetag": -47.903614242553324,
+    "d2boundaryq": -42.58099043782518,
+    "d2boundaryg": -95.80722848510665,
+    "nf": 5
+  },
+  "matching_objects": {
+    "C1": "-G0*L**2/4 - G0*L*ell/2 + L*(g0 - 4*p0)/2 + c1",
+    "C20": "G0**2*L**4/32 + G0*L**3*(-4*beta0 - 3*g0 + 12*p0)/24 + L**2*(-G0*c1/4 - G1/4 + beta0*g0/4 - beta0*p0 + g0**2/8 - g0*p0 + 2*p0**2) + L*(2*beta0*c1 + c1*g0 - 4*c1*p0 - d2b + g1 - 8*p1)/2 + c2",
+    "C2": "G0**2*L**4/32 + G0**2*L**2*ell**2/8 + G0*L**3*(-4*beta0 - 3*g0 + 12*p0)/24 + L**2*(-G0*c1/4 - G1/4 + beta0*g0/4 - beta0*p0 + g0**2/8 - g0*p0 + 2*p0**2) + L*(2*beta0*c1 + c1*g0 - 4*c1*p0 - d2b + g1 - 8*p1)/2 + c2 - ell*(2*G0*L**2*beta0 + G0*L*(-G0*L**2 + 2*L*(g0 - 4*p0) + 4*c1) + 4*G1*L + 4*d2b)/8"
+  },
+  "notes": [
+    "Uses a_s = alpha_s/(4*pi), d a_s/d ln mu = -2 beta0 a_s^2 + ..., and P_mu = 4 a_s P0 + 8 a_s^2 P1 + ...",
+    "Checks d D/d ln mu = 2 Gamma_cusp through O(a_s^2).",
+    "Matching reconstruction is a scalar-channel projection; full code must preserve flavor-matrix x-convolution ordering.",
+    "The finite NNLO matching functions c2(z) are external perturbative input, not generated here."
+  ]
+}

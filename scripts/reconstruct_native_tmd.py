@@ -4,7 +4,7 @@ Native values and separate strict matching components are saved alongside an
 independent analytic-Gaussian/Bessel check. No output positivity clipping occurs.
 """
 from pathlib import Path
-import sys,json,hashlib
+import sys,json,hashlib,argparse
 import numpy as np
 from scipy.interpolate import CubicSpline
 from scipy.special import j0
@@ -16,11 +16,13 @@ from native_mixture import BatchRational,VARIANCES,FIXED_G
 from mixture_dnn import MixtureDNN
 from rational_radial import RadialGrid
 from lhapdf_provider import LHAPDFProvider
-repo=Path(__file__).resolve().parents[1];runs=repo.parent.parent;ev=repo.parent/'evidence'
+from _runtime_paths import add_pdf_arguments,pdf_paths
+p=argparse.ArgumentParser();add_pdf_arguments(p);p.add_argument("--evidence-root",type=Path);args=p.parse_args()
+repo=Path(__file__).resolve().parents[1];runs=repo.parent.parent;ev=args.evidence_root or repo.parent/'evidence'
 result=json.loads((ev/'data/data.json').read_text());assert result['passed']
 seed=result['best_seed'];net=MixtureDNN();theta=np.load(ev/'data'/f'parameters_seed_{seed}.npz')['parameters'][:net.size]
 assert result['network_sha256']==hashlib.sha256((repo/'src/mixture_dnn.py').read_bytes()).hexdigest()
-pdf=LHAPDFProvider(runs/'m2_prescription_2026-09-30/runtime/libkt_lhapdf.dylib',runs/'m1_resolution_2026-09-30/runtime/lhapdf/share/LHAPDF')
+pdf=LHAPDFProvider(*pdf_paths(args,repo))
 xs=np.array([.06,.1,.2,.35,.5]);weights=net.forward(theta,xs);grid=RadialGrid(640.,102400);selected=np.arange(0,np.searchsorted(grid.k,5.),8);k=grid.k[selected]
 b=[];bw=[]
 for lo,hi in zip([0,.08,.16,.25,.5,1,2,4,8],[.08,.16,.25,.5,1,2,4,8,16]):

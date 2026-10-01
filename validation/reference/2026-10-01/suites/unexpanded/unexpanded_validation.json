@@ -1,0 +1,815 @@
+{
+  "all_checks_passed": true,
+  "passed": 95,
+  "total": 95,
+  "categories": {
+    "symbolic": {
+      "passed": 10,
+      "total": 10
+    },
+    "negative_control": {
+      "passed": 3,
+      "total": 3
+    },
+    "formal_fixture": {
+      "passed": 54,
+      "total": 54
+    },
+    "lower_order_QCD_demo": {
+      "passed": 10,
+      "total": 10
+    },
+    "scope": {
+      "passed": 1,
+      "total": 1
+    },
+    "numerical": {
+      "passed": 6,
+      "total": 6
+    },
+    "same_grid_demo": {
+      "passed": 10,
+      "total": 10
+    },
+    "contact": {
+      "passed": 1,
+      "total": 1
+    }
+  },
+  "tests": [
+    {
+      "name": "canonical_D_expansion_a1",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "canonical_D_expansion_a2",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "canonical_D_expansion_a3",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "D3_missing_running_boundary_term_rejected",
+      "passed": true,
+      "category": "negative_control",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "omitted_cusp5_a1_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -2; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a2_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -1; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a3_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 0; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a4_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 1; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a5_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=2, allowed <= 2; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a6_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=3, allowed <= 3; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a7_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=4, allowed <= 4; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a8_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=5, allowed <= 5; rational fixture"
+    },
+    {
+      "name": "omitted_cusp5_a9_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=6, allowed <= 6; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a1_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -2; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a2_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -1; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a3_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 0; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a4_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=1, allowed <= 1; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a5_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=2, allowed <= 2; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a6_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=3, allowed <= 3; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a7_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=4, allowed <= 4; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a8_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=5, allowed <= 5; rational fixture"
+    },
+    {
+      "name": "omitted_noncusp4_a9_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=6, allowed <= 6; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a1_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -2; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a2_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -1; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a3_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 0; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a4_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=1, allowed <= 1; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a5_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=2, allowed <= 2; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a6_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=3, allowed <= 3; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a7_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=4, allowed <= 4; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a8_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=5, allowed <= 5; rational fixture"
+    },
+    {
+      "name": "omitted_CS_boundary4_a9_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=6, allowed <= 6; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a1_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -2; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a2_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -1; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a3_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 0; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a4_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 1; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a5_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 2; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a6_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=3, allowed <= 3; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a7_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=4, allowed <= 4; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a8_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=5, allowed <= 5; rational fixture"
+    },
+    {
+      "name": "omitted_beta5_a9_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=6, allowed <= 6; rational fixture"
+    },
+    {
+      "name": "all_omissions_a1_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -2; rational fixture"
+    },
+    {
+      "name": "all_omissions_a2_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= -1; rational fixture"
+    },
+    {
+      "name": "all_omissions_a3_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=-1, allowed <= 0; rational fixture"
+    },
+    {
+      "name": "all_omissions_a4_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=1, allowed <= 1; rational fixture"
+    },
+    {
+      "name": "all_omissions_a5_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=2, allowed <= 2; rational fixture"
+    },
+    {
+      "name": "all_omissions_a6_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=3, allowed <= 3; rational fixture"
+    },
+    {
+      "name": "all_omissions_a7_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=4, allowed <= 4; rational fixture"
+    },
+    {
+      "name": "all_omissions_a8_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=5, allowed <= 5; rational fixture"
+    },
+    {
+      "name": "all_omissions_a9_tower_bound",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree=6, allowed <= 6; rational fixture"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a1",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree -1; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a2",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree -1; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a3",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree -1; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a4",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree 0; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a5",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree 1; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a6",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree 2; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a7",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree 3; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a8",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree 4; fixture boundary"
+    },
+    {
+      "name": "first_omitted_prime_boundary_a9",
+      "passed": true,
+      "category": "formal_fixture",
+      "residual": null,
+      "tolerance": null,
+      "details": "log degree 5; fixture boundary"
+    },
+    {
+      "name": "LL_infinite_tower_a1",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "LL_infinite_tower_a2",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "LL_infinite_tower_a3",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "LL_infinite_tower_a4",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "LL_infinite_tower_a5",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "LL_infinite_tower_a6",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "LL_infinite_tower_a7",
+      "passed": true,
+      "category": "symbolic",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "finite_order_only_certificate_rejected",
+      "passed": true,
+      "category": "negative_control",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "AF_beta_branch",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": null,
+      "tolerance": null,
+      "details": "7.666666666666666"
+    },
+    {
+      "name": "demo_does_not_claim_N3LLprime",
+      "passed": true,
+      "category": "scope",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "endpoint_semigroup_log",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 4.440892098500626e-16,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "canonical_ratio_endpoint",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 8.881784197001252e-16,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "endpoint_identity",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 0.0,
+      "tolerance": 2e-12,
+      "details": ""
+    },
+    {
+      "name": "endpoint_inverse",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 4.440892098500626e-16,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "independent_mu_leg_quadrature",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 1.2025935802739696e-12,
+      "tolerance": 1e-09,
+      "details": ""
+    },
+    {
+      "name": "resummed_D_mu_equation",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 2.874617210935071e-12,
+      "tolerance": 2e-08,
+      "details": ""
+    },
+    {
+      "name": "rapidity_endpoint_equation",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 2.5117463664514617e-11,
+      "tolerance": 2e-08,
+      "details": ""
+    },
+    {
+      "name": "mu_endpoint_equation",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 3.043401641811272e-11,
+      "tolerance": 2e-08,
+      "details": ""
+    },
+    {
+      "name": "spectral_canonical_region",
+      "passed": true,
+      "category": "numerical",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "IR_completion_is_constant",
+      "passed": true,
+      "category": "numerical",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "canonical_UV_log_slope_smoke",
+      "passed": true,
+      "category": "lower_order_QCD_demo",
+      "residual": 0.021033938271978858,
+      "tolerance": 0.035,
+      "details": "Large finite t diagnostic; analytic asymptotic proof is in note"
+    },
+    {
+      "name": "bounded_canonical_endpoint_sample",
+      "passed": true,
+      "category": "numerical",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    },
+    {
+      "name": "LL_closed_unexpanded_vs_integral",
+      "passed": true,
+      "category": "numerical",
+      "residual": 5.551115123125783e-17,
+      "tolerance": 2e-13,
+      "details": ""
+    },
+    {
+      "name": "momentum_resolvent_kernel_normalization",
+      "passed": true,
+      "category": "numerical",
+      "residual": 2.5802915359918188e-11,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "continuum_contact_Plancherel_constant",
+      "passed": true,
+      "category": "numerical",
+      "residual": 0.0,
+      "tolerance": 2e-11,
+      "details": ""
+    },
+    {
+      "name": "resolvent_vs_matrix_polynomial_N8",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 5.437466392423314e-15,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "same_grid_spectral_norm_bound_N8",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 0.06843444301619296,
+      "tolerance": 0.15938860260157803,
+      "details": "Bound for this finite matrix, not a sampled continuum certificate"
+    },
+    {
+      "name": "resolvent_vs_matrix_polynomial_N16",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 5.394452087589449e-15,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "same_grid_spectral_norm_bound_N16",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 0.014416260408116643,
+      "tolerance": 0.0319164839328515,
+      "details": "Bound for this finite matrix, not a sampled continuum certificate"
+    },
+    {
+      "name": "resolvent_vs_matrix_polynomial_N32",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 5.390913894373544e-15,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "same_grid_spectral_norm_bound_N32",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 0.0026561816184855506,
+      "tolerance": 0.012567972123656772,
+      "details": "Bound for this finite matrix, not a sampled continuum certificate"
+    },
+    {
+      "name": "resolvent_vs_matrix_polynomial_N64",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 5.404656111172753e-15,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "same_grid_spectral_norm_bound_N64",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 0.0008882807434829871,
+      "tolerance": 0.007701586705747482,
+      "details": "Bound for this finite matrix, not a sampled continuum certificate"
+    },
+    {
+      "name": "resolvent_vs_matrix_polynomial_N128",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 5.410710801231442e-15,
+      "tolerance": 2e-10,
+      "details": ""
+    },
+    {
+      "name": "same_grid_spectral_norm_bound_N128",
+      "passed": true,
+      "category": "same_grid_demo",
+      "residual": 0.0002763185022673847,
+      "tolerance": 0.006101503334747222,
+      "details": "Bound for this finite matrix, not a sampled continuum certificate"
+    },
+    {
+      "name": "constant_contact_is_preserved",
+      "passed": true,
+      "category": "contact",
+      "residual": 0.0,
+      "tolerance": 1e-14,
+      "details": ""
+    },
+    {
+      "name": "dropped_constant_contact_is_rejected",
+      "passed": true,
+      "category": "negative_control",
+      "residual": null,
+      "tolerance": null,
+      "details": ""
+    }
+  ],
+  "environment": {
+    "python": "3.13.15",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "sympy": "1.14.0"
+  },
+  "sha256": {
+    "validators/validate_unexpanded.py": "7d9a08718a8cfaeca142f8de2776d1b375a9abecc4f6aeab8ca9480ac6ecca30",
+    "src/resummed_operator.py": "f1359ad36b754ce590b90e45ee9d2de1ff282a0cbd95492d3049db2c0b08d668",
+    "data/coefficients_demo.json": "8a66cca1538797a5a921b10f45c5311a8aa18cf3787d1b079c2afd12b1f5a964",
+    "manifests/source_provenance.json": "7370b5e47a96ae29e99cbceafc1f548e6c428b44def7a7477628dd33456b1af4"
+  },
+  "physical_N3LLprime_prediction_validated": false,
+  "note": "Finite formal/symbolic and lower-order numerical checks supplement, not replace, the written all-order proofs."
+}

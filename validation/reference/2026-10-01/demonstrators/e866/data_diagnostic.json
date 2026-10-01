@@ -1,0 +1,767 @@
+{
+  "schema": "E866-conditional-data-comparison/1",
+  "scope": "Restricted Gaussian x/flavor-independent model, massless nf5 photon W-only, 41 declared bins. This is not a general proton-TMD or CS-kernel extraction.",
+  "statistical_assumptions": "Quoted stat and point-to-point syst combined in quadrature and treated as diagonal; one common 6.5% Gaussian normalization nuisance. No full covariance, PDF uncertainty or coverage claim.",
+  "data_metadata_issue": "Published mean-energy column is inconsistent with stated bins. It is not used or repaired. Dependence of reported invariant on finite-bin conversion remains unconfirmed.",
+  "bounds": {
+    "lambda0": [
+      0.05,
+      3.0
+    ],
+    "g": [
+      0,
+      0.5
+    ],
+    "normalization": [
+      0.5,
+      1.5
+    ]
+  },
+  "fits": [
+    {
+      "mode": "flat_pt",
+      "success": true,
+      "parameters": {
+        "lambda0": 0.3022055596262508,
+        "g": 0.2521578307704277,
+        "normalization": 1.2168353415467346
+      },
+      "active_bounds": [
+        0,
+        0,
+        0
+      ],
+      "evaluations": 7,
+      "chi2_points": 107.9169323355318,
+      "chi2_normalization": 11.128417832825805,
+      "chi2_total": 119.0453501683576,
+      "points": 41,
+      "fit_parameters": 3,
+      "prior_residuals": 1,
+      "nominal_residual_dof": 39,
+      "jacobian_singular_values": [
+        110.93318567565217,
+        22.166907058008324,
+        12.708141680497477
+      ],
+      "positive_core_prediction": true,
+      "rows": [
+        {
+          "id": "E866:thesis-v1:T5.3:L1208",
+          "data": 1.58,
+          "point_sigma": 0.42394575124654804,
+          "theory": 2.1282596551411137,
+          "theory_times_nuisance": 2.5897415643637727,
+          "pull": 2.381770689751651
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1209",
+          "data": 1.52,
+          "point_sigma": 0.32856347940694813,
+          "theory": 1.9112320428888967,
+          "theory_times_nuisance": 2.325654695683774,
+          "pull": 2.452051874840039
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1210",
+          "data": 1.42,
+          "point_sigma": 0.26105585609213977,
+          "theory": 1.5411274230974559,
+          "theory_times_nuisance": 1.8752983142518316,
+          "pull": 1.7440647418042747
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1211",
+          "data": 1.11,
+          "point_sigma": 0.17615813918181583,
+          "theory": 1.1153929065286565,
+          "theory_times_nuisance": 1.3572495083746028,
+          "pull": 1.4035656230417615
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1223",
+          "data": 0.826,
+          "point_sigma": 0.1440313854685846,
+          "theory": 1.0497130909312717,
+          "theory_times_nuisance": 1.2773279875294326,
+          "pull": 3.1335391662109227
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1224",
+          "data": 1.08,
+          "point_sigma": 0.1028193075253865,
+          "theory": 0.964764901853291,
+          "theory_times_nuisance": 1.1739600288589511,
+          "pull": 0.9138364293666532
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1225",
+          "data": 0.751,
+          "point_sigma": 0.07661644732040242,
+          "theory": 0.8148250938830361,
+          "theory_times_nuisance": 0.9915079714160143,
+          "pull": 3.1391167279035237
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1226",
+          "data": 0.733,
+          "point_sigma": 0.05768413993464754,
+          "theory": 0.6321789763512186,
+          "theory_times_nuisance": 0.769257720607,
+          "pull": 0.628556144688605
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1227",
+          "data": 0.526,
+          "point_sigma": 0.05130545779934139,
+          "theory": 0.45017321803332444,
+          "theory_times_nuisance": 0.5477866815207729,
+          "pull": 0.4246464695039243
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1239",
+          "data": 0.0661,
+          "point_sigma": 0.06789300405785563,
+          "theory": 0.06046664491284574,
+          "theory_times_nuisance": 0.07357795051470777,
+          "pull": 0.11014316745117593
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1240",
+          "data": 0.0712,
+          "point_sigma": 0.03736549210167049,
+          "theory": 0.054148216674890615,
+          "theory_times_nuisance": 0.06588946373173711,
+          "pull": -0.14212408212938996
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1241",
+          "data": 0.0628,
+          "point_sigma": 0.03826355968803739,
+          "theory": 0.04587069267296731,
+          "theory_times_nuisance": 0.055817079985695475,
+          "pull": -0.18249530548742018
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1242",
+          "data": 0.0423,
+          "point_sigma": 0.02019634867989756,
+          "theory": 0.03673984207665235,
+          "theory_times_nuisance": 0.04470633828171636,
+          "pull": 0.11914719436942127
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1243",
+          "data": 0.0299,
+          "point_sigma": 0.01559592575001561,
+          "theory": 0.027795472569991448,
+          "theory_times_nuisance": 0.03382251335815844,
+          "pull": 0.25150885051850885
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1244",
+          "data": 0.0357,
+          "point_sigma": 0.025970721976872342,
+          "theory": 0.019828694969017697,
+          "theory_times_nuisance": 0.024128256815050667,
+          "pull": -0.44556879070417443
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1245",
+          "data": 0.094,
+          "point_sigma": 0.0509230792470369,
+          "theory": 0.013295324202160964,
+          "theory_times_nuisance": 0.016178220366511103,
+          "pull": -1.5282221889206977
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1308",
+          "data": 1.81,
+          "point_sigma": 0.18873261509341727,
+          "theory": 1.7941426089277435,
+          "theory_times_nuisance": 2.18317613431814,
+          "pull": 1.9772742201099083
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1309",
+          "data": 2.33,
+          "point_sigma": 0.13874973873849275,
+          "theory": 1.611116942829054,
+          "theory_times_nuisance": 1.9604640353991227,
+          "pull": -2.6633272823479452
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1310",
+          "data": 1.82,
+          "point_sigma": 0.1064248561192356,
+          "theory": 1.2990045153852119,
+          "theory_times_nuisance": 1.5806746031495147,
+          "pull": -2.2487735062789422
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1311",
+          "data": 1.41,
+          "point_sigma": 0.08443612970760798,
+          "theory": 0.939994114459146,
+          "theory_times_nuisance": 1.1438180593198153,
+          "pull": -3.152464964961566
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1327",
+          "data": 0.859,
+          "point_sigma": 0.08698304432474181,
+          "theory": 0.8894798662514876,
+          "theory_times_nuisance": 1.0823505368490727,
+          "pull": 2.567747985632896
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1328",
+          "data": 1.22,
+          "point_sigma": 0.06634606243026032,
+          "theory": 0.8175057885735371,
+          "theory_times_nuisance": 0.9947699354553126,
+          "pull": -3.3947766648765034
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1329",
+          "data": 0.948,
+          "point_sigma": 0.04875910171444917,
+          "theory": 0.6904609150383917,
+          "theory_times_nuisance": 0.8401772433754122,
+          "pull": -2.211335993350258
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1330",
+          "data": 0.737,
+          "point_sigma": 0.04285090430784396,
+          "theory": 0.5356930977209342,
+          "theory_times_nuisance": 0.6518502935294812,
+          "pull": -1.9871157411007525
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1331",
+          "data": 0.522,
+          "point_sigma": 0.03001283058959951,
+          "theory": 0.38145329480873663,
+          "theory_times_nuisance": 0.4641658502727163,
+          "pull": -1.926980847562085
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1346",
+          "data": 0.0519,
+          "point_sigma": 0.019109319715782662,
+          "theory": 0.061731105984586504,
+          "theory_times_nuisance": 0.07511659143481199,
+          "pull": 1.214935527800975
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1347",
+          "data": 0.085,
+          "point_sigma": 0.019368469221908064,
+          "theory": 0.05842043915769567,
+          "theory_times_nuisance": 0.07108805503576483,
+          "pull": -0.7182779808173531
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1348",
+          "data": 0.0675,
+          "point_sigma": 0.014736855159768655,
+          "theory": 0.05231533813261936,
+          "theory_times_nuisance": 0.06365915234473879,
+          "pull": -0.26062871715986313
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1349",
+          "data": 0.0467,
+          "point_sigma": 0.010382913849204374,
+          "theory": 0.04431650719020291,
+          "theory_times_nuisance": 0.05392589216294887,
+          "pull": 0.6959406836937766
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1350",
+          "data": 0.0549,
+          "point_sigma": 0.00874645642531877,
+          "theory": 0.03549190809859517,
+          "theory_times_nuisance": 0.043187808113299364,
+          "pull": -1.33907851559139
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1351",
+          "data": 0.0329,
+          "point_sigma": 0.006645810710515309,
+          "theory": 0.026846119197141152,
+          "theory_times_nuisance": 0.0326673066224576,
+          "pull": -0.035013542768261664
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1352",
+          "data": 0.0297,
+          "point_sigma": 0.007796364537398183,
+          "theory": 0.01914384570859495,
+          "theory_times_nuisance": 0.023294908031336124,
+          "pull": -0.821548548421441
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1353",
+          "data": 0.00918,
+          "point_sigma": 0.003937219831302285,
+          "theory": 0.0128261377319289,
+          "theory_times_nuisance": 0.015607297687757163,
+          "pull": 1.6324457264636028
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1362",
+          "data": 0.0416,
+          "point_sigma": 0.04028523302650737,
+          "theory": 0.019278475583370366,
+          "theory_times_nuisance": 0.02345873042099086,
+          "pull": -0.4503205819132863
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1363",
+          "data": 0.0477,
+          "point_sigma": 0.0347849737674186,
+          "theory": 0.018385348692488805,
+          "theory_times_nuisance": 0.022371942055680424,
+          "pull": -0.7281321559610645
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1364",
+          "data": 0.0403,
+          "point_sigma": 0.0411478565662903,
+          "theory": 0.016719640256709023,
+          "theory_times_nuisance": 0.020345049162311057,
+          "pull": -0.48495723721455536
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1365",
+          "data": 0.0167,
+          "point_sigma": 0.011104521601581943,
+          "theory": 0.014495730689255285,
+          "theory_times_nuisance": 0.017638917404229435,
+          "pull": 0.08455271086110346
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1366",
+          "data": 0.0202,
+          "point_sigma": 0.012495199078045935,
+          "theory": 0.011976588481810421,
+          "theory_times_nuisance": 0.014573536135828472,
+          "pull": -0.4502900537260927
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1367",
+          "data": 0.0247,
+          "point_sigma": 0.014835932731041888,
+          "theory": 0.00942316040476196,
+          "theory_times_nuisance": 0.011466434609578186,
+          "pull": -0.8919941624386467
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1368",
+          "data": 0.0277,
+          "point_sigma": 0.020181578233626825,
+          "theory": 0.007051712571170124,
+          "theory_times_nuisance": 0.0085807730750292,
+          "pull": -0.9473603453427679
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1369",
+          "data": 0.00519,
+          "point_sigma": 0.0037749643706927885,
+          "theory": 0.0027397734161234643,
+          "theory_times_nuisance": 0.0033338531205692593,
+          "pull": -0.4916991783660457
+        }
+      ],
+      "elapsed_seconds": 69.7320627079971,
+      "best_point_reference_check": {
+        "component_over_total": 3.611126996274715e-06,
+        "total_relative": 3.850872084753627e-06,
+        "gradient_scaled": 0.00021723590060633964
+      },
+      "best_point_numerically_validated": true
+    },
+    {
+      "mode": "annular",
+      "success": true,
+      "parameters": {
+        "lambda0": 0.29840464954980755,
+        "g": 0.2532431933748277,
+        "normalization": 1.2227245325409208
+      },
+      "active_bounds": [
+        0,
+        0,
+        0
+      ],
+      "evaluations": 7,
+      "chi2_points": 108.34994348850213,
+      "chi2_normalization": 11.74111654333058,
+      "chi2_total": 120.09106003183271,
+      "points": 41,
+      "fit_parameters": 3,
+      "prior_residuals": 1,
+      "nominal_residual_dof": 39,
+      "jacobian_singular_values": [
+        110.07528274236742,
+        22.244784517846334,
+        12.614755849951322
+      ],
+      "positive_core_prediction": true,
+      "rows": [
+        {
+          "id": "E866:thesis-v1:T5.3:L1208",
+          "data": 1.58,
+          "point_sigma": 0.42394575124654804,
+          "theory": 2.11840166828573,
+          "theory_times_nuisance": 2.5902216895885757,
+          "pull": 2.382903205464785
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1209",
+          "data": 1.52,
+          "point_sigma": 0.32856347940694813,
+          "theory": 1.9014582771236552,
+          "theory_times_nuisance": 2.3249596830420862,
+          "pull": 2.4499365677981793
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1210",
+          "data": 1.42,
+          "point_sigma": 0.26105585609213977,
+          "theory": 1.5317623821850581,
+          "theory_times_nuisance": 1.8729234427209924,
+          "pull": 1.7349675640340088
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1211",
+          "data": 1.11,
+          "point_sigma": 0.17615813918181583,
+          "theory": 1.107003075068082,
+          "theory_times_nuisance": 1.3535598174839825,
+          "pull": 1.3826202900145312
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1223",
+          "data": 0.826,
+          "point_sigma": 0.1440313854685846,
+          "theory": 1.0449444791766156,
+          "theory_times_nuisance": 1.2776792498324432,
+          "pull": 3.1359779562140035
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1224",
+          "data": 1.08,
+          "point_sigma": 0.1028193075253865,
+          "theory": 0.9601715845793182,
+          "theory_times_nuisance": 1.174025351913822,
+          "pull": 0.9144717483202914
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1225",
+          "data": 0.751,
+          "point_sigma": 0.07661644732040242,
+          "theory": 0.8105896145665278,
+          "theory_times_nuisance": 0.9911278075533829,
+          "pull": 3.1341548186017048
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1226",
+          "data": 0.733,
+          "point_sigma": 0.05768413993464754,
+          "theory": 0.6284772114344671,
+          "theory_times_nuisance": 0.7684545045638302,
+          "pull": 0.6146317619366077
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1227",
+          "data": 0.526,
+          "point_sigma": 0.05130545779934139,
+          "theory": 0.4471387461800378,
+          "theory_times_nuisance": 0.5467275144039202,
+          "pull": 0.4040021333595089
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1239",
+          "data": 0.0661,
+          "point_sigma": 0.06789300405785563,
+          "theory": 0.06019601709476898,
+          "theory_times_nuisance": 0.07360314686302669,
+          "pull": 0.11051428592897151
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1240",
+          "data": 0.0712,
+          "point_sigma": 0.03736549210167049,
+          "theory": 0.053904649381460286,
+          "theory_times_nuisance": 0.06591053721672827,
+          "pull": -0.14156009959347648
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1241",
+          "data": 0.0628,
+          "point_sigma": 0.03826355968803739,
+          "theory": 0.04566274889444415,
+          "theory_times_nuisance": 0.05583296329649267,
+          "pull": -0.182080202686565
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1242",
+          "data": 0.0423,
+          "point_sigma": 0.02019634867989756,
+          "theory": 0.03657145899097637,
+          "theory_times_nuisance": 0.04471682009908104,
+          "pull": 0.11966619003199447
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1243",
+          "data": 0.0299,
+          "point_sigma": 0.01559592575001561,
+          "theory": 0.027666173284371157,
+          "theory_times_nuisance": 0.03382810879632884,
+          "pull": 0.2518676261538952
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1244",
+          "data": 0.0357,
+          "point_sigma": 0.025970721976872342,
+          "theory": 0.01973456610627619,
+          "theory_times_nuisance": 0.024129938117194456,
+          "pull": -0.44550405233666635
+        },
+        {
+          "id": "E866:thesis-v1:T5.3:L1245",
+          "data": 0.094,
+          "point_sigma": 0.0509230792470369,
+          "theory": 0.01323038493298429,
+          "theory_times_nuisance": 0.016177116232519658,
+          "pull": -1.5282438713092683
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1308",
+          "data": 1.81,
+          "point_sigma": 0.18873261509341727,
+          "theory": 1.7858297045279588,
+          "theory_times_nuisance": 2.183577790666639,
+          "pull": 1.979402396780909
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1309",
+          "data": 2.33,
+          "point_sigma": 0.13874973873849275,
+          "theory": 1.6028749385701089,
+          "theory_times_nuisance": 1.9598745099846935,
+          "pull": -2.6675761221640717
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1310",
+          "data": 1.82,
+          "point_sigma": 0.1064248561192356,
+          "theory": 1.291107058614858,
+          "theory_times_nuisance": 1.5786682747051357,
+          "pull": -2.26762557258694
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1311",
+          "data": 1.41,
+          "point_sigma": 0.08443612970760798,
+          "theory": 0.932919036449912,
+          "theory_times_nuisance": 1.140702992741745,
+          "pull": -3.189357543871299
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1327",
+          "data": 0.859,
+          "point_sigma": 0.08698304432474181,
+          "theory": 0.8854380822165117,
+          "theory_times_nuisance": 1.0826468651721137,
+          "pull": 2.571154722260034
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1328",
+          "data": 1.22,
+          "point_sigma": 0.06634606243026032,
+          "theory": 0.8136127079031186,
+          "theory_times_nuisance": 0.9948242179401934,
+          "pull": -3.393958492962565
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1329",
+          "data": 0.948,
+          "point_sigma": 0.04875910171444917,
+          "theory": 0.6868713022923182,
+          "theory_times_nuisance": 0.8398543920111483,
+          "pull": -2.217957349218433
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1330",
+          "data": 0.737,
+          "point_sigma": 0.04285090430784396,
+          "theory": 0.532555961460368,
+          "theory_times_nuisance": 0.6511692390285091,
+          "pull": -2.0030093263581223
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1331",
+          "data": 0.522,
+          "point_sigma": 0.03001283058959951,
+          "theory": 0.3788817358653621,
+          "theory_times_nuisance": 0.46326799337426755,
+          "pull": -1.9568966162786776
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1346",
+          "data": 0.0519,
+          "point_sigma": 0.019109319715782662,
+          "theory": 0.061455253312881035,
+          "theory_times_nuisance": 0.07514284587917634,
+          "pull": 1.216309435650906
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1347",
+          "data": 0.085,
+          "point_sigma": 0.019368469221908064,
+          "theory": 0.058158738677218096,
+          "theory_times_nuisance": 0.07111211656227107,
+          "pull": -0.7170356768319138
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1348",
+          "data": 0.0675,
+          "point_sigma": 0.014736855159768655,
+          "theory": 0.05207981030897901,
+          "theory_times_nuisance": 0.0636792617148662,
+          "pull": -0.2592641539671473
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1349",
+          "data": 0.0467,
+          "point_sigma": 0.010382913849204374,
+          "theory": 0.04411543350947688,
+          "theory_times_nuisance": 0.053941022815715195,
+          "pull": 0.6973979482907936
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1350",
+          "data": 0.0549,
+          "point_sigma": 0.00874645642531877,
+          "theory": 0.03532909566601778,
+          "theory_times_nuisance": 0.04319775198332506,
+          "pull": -1.3379416128799204
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1351",
+          "data": 0.0329,
+          "point_sigma": 0.006645810710515309,
+          "theory": 0.026721105753018067,
+          "theory_times_nuisance": 0.03267255154083552,
+          "pull": -0.034224336062505654
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1352",
+          "data": 0.0297,
+          "point_sigma": 0.007796364537398183,
+          "theory": 0.019052845398615414,
+          "theory_times_nuisance": 0.023296381483596466,
+          "pull": -0.8213595561990693
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1353",
+          "data": 0.00918,
+          "point_sigma": 0.003937219831302285,
+          "theory": 0.012763365403244954,
+          "theory_times_nuisance": 0.015606079996331648,
+          "pull": 1.6321364494921127
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1362",
+          "data": 0.0416,
+          "point_sigma": 0.04028523302650737,
+          "theory": 0.01919260412586539,
+          "theory_times_nuisance": 0.023467267908041708,
+          "pull": -0.4501086559441544
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1363",
+          "data": 0.0477,
+          "point_sigma": 0.0347849737674186,
+          "theory": 0.01830381736703981,
+          "theory_times_nuisance": 0.02238052653382814,
+          "pull": -0.7278853689947982
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1364",
+          "data": 0.0403,
+          "point_sigma": 0.0411478565662903,
+          "theory": 0.01664615013000951,
+          "theory_times_nuisance": 0.020353656136321865,
+          "pull": -0.4847480653468314
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1365",
+          "data": 0.0167,
+          "point_sigma": 0.011104521601581943,
+          "theory": 0.014432857684856892,
+          "theory_times_nuisance": 0.01764740916594628,
+          "pull": 0.08531742293259292
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1366",
+          "data": 0.0202,
+          "point_sigma": 0.012495199078045935,
+          "theory": 0.011925553135348432,
+          "theory_times_nuisance": 0.014581666382710825,
+          "pull": -0.44963938407036563
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1367",
+          "data": 0.0247,
+          "point_sigma": 0.014835932731041888,
+          "theory": 0.009383876712774785,
+          "theory_times_nuisance": 0.011473896267049182,
+          "pull": -0.891491217486936
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1368",
+          "data": 0.0277,
+          "point_sigma": 0.020181578233626825,
+          "theory": 0.0070230613196427495,
+          "theory_times_nuisance": 0.008587269369066404,
+          "pull": -0.9470384530724014
+        },
+        {
+          "id": "E866:thesis-v1:T5.4:L1369",
+          "data": 0.00519,
+          "point_sigma": 0.0037749643706927885,
+          "theory": 0.0026949194054698158,
+          "theory_times_nuisance": 0.0032951440702885366,
+          "pull": -0.5019533282015364
+        }
+      ],
+      "elapsed_seconds": 81.23210525000104,
+      "best_point_reference_check": {
+        "component_over_total": 7.523880483883144e-06,
+        "total_relative": 8.30599952481753e-06,
+        "gradient_scaled": 8.755649784902683e-05
+      },
+      "best_point_numerically_validated": true
+    }
+  ],
+  "successful": true,
+  "code_sha256": {
+    "src/css2_coefficients.py": "0b37cc7d655b09e76b89902aeeba49a518f86505036f45da1342dd8911310257",
+    "src/css2_matching.py": "d934dac7a8089af5dd7b3c3f017af20a76dcd516d138b53108ba4ac24e92f86f",
+    "src/css2_noncanonical.py": "3187d77b7640cc7c272f29a786f56a6ea6e4d7fd655bc6d3c3d0931e4bef938a",
+    "src/css2_reference.py": "f637f649a9c0dda1b88b5bb956037f8f8fa0a60bcf0c7d34b892a73d23c485e1",
+    "src/dy_measurement.py": "0021c6a5bcfacca344c736f32b65af752b71c867e17bc41bc4d46a840e52e63c",
+    "src/e866_forward.py": "d9b071196b15ce1265a11a50f49e3046d837c3c4097a0c3073e63024340bc87c",
+    "src/lhapdf_bridge.cc": "814c92b32978101e7c11b9329f7a14836eb5ecc3aaa2db6502fe5dd0b173380f",
+    "src/lhapdf_provider.py": "7e274dabbc9811f15616080756d0aedb987da91fd5af211512e2fc9e596d44d4",
+    "src/rational_radial.py": "ecf8127f7a2151f980808aabfb80a7b9c14cd2ba4cd9e2dd99a29b02535a722a",
+    "src/resummed_operator.py": "4858bc83bf1fe45fa96394d92e70f092915a1ba437bab06e1220b6c14f9f2b66"
+  },
+  "script_sha256": "6ffff55870641b4eef2a202b1917215d776b251e33ea40b8fb05818357704d09",
+  "data_manifest_sha256": "3bde7d6e60ffc5aa4944666b86c1dc78ea6d24891355973f67ce61af11c2aa9a"
+}
