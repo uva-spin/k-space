@@ -449,3 +449,7 @@ The [E866 proton-only baseline](docs/E866_PP_BASELINE.md) adds explicit mass/xF
 and transverse-bin integration, a high-scale massless matching prescription,
 and a shared Gaussian boundary with a nonperturbative CS term. Its documented
 measurement and identifiability limits remain part of the calculation's scope.
+
+The [native-kT DNN pilot](docs/NATIVE_DNN_PILOT.md) learns x-dependent mixture
+boundaries through the native elliptic operator, with explicit measured-bin
+weights, analytic neural gradients and independent non-Gaussian closure.
